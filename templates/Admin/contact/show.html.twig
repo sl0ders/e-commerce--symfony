@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <div class="d-flex">
+        <a href="{{ path('admin_contact_index') }}">
+            <div class="btn btn-primary">Retour</div>
+        </a>
+        <div class="h1 m-auto">Contacts</div>
+    </div>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ contact.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ contact.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Adresse email</th>
+                <td>{{ contact.email }}</td>
+            </tr>
+            <tr>
+                <th>Sujet</th>
+                <td>{{ contact.subject }}</td>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <td>{{ contact.message }}</td>
+            </tr>
+            <tr>
+                <th>Crée le ...</th>
+                <td>{{ contact.createdAt ? contact.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {{ include('Admin/contact/_delete_form.html.twig') }}
+{% endblock %}

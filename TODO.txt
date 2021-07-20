@@ -1,0 +1,6 @@
+---Suppression des avatar sur la show page user
+homogenisé les vue "form datatable tableau"
+Rappetissir les bouton plus et moins sur la page d'acceuil
+Afficher le panier sous forme de fenetre
+Modifier la couleur du bandeau "votre panier"
+L'orsqu'une datatable est en place sur une page, le menu header est modifier

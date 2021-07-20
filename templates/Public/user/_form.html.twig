@@ -1,0 +1,22 @@
+{{ form_start(form, {'attr' : {'class': 'm-auto'}}) }}
+    <div class='col-md-6'>
+        <div class="md-form">
+            {{ form_row(form.name, {'attr' : {'class': 'form-control mb-2'}}) }}
+        </div>
+        <div class="md-form">
+            {{ form_row(form.firstname, {'attr' : {'class': 'form-control mb-2'}}) }}
+        </div>
+        <div class="md-form">
+            {{ form_row(form.email, {'attr' : {'class': 'form-control mb-2'}}) }}
+        </div>
+        <div class="md-form">
+            {{ form_row(form.username, {'attr' : {'class': 'form-control mb-2'}}) }}
+        </div>
+    </div>
+    <div class="button">
+        <button class='btn btn-success w-25' type='submit'>Modifier le profile</button>
+        <a href='{{ path('user_profile_detail', {'name' : app.user.name}) }}'>
+            <div class='btn btn-primary'>Retour</div>
+        </a>
+    </div>
+{{ form_end(form) }}

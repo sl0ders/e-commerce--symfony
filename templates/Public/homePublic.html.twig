@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+{% block title %}Page d'accueil-Teraneo{% endblock %}
+{% block body %}
+    {% if not is_granted('ROLE_ADMIN') %}
+        <div class='cart_logo sticky-top ml-md-5'>
+            <a class='d-flex' data-toggle='modal' data-target='#modalCart'>
+                {% if app.session.get('cart') is null %}
+                    <img src='{{ asset('images/order_Cart.png') }}' alt='cart'>
+                {% else %}
+                    <img src='{{ asset('images/order_Cart_full.png') }}' alt='cart'>
+                {% endif %}
+                <div class='nb-cart'>{{ cartTotal }}€</div>
+            </a>
+        </div>
+    {% endif %}
+    <div class='container'>
+        <div class='grid wow fadeInUp'>
+            {% for product in products %}
+                <div class='card'>
+                    <a href='{{ path('public_product_show', {'id' : product.id}) }}'
+                       class='text-center m-auto card-img-top'>
+                        <img class='img_png' src='/images/product/{{ product.filenamePng }}'
+                             alt='{{ product.name }} small'>
+                    </a>
+                    <span class="plus-moins-{{ product.id }}"></span>
+                    <div class='card-body'>
+                        <h4 class='card-title'>{{ product.name |capitalize }}</h4>
+                        <a href='{{ path('public_product_show', {'id' : product.id}) }}'>
+                            <button class='btn-sm btn-primary'>En savoir plus</button>
+                        </a>
+                        {% if product.stock.quantity <1 %}
+                            <div class='text-center mt-2'>
+                                <img src='{{ asset('images/svg/danger.svg') }}' alt=''>
+                                <p>Ce produit est malheureusement en rupture de stock</p>
+                            </div>
+                        {% elseif product.stock.quantity < 30 %}
+                            <div class='text-center mt-2'>
+                                <img src='{{ asset('images/svg/warning.svg') }}' alt=''>
+                                <p>Ce produit est bientot en rupture de stock dêpechez vous!</p>
+                            </div>
+                        {% endif %}
+                        <div class='font-weight-bold'>{{ product.price }}€ / {{ product.package.unity }}</div>
+                        {% if product.stock.quantity > 0 %}
+                            <form action='{{ path('cart_add', {'id': product.id }) }}' class='mt-2 cart-refresh' method='post'>
+                                <div class='form-action'>
+                                    <div class='minus-plus'>
+                                        <div class='def-number-input number-input safari_only minus-plus-content'>
+                                            <button type='button'
+                                                    onclick='this.parentNode.querySelector("input[type=number]").stepDown()'>
+                                                <i class='fas fa-minus'></i>
+                                            </button>
+                                            <label for='plus-moins-{{ product.id }}'></label>
+                                            <input id='plus-moins-{{ product.id }}'
+                                                   class='quantity'
+                                                   min='0'
+                                                   max='{{ product.stock.quantity }}'
+                                                   name='quantity'
+                                                   value="1"
+                                                   type='number'>
+                                            <button type='button'
+                                                    onclick='this.parentNode.querySelector("input[type=number]").stepUp()'>
+                                                <i class='fas fa-plus'></i>
+                                            </button>
+                                        </div>
+                                        {% if not is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-primary p-2 btn-sm btn-cart">
+                                                <i class="fas fa-shopping-cart fa-2x"></i>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class='card empty' data-toggle='modal' data-target='#modalAddProduct'>
+                    <div class='card-body empty'>
+                        <i class='fas fa-plus'></i>
+                    </div>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    {{ include('Public/_cart-modal.html.twig') }}
+    {{ include('Admin/_add-product-modal.html.twig') }}
+{% endblock %}
+
+
+

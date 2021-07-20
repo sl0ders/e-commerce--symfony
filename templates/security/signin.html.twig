@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+    {% block title %}Page d'enregistrement{% endblock %}
+{% block body %}
+
+<div class="container signIn">
+    <div class="row text-center">
+        <div class="col-md-10 m-auto border shadow p-5 rgba-blue-grey-light">
+            <h1 class="mb-5">Enregistrement</h1>
+            <div class="form d-flex justify-content-between">
+                {% include 'security/_form.html.twig' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

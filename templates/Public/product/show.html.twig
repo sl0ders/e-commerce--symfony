@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name |capitalize }}{% endblock %}
+
+{% block body %}
+    <div class='datatable'>
+        <div class='h1 text-center mb-5'> Détail du produit {{ product.name |capitalize }}</div>
+        <div class='text-center row'>
+            <div class='col-md-6'>
+                <img class='img_show' src='{{ vich_uploader_asset(product.picture, 'imageFile') }}' alt=''>
+            </div>
+            <div class='col-md-6 mt-5'>
+                <h2>Description du produit</h2>
+                <p class='mt-sm-4 mt-4'>{{ product.description }}</p>
+                <br>
+                {% if product.stock.quantity > 0 %}
+                    <form action='{{ path('cart_add', {'id': product.id }) }}' class='mt-2 cartAdd' method='post'>
+                        <div class='form-action'>
+                            <div class='minus-plus'>
+                                <div class='def-number-input number-input safari_only m-auto w-10'>
+                                    <a type='button' onclick='this.parentNode.querySelector('input[type=number]').stepDown()'>
+                                        <i class='fas fa-minus'></i>
+                                    </a>
+                                    <label for='plus-moins{{ product.id }}'></label>
+                                    <input id='plus-moins{{ product.id }}'
+                                           class='quantity' min='0'
+                                           max='{{ product.stock.quantity }}'
+                                           name='quantity' value='1'
+                                           type='number'>
+                                    <a type='button' onclick='this.parentNode.querySelector('input[type=number]').stepUp()'>
+                                        <i class='fas fa-plus'></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <button class='btn btn-primary'>
+                                <img class='m-auto' src='{{ asset('images/svg/caddie.svg') }}' width='20' alt=''>
+                            </button>
+                        </div>
+                    </form>
+                {% endif %}
+                Prix actuel: {{ product.price }}€/l'unité
+                <br>
+            </div>
+        </div>
+    </div>
+{% endblock %}

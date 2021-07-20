@@ -1,0 +1,12 @@
+{# Css #}
+    {#- - Css stylesheet - -#}
+    {% block stylesheet %}
+        {% apply inline_css(asset("Mdb5/css/mdb.css")) %}
+            <div class="middle-box text-center loginscreen animated fadeInDown">
+                {% block content %}{% endblock %}
+            </div>
+        {% endapply %}
+    {% endblock stylesheet %}
+
+
+

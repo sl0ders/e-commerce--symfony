@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'une nouvelle news{% endblock %}
+
+{% block body %}
+    <div class="datatable formulary">
+        <h5 class="card-header text-center py-4">
+            <strong>Création d'une News</strong>
+        </h5>
+        <div class="datatable_content">
+            {{ include('Admin/news/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

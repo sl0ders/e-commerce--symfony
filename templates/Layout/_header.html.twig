@@ -1,0 +1,63 @@
+<nav class="navbar navbar-light w-100">
+    <div class="nav-content">
+        <a href="/" class="logo-home"><i class="fas fa-home fa-sm"></i></a>
+        <div class="logo">
+            <img src="{{ asset('images/logo.png') }}" width="200" alt="logo - Teraneo"><br>
+            <h1>Boutique en ligne</h1><span class="ml-2"><i class="fab fa-opencart fa-3x"></i></span>
+        </div>
+        <div class="navbar-options">
+            {% if not app.user %}
+            <a class="btn btn-sm btn-success" href="{{ path('app_signin') }}">S'inscrire</a>
+            <a class="btn btn-sm btn-success" href="{{ path('app_login') }}">Se connecter</a>
+            {% elseif  is_granted('ROLE_USER') %}
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle btn btn-myspace" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Mon espace
+                </a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary text-white"
+                         aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="{{ path('admin_home') }}">Accueil administrateur</a>
+                        <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
+                    </div>
+                {% endif %}
+                <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                     aria-labelledby="navbarDropdownMenuLink-55">
+                    <a class="dropdown-item" href="{{ path('home_user', {'name': app.user.firstname}) }}">Mon compte</a>
+                    <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
+                </div>
+            </div>
+            {% set nNotificationNotRead = 0 %}
+            {% for notification in notifications %}
+                {% if notification.readAt is null %}
+                    {% set nNotificationNotRead = nNotificationNotRead + 1 %}
+                {% endif %}
+            {% endfor %}
+            <ul class="nav align-items-center justify-content-between">
+                <li class="btn-group">
+                    <a type="button" class="dropdown-toggle btn-group-sm text-decoration-none text-white"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-bell"></i><span class="not-read-number">{{ nNotificationNotRead }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        style="width: 20vw; padding-bottom: 10px">
+                        {% for notification in notifications %}
+                            <a class="text-decoration-none notif rounded" id="{{ notification.id }}" href="{{ path("user_notification_show", {'id': notification.id}) }}">
+                                <div class="p-2" {{ notification.readAt is null ? " style='background-color : #a7d4f7'" }}>
+                                    <em class="font-bold">{{ notification.createdAt|date("d/m/Y H:i:s") }}</em>
+                                    - <br> {{ notification.message |slice(0, 40) }}
+                                    {% if notification.path is not null %}
+                                        <a class="text-decoration-none text-primary"
+                                           href="{{ path(notification.path, {'id': notification.idPath}) }}">
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

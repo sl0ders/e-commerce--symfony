@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+
+        <div class='d-flex'>
+            <a href='{{ path('home') }}'>
+                <div class='btn btn-primary'>Retour</div>
+            </a>
+            <h1 class='h1 m-auto'><div class='btn btn-success'>Création d'un élément</div>Nous contacter</h1>
+        </div>
+
+    {{ include('Public/contact/_form.html.twig') }}
+
+{% endblock %}

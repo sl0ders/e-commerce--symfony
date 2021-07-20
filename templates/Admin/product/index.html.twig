@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Index de gestion des produits{% endblock %}
+
+{% block body %}
+    <div class="datatable">
+        <h5 class="card-header text-center py-4">
+            <strong>Index de gestion des produits</strong>
+        </h5>
+        <div class="datatable_content">
+            {{ include('Layout/_datatable.html.twig', {subject : "product"}) }}
+            <div class="button">
+                <a href="{{ path('admin_package_new') }}" class="btn btn-success text-white">Création d'un élément</a>
+                <a href="{{ path('admin_home') }}" class="btn btn-primary">Retour</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

@@ -1,19 +1,68 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{{ asset('Mdb5/css/bootstrap.min.css') }}">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="{{ asset('Mdb5/css/mdb.min.css') }}">
+    <!-- MDBootstrap Datatables  -->
+    <link href="{{ asset('Mdb5/css/addons/datatables.min.css') }}" rel="stylesheet">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    <!-- jQuery -->
+    <script type="text/javascript" src="{{ asset('Mdb5/js/jquery.js') }}"></script>
+    <script src=" https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js "></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{{ asset('Mdb5/js/popper.min.js') }}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{{ asset('Mdb5/js/bootstrap.min.js') }}"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{{ asset('Mdb5/js/mdb.min.js') }}"></script>
+    <!-- MDBootstrap Datatables  -->
+    <script type="text/javascript" src="{{ asset('Mdb5/js/addons/datatables.min.js') }}"></script>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<header>
+    {{ render(controller('App\\Controller\\HeaderBundleController::getNotification')) }}
+</header>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        {% if not is_granted("ROLE_ADMIN") %}
+            <aside class="col-md-2 left-aside">
+                {% block aside_left %}
+                    {{ render(controller('App\\Controller\\LayoutBundleController::leftMenuAction')) }}
+                {% endblock %}
+            </aside>
+        {% endif %}
+
+        <main class="col-md-12">
+            {% block body %}{% endblock %}
+        </main>
+
+        {% if not is_granted("ROLE_ADMIN") %}
+            <aside class="col-md-2 right-aside">
+                {% block aside_right %}
+                    {{ render(controller('App\\Controller\\LayoutBundleController::rightMenuAction')) }}
+                {% endblock %}
+            </aside>
+        {% endif %}
+    </div>
+</div>
+</body>
+<footer class="font-small p-5">
+    {% include 'Layout/_footer.html.twig' %}
+</footer>
 </html>

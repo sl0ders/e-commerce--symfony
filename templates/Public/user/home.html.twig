@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+
+{% endblock %}
+{% block body %}
+    <h1 class='m-auto text-center'>Votre administration</h1>
+        <div class='admin-home text-center font-weight-bold'>
+            <div class='container-fluid'>
+                <div class='row d-flex justify-content-center'>
+                    <div class='case-stock col-md-3 m-3 border rounded rgba-light-green-light'>
+                        <a class='text-decoration-none' href='{{ path('user_profile_detail', {'name' : app.user.firstname}) }}'>
+                            <h3 class='text-center font-weight-bold mt-3'>Gestion de votre compte</h3>
+                            <img src='{{ asset('images/svg/gestion_user.png') }}' width='60%' alt='Gestion des stock'></a>
+                    </div>
+                    <div class='case-contact col-md-3 m-3 border rounded rgba-light-blue-light'>
+                        <a class='text-decoration-none' href='{{ path('user_orders', {'name' : app.user.firstname}) }}'>
+                            <h3 class='text-center font-weight-bold mt-3'>Gestion de vos commandes</h3>
+                            <img src='{{ asset('images/gestion_order.png') }}' width='60%' alt='Gestion des contacts'></a>
+                    </div>
+                </div>
+            </div>
+            <a href='{{ path('home') }}' class='btn btn-primary'>Retour</a>
+        </div>
+{% endblock %}
+
+
+

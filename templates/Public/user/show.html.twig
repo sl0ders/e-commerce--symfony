@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class='container'>
+        <div class='row'>
+            <div class='col-md-10 font-weight-bold  user_show m-auto peach-gradient-rgba'>
+                <div class='text-center text-white p-3'>
+                    <div class='d-flex'>
+                        <a href='{{ path('home_user', {'name' : app.user.name}) }}'>
+                            <div class='btn btn-primary'>Retour</div>
+                        </a>
+                        <h1 class='mb-5 m-auto'>Vos informations</h1>
+                    </div>
+                </div>
+                <div class='responsive-table-line' style='margin:0 auto;max-width:1700px;'>
+                    <table class='table table-bordered text-center table-condensed table-body-center'>
+                        <tbody>
+                        <tr>
+                            <th scope='row' class='font-weight-bolder'>Nom</th>
+                            <td>{{ user.name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row' class='font-weight-bolder'>Prenom</th>
+                            <td>{{ user.firstname }}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row' class='font-weight-bolder'>Adresse email</th>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row' class='font-weight-bolder'>Status</th>
+                            <td>
+                                {% if user.status == 'visiteur' %}
+                                    Visiteur
+                                {% elseif user.status == 'Client' %}
+                                    Client(e)
+                                {% elseif user.status == 'administrateur' %}
+                                    Administrateur
+                                {% elseif user.status == 'ban' %}
+                                    Utilisateur bannie
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% if user.status == 'Client' or  user.status == 2 %}
+                            <tr>
+                                <td>
+                                    <a href='{{ path('public_edit_user', {'name' : user.name}) }}'>
+                                        <button class='btn-success btn-sm'>Modifier mon compte</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+{% endblock %}

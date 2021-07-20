@@ -1,0 +1,31 @@
+{{ form_start(form, {"attr" : {"class": "m-auto"}}) }}
+<div class="row">
+    <div class="col-md-12">
+        <div class="md-form">
+            {{ form_widget(form.name) }}
+            {{ form_label(form.name) }}
+        </div>
+        <div class="md-form">
+            {{ form_widget(form.firstname) }}
+            {{ form_label(form.firstname) }}
+        </div>
+        <div class="md-form">
+            {{ form_widget(form.username) }}
+            {{ form_label(form.username) }}
+        </div>
+        <div class="md-form">
+            {{ form_widget(form.email) }}
+            {{ form_label(form.email) }}
+        </div>
+        <div class="md-form">
+            {{ form_widget(form.password) }}
+            {{ form_label(form.password) }}
+        </div>
+        <div class="md-form">
+            {{ form_widget(form.confirm_password) }}
+            {{ form_label(form.confirm_password) }}
+        </div>
+    </div>
+    <button class="btn btn-success w-50" type="submit">Créer le profile</button>
+</div>
+{{ form_end(form) }}

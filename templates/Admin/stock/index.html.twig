@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Index de gestion des stocks{% endblock %}
+
+{% block body %}
+    <div class="datatable">
+        <h5 class="card-header text-center py-4">
+            <strong>Index de gestion des stocks</strong>
+        </h5>
+        <div class="datatable_content">
+            <div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
+                <table class="table table-bordered table-condensed table-body-center">
+                    <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Mise a jour le ...</th>
+                        <th>Packaging</th>
+                        <th>Quantité</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for stock in stocks %}
+                        <tr>
+                            <td>{{ stock.product.name }}</td>
+                            <td>{{ stock.majAt ? stock.majAt|date('d/m/Y H:i:s') : '' }}</td>
+                            <td>{{ stock.product.package.packaging }}</td>
+                            <td>
+                                <div class="stock-{{ stock.id }}">{{ stock.quantity }}</div>
+                            </td>
+                            <td class="def-number-input number-input safari_only m-auto">
+                                <a type="button"
+                                   onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                    <i class="fas fa-minus"></i>
+                                </a>
+                                <label for="plus-moins{{ stock.id }}"></label>
+                                <input id="{{ stock.id }}" class="quantity" min="0" name="quantity"
+                                       value="{{ stock.quantity }}"
+                                       type="number">
+                                <a type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                                <button name="{{ stock.id }}" type="submit" data-id="{{ stock.id }}"
+                                        data-path="{{ path('admin_stock_edit', {'id': stock.id}) }}"
+                                        class="btn btn-success btn-sm edit-stock text-white">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">Aucun élément enregistré</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="button">
+                <a href="{{ path('admin_stock_new') }}" class="btn btn-success text-white">Création d'un élément</a>
+                <a href="{{ path('admin_home') }}" class="btn btn-primary">Retour</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

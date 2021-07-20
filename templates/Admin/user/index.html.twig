@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Index de gestion des utilisateurs{% endblock %}
+{% block body %}
+    <div class="datatable">
+        <h5 class="card-header text-center py-4">
+            <strong>Index de gestion des utilisateurs</strong>
+        </h5>
+        <div class="datatable_content">
+            {{ include('Layout/_datatable.html.twig', {subject : "user"}) }}
+            <div class="button">
+                <a href="{{ path('admin_home') }}" class="btn btn-primary">Retour</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

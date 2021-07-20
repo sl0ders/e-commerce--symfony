@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande n°{{ order.nCmd }}{% endblock %}
+
+{% block body %}
+    <div class='datatable'>
+        <div class='h1 m-auto'> Commande n°{{ order.nCmd }}</div>
+        <div class='datatable_content'>
+            <div class='responsive-table-line' style='margin:0 auto;max-width:1700px;'>
+                <table class='table table-bordered table-condensed table-body-center'>
+                    <tbody>
+                    <tr>
+                        <th>Produit</th>
+                        <td>{{ order.products }}</td>
+                    </tr>
+                    <tr>
+                        <th>Quantitée</th>
+                        <td>{{ order.quantity }}</td>
+                    </tr>
+                    <tr>
+                        <th>Crée le ...</th>
+                        <td>{{ order.createdAt ? order.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total</th>
+                        <td>{{ order.total }}</td>
+                    </tr>
+                    <tr>
+                        <th>Validation</th>
+                        <td>{{ order.validation }}</td>
+                    </tr>
+                    <tr>
+                        <th>NCmd</th>
+                        <td>{{ order.nCmd }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class='button'>
+                <a  class='btn btn-danger' href='{{ path('public_orders_canceled', {'id': order.id}) }}' onclick='return confirm('Souhaitez-vous réelement annuler la commande ?');'>
+                    Annuler la commande
+                </a>
+            </div>
+            <a href='{{ path('user_orders', {'name' : app.user.firstname}) }}' class='btn btn-primary'>Retour</a>
+            </div>
+
+    </div>
+
+
+{% endblock %}
+
+
+
+

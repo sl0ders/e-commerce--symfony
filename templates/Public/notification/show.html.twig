@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="datatable">
+        <h1 class="mb-5 text-center">Détail de la notification</h1>
+        <div class="datatable_content">
+            <table class="table">
+                <tr>
+                    <th>Date de création</th>
+                    <td> {{ notification.createdAt| date("d/m/Y H:m:s") }}</td>
+                </tr>
+                <tr>
+                    <th>Date de lecture</th>
+                    <td> {{ notification.readAt| date("d/m/Y H:m:s") }}</td>
+                </tr>
+                <tr>
+                    <th>Envoyé par</th>
+                    <td> {{ notification.sender }}</td>
+                </tr>
+                <tr>
+                    <th>Contenu</th>
+                    <td> {{ notification.message }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}

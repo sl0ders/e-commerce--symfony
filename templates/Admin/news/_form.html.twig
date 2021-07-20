@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+<div class="button">
+    <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
+    <a href="{{ path('admin_news_index') }}">
+        <div class="btn btn-primary">Retour</div>
+    </a>
+</div>
+{{ form_end(form) }}

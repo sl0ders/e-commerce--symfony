@@ -1,0 +1,113 @@
+<!-- Modal: modalCart -->
+<div class='modal fade' id='modalCart' tabindex='-1' role='dialog' aria-labelledby='modalCartModalLabel'
+     aria-hidden='true'>
+    <div class='modal-dialog' role='document'>
+        <div class='modal-content'>
+            <!--Header-->
+            <div class='modal-header'>
+                <h4 class='modal-title' id='myModalLabel'>Votre panier</h4>
+                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                    <span aria-hidden='true'>×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class='modal-body'>
+                <div class='datatable'>
+                    <div class='col-md-10 font-weight-bold m-auto'>
+                        <div class='responsive-table-line' style='margin:0 auto;max-width:1700px;'>
+                            {% if cartProducts| length > 0 %}
+                            <table class='table table-bordered text-center table-condensed table-body-center'>
+                                <thead>
+                                <tr>
+                                    <th>Produits</th>
+                                    <th>Prix</th>
+                                    <th>Quantité</th>
+                                    <th>Total</th>
+                                    <th>Modification</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for product in cartProducts %}
+                                    {% if product.product %}
+                                        {% set totalPrice =  product.product.price * product.quantity %}
+                                        <tr>
+                                            <td>{{ product.product.name }}</td>
+                                            <td>{{ product.product.price | format_currency('EUR') }}</td>
+                                            <td>{{ product.quantity }} Unité(s)</td>
+                                            <td>{{ totalPrice | format_currency('EUR') }}</td>
+                                            <td>
+                                                <form action="{{ path('cart_remove', {'id' : product.product.id}) }}" class="form_modal" method="post">
+                                                    <div class='form-action '>
+                                                        <div class='minus-plus d-flex m-auto'>
+                                                            <div class='def-number-input number-input safari_only minus-plus-content'>
+                                                                <button type='button'
+                                                                        onclick='this.parentNode.querySelector("input[type=number]").stepDown()'>
+                                                                    <i class='fas fa-minus'></i>
+                                                                </button>
+                                                                <label for='plus-moins-{{ product.product.id }}'></label>
+                                                                <input id='plus-moins-{{ product.product.id }}'
+                                                                       class='quantity'
+                                                                       max='{{ product.product.stock.quantity }}'
+                                                                       name='quantity'
+                                                                       value="{{ product.quantity }}"
+                                                                       type='number'>
+                                                                <button type='button'
+                                                                        onclick='this.parentNode.querySelector("input[type=number]").stepUp()'>
+                                                                    <i class='fas fa-plus'></i>
+                                                                </button>
+                                                            </div>
+                                                            {% if not is_granted('ROLE_ADMIN') %}
+                                                                <button class="btn btn-warning p-2 btn-sm btn-cart">
+                                                                    <img src="{{ asset('images/svg/refresh.png') }}" width="50%" alt="">
+                                                                </button>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan='3' class='text-right'>Total :</td>
+                                    {% if cartTotal > 0 %}
+                                        <td>{{ cartTotal | format_currency('EUR') }}</td>
+                                    {% endif %}
+                                </tr>
+                                </tfoot>
+                            </table>
+                            <div class='modal-footer'>
+                                {% if app.user and app.user.status == 'Client' %}
+                                    <div class='button'>
+                                        <a type='button' class='btn btn-outline-primary' data-dismiss='modal'>Fermer
+                                            la fenêtre</a>
+                                        {% if cartTotal > 0 %}
+                                            <a class='btn btn-primary' href='{{ path('cart_valid') }}'>Valider
+                                                le panier</a>
+                                        {% endif %}
+                                    </div>
+                                {% elseif app.user and  app.user.status == 'Visiteur' %}
+                                    <p class='text-warning'> Confirmer votre compte pour validé votre commande</p>
+                                {% else %}
+                                    <img src='{{ asset('images/svg/warning.svg') }}' alt='img warning'
+                                         width='100'>
+                                    <br>
+                                    <div class='button'>
+                                        <a href='{{ path('app_login') }}' class='btn btn-sm btn-primary'>Se
+                                            connecter pour valider</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% else %}
+                                <p class='text-center'>Surprise, c'est vide !</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal: modalCart -->

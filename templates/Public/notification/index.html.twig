@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain "EpsonProjectTrans" %}
+{% block title %}{{ "notification.title.index"|trans }}{% endblock %}
+{% block menuActive_parameter %}active{% endblock menuActive_parameter %}
+{% block body %}
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="example-wrapper">
+            <div class="panel-body">
+                <div class="row">
+                    {# Panel - Filters #}
+                    <div class="col-md-12 col-xs-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <a class="collapse-link" title="{{ 'link.reducePanel'|trans }}">
+                                    <h5 class="text-black-50"> {{ 'notification.title.index'|trans }} </h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"> </i>
+                                        </a>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="ibox-content dataTables_wrappers">
+                                <h1 class="m-2">{{ "notification.title.index"|trans }}</h1>
+                                {{ sg_datatables_render(datatable) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

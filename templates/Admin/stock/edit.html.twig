@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Édition du Stock{% endblock %}
+
+{% block body %}
+    <div class="d-flex">
+        <a href="{{ path('admin_stock_index') }}">
+            <div class="btn btn-primary">Retour</div>
+        </a>
+        <div class="h1 m-auto">Édition du Stock</div>
+    </div>
+    {{ include('Admin/stock/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('Admin/stock/_delete_form.html.twig') }}
+{% endblock %}

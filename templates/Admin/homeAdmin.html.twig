@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %}Accueil de l'administration{% endblock %}
+{% block body %}
+
+    <div class="admin-home text-center mt-5 font-weight-bold">
+        <h2 class=" font-weight-bold">Administration du site <em class="h5 font-weight-bold">(Page d'accueil)</em></h2>
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center">
+                <div class="case-stock case col-md-3 m-3 border rounded rgba-light-green-light">
+                    <a class="text-decoration-none text-black-50" href="{{ path('admin_stock_index') }}">
+                        <h3 class="text-center mt-3 mb-2">Gestion des stocks</h3>
+                        <i class="fas fa-layer-group fa-5x"></i>
+                    </a>
+                </div>
+                <div class="case-contact case col-md-3 m-3 border rounded rgba-light-blue-light">
+                    <a class="text-decoration-none text-black-50" href="{{ path('admin_contact_index') }}">
+                        <h3 class="text-center mt-3 mb-2">Gestion des contacts</h3>
+                        <i class="fas fa-envelope-open-text fa-5x"></i>
+                    </a>
+                </div>
+                <div class="case-product case col-md-3 m-3 border rounded">
+                    <a class="text-decoration-none text-black-50" href="{{ path('admin_product_index') }}">
+                        <h3 class="text-center mt-3 mb-2">Gestion des produits</h3>
+                        <i class="fas fa-apple-alt fa-5x"></i></a>
+                </div>
+                <div class="case-user case col-md-3 m-3 border rounded">
+                    <a class="text-decoration-none text-black-50" href="{{ path('admin_user_index') }}">
+                        <h3 class="text-center mt-3 mb-2">Gestion des utilisateurs</h3>
+                        <i class="fas fa-users fa-5x"></i>
+                    </a>
+                </div>
+                <div class="case-news case col-md-3 m-3 border rounded">
+                    <a class="text-decoration-none text-black-50" href="{{ path('admin_news_index') }}">
+                        <h3 class="text-center mt-3 mb-5">Gestion des News</h3>
+                        <i class="fas fa-newspaper fa-5x"></i>
+                    </a>
+                </div>
+                <div class="case-order case col-md-3 m-3 border rounded">
+                    <a class="text-decoration-none text-black-50" href="{{ path('admin_orders_index') }}">
+                        <h3 class="text-center mt-3 mb-5">Gestion des commandes</h3>
+                        <i class="fas fa-dolly-flatbed fa-5x"></i></a>
+                </div>
+                <div class="case-packing case col-md-3 m-3 border rounded">
+                    <a class="text-decoration-none text-black-50" href="{{ path('admin_package_index') }}">
+                        <h3 class="text-center mt-3 mb-5">Gestion des packagings</h3>
+                        <i class="fas fa-box-open fa-5x"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+

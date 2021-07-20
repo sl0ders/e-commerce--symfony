@@ -1,0 +1,47 @@
+{% trans_default_domain "EpsonProjectTrans" %}
+{% extends "emails/headerEmail.html.twig" %}
+
+
+{% block content %}
+    {% if order_in_course %}
+        <h1>Votre commande est en coure</h1>
+        <div class='datatable'>
+        <div class='col-md-10 font-weight-bold m-auto'>
+        <div class='responsive-table-line' style='margin:0 auto;max-width:1700px;'>
+        <table class='table table-bordered text-center table-condensed table-body-center'>
+        <thead>
+        <tr>
+            <th>Produits</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            {% for product in order.products %}
+                {% set totalPrice =  product.price * product.quantity %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price | format_currency('EUR') }}</td>
+                    <td>{{ product.quantity }} Unité(s)</td>
+                    <td>{{ totalPrice | format_currency('EUR') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan='3' class='text-right'>Total :</td>
+                <td>{{ order.total | format_currency('EUR') }}</td>
+            </tr>
+            </tfoot>
+            </table>
+            </div>
+            </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+
+
