@@ -12,7 +12,6 @@
             </div>
             <!--Body-->
             <div class='modal-body'>
-                <div class='datatable'>
                     <div class='col-md-10 font-weight-bold m-auto'>
                         <div class='responsive-table-line' style='margin:0 auto;max-width:1700px;'>
                             {% if cartProducts| length > 0 %}
@@ -28,44 +27,47 @@
                                 </thead>
                                 <tbody>
                                 {% for product in cartProducts %}
-                                    {% if product.product %}
-                                        {% set totalPrice =  product.product.price * product.quantity %}
-                                        <tr>
-                                            <td>{{ product.product.name }}</td>
-                                            <td>{{ product.product.price | format_currency('EUR') }}</td>
-                                            <td>{{ product.quantity }} Unité(s)</td>
-                                            <td>{{ totalPrice | format_currency('EUR') }}</td>
-                                            <td>
-                                                <form action="{{ path('cart_remove', {'id' : product.product.id}) }}" class="form_modal" method="post">
-                                                    <div class='form-action '>
-                                                        <div class='minus-plus d-flex m-auto'>
-                                                            <div class='def-number-input number-input safari_only minus-plus-content'>
-                                                                <button type='button'
-                                                                        onclick='this.parentNode.querySelector("input[type=number]").stepDown()'>
-                                                                    <i class='fas fa-minus'></i>
-                                                                </button>
-                                                                <label for='plus-moins-{{ product.product.id }}'></label>
-                                                                <input id='plus-moins-{{ product.product.id }}'
-                                                                       class='quantity'
-                                                                       max='{{ product.product.stock.quantity }}'
-                                                                       name='quantity'
-                                                                       value="{{ product.quantity }}"
-                                                                       type='number'>
-                                                                <button type='button'
-                                                                        onclick='this.parentNode.querySelector("input[type=number]").stepUp()'>
-                                                                    <i class='fas fa-plus'></i>
-                                                                </button>
+                                    {% if product.quantity > 0 %}
+                                        {% if product.product %}
+                                            {% set totalPrice =  product.product.price * product.quantity %}
+                                            <tr>
+                                                <td>{{ product.product.name }}</td>
+                                                <td>{{ product.product.price | format_currency('EUR') }}</td>
+                                                <td>{{ product.quantity }} Unité(s)</td>
+                                                <td>{{ totalPrice | format_currency('EUR') }}</td>
+                                                <td>
+                                                    <form action="{{ path('cart_remove', {'id' : product.product.id}) }}" class="form_modal" method="post">
+                                                        <div class='form-action '>
+                                                            <div class='minus-plus d-flex m-auto'>
+                                                                <div class='def-number-input number-input safari_only minus-plus-content'>
+                                                                    <button type='button'
+                                                                            onclick='this.parentNode.querySelector("input[type=number]").stepDown()'>
+                                                                        <i class='fas fa-minus'></i>
+                                                                    </button>
+                                                                    <label for='plus-moins-{{ product.product.id }}'></label>
+                                                                    <input id='plus-moins-{{ product.product.id }}'
+                                                                           class='quantity'
+                                                                           max='{{ product.product.stock.quantity }}'
+                                                                           min="0"
+                                                                           name='quantity'
+                                                                           value="{{ product.quantity }}"
+                                                                           type='number'>
+                                                                    <button type='button'
+                                                                            onclick='this.parentNode.querySelector("input[type=number]").stepUp()'>
+                                                                        <i class='fas fa-plus'></i>
+                                                                    </button>
+                                                                </div>
+                                                                {% if not is_granted('ROLE_ADMIN') %}
+                                                                    <button class="btn btn-warning p-2 btn-sm btn-cart">
+                                                                        <img src="{{ asset('images/svg/refresh.png') }}" width="50%" alt="">
+                                                                    </button>
+                                                                {% endif %}
                                                             </div>
-                                                            {% if not is_granted('ROLE_ADMIN') %}
-                                                                <button class="btn btn-warning p-2 btn-sm btn-cart">
-                                                                    <img src="{{ asset('images/svg/refresh.png') }}" width="50%" alt="">
-                                                                </button>
-                                                            {% endif %}
                                                         </div>
-                                                    </div>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
                                     {% endif %}
                                 {% endfor %}
                                 </tbody>
@@ -109,5 +111,4 @@
             </div>
         </div>
     </div>
-</div>
 <!-- Modal: modalCart -->

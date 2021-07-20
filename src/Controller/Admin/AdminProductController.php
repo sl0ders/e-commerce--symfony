@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/admin/product")
@@ -32,10 +33,16 @@ class AdminProductController extends AbstractController
      */
     private DatatableResponse $response;
 
-    public function __construct(DatatableFactory $factory, DatatableResponse $response)
+    /**
+     * @var TranslatorInterface
+     */
+    private TranslatorInterface $translator;
+
+    public function __construct(DatatableFactory $factory, DatatableResponse $response, TranslatorInterface $translator)
     {
         $this->factory = $factory;
         $this->response = $response;
+        $this->translator = $translator;
     }
 
     /**

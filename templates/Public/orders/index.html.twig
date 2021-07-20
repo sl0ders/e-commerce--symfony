@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
-
+{% trans_default_domain "NegasProjectTrans" %}
 {% block body %}
     <div class='datatable'>
-        <h1 class='m-auto'>Index de gestion des commandes</h1>
+        <h1 class='m-auto p-5'>Index de gestion des commandes</h1>
         <div class='datatable_content'>
             <div class='responsive-table-line' style='margin:0 auto;max-width:1700px;'>
                 <table class='table table-bordered table-condensed table-body-center'>
@@ -18,7 +18,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for order in app.user.orders %}
+                    {% for order in pagination %}
                         <tr>
                         {% if order.validation > 0 and order.validation < 5 %}
                             <td><img src='/images/product/{{ order.products.picture.filename }}' width='120' alt=''>
@@ -44,6 +44,9 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                <div>
+                    {{ knp_pagination_render(pagination) }}
+                </div>
             </div>
             <a href='{{ path('home_user', {'name' : app.user.name}) }}' class='btn btn-primary'>Retour</a>
         </div>

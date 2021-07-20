@@ -189,6 +189,12 @@
     "kelunik/certificate": {
         "version": "v1.1.2"
     },
+    "knplabs/knp-components": {
+        "version": "v3.1.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.6.0"
+    },
     "knplabs/knp-snappy": {
         "version": "v1.2.1"
     },

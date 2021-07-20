@@ -10,6 +10,7 @@ use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class CartController
@@ -23,9 +24,10 @@ class CartController extends AbstractController
      */
     private CartService $cartService;
 
-    public function __construct(CartService $cartService)
+    public function __construct(CartService $cartService, TranslatorInterface $translator)
     {
         $this->cartService = $cartService;
+        $this->translator = $translator;
     }
 
     /**

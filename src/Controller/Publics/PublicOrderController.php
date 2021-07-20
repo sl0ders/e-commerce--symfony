@@ -6,34 +6,46 @@ namespace App\Controller\Publics;
 use App\Entity\Orders;
 use App\Repository\OrdersRepository;
 use App\Services\CartService;
-use ContainerMMNFAvx\getKnpSnappy_PdfService;
-use DateTime;
+use Knp\Component\Pager\PaginatorInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Config\KnpSnappyConfig;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class PublicOrderController
  * @package App\Controller\Publics
- * @Route("/commande")
+ * @Route("/orders")
  */
 class PublicOrderController extends AbstractController
 {
+    private TranslatorInterface $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * @Route("/{name}", name="user_orders")
      * @param OrdersRepository $repository
-     * @param CartService $cartService
+     * @param Request $request
+     * @param PaginatorInterface $paginator
      * @return Response
      */
-    public function ordersUser(OrdersRepository $repository, CartService $cartService): Response
+    public function ordersUser(OrdersRepository $repository, Request $request, PaginatorInterface $paginator): Response
     {
-        $cartService->getAllCart();
-        $orders = $repository->findAll();
+        $orders = $repository->findBy([], ["created_at" => "desc"]);
+        $pagination = $paginator->paginate(
+            $orders, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
+
         return $this->render('Public/orders/index.html.twig', [
-            "orders" => $orders
+            "pagination" => $pagination
         ]);
     }
 

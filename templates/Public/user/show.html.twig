@@ -1,19 +1,12 @@
 {% extends 'base.html.twig' %}
-
+{% trans_default_domain "NegasProjectTrans" %}
 {% block title %}{% endblock %}
 
 {% block body %}
     <div class='container'>
-        <div class='row'>
-            <div class='col-md-10 font-weight-bold  user_show m-auto peach-gradient-rgba'>
-                <div class='text-center text-white p-3'>
-                    <div class='d-flex'>
-                        <a href='{{ path('home_user', {'name' : app.user.name}) }}'>
-                            <div class='btn btn-primary'>Retour</div>
-                        </a>
-                        <h1 class='mb-5 m-auto'>Vos informations</h1>
-                    </div>
-                </div>
+        <div class="datatable">
+            <div class='h1 m-auto'>Vos informations</div>
+            <div class="datatable_content">
                 <div class='responsive-table-line' style='margin:0 auto;max-width:1700px;'>
                     <table class='table table-bordered text-center table-condensed table-body-center'>
                         <tbody>
@@ -43,18 +36,15 @@
                                 {% endif %}
                             </td>
                         </tr>
-                        {% if user.status == 'Client' or  user.status == 2 %}
-                            <tr>
-                                <td>
-                                    <a href='{{ path('public_edit_user', {'name' : user.name}) }}'>
-                                        <button class='btn-success btn-sm'>Modifier mon compte</button>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endif %}
                         </tbody>
                     </table>
+                    {% if user.status == 'Client' or  user.status == 2 %}
+                        <a href='{{ path('public_edit_user', {'name' : user.name}) }}' class='btn-success btn'>Modifier
+                            mon compte</a>
+                    {% endif %}
+                    <a href='{{ path('home_user', {'name' : app.user.name}) }}' class='btn btn-primary'>Retour</a>
                 </div>
             </div>
         </div>
+    </div>
 {% endblock %}

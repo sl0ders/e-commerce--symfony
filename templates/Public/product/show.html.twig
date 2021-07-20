@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% trans_default_domain "NegasProjectTrans" %}
 {% block title %}{{ product.name |capitalize }}{% endblock %}
 
 {% block body %}
@@ -18,7 +18,7 @@
                         <div class='form-action'>
                             <div class='minus-plus'>
                                 <div class='def-number-input number-input safari_only m-auto w-10'>
-                                    <a type='button' onclick='this.parentNode.querySelector('input[type=number]').stepDown()'>
+                                    <a type='button' onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                                         <i class='fas fa-minus'></i>
                                     </a>
                                     <label for='plus-moins{{ product.id }}'></label>
@@ -27,7 +27,7 @@
                                            max='{{ product.stock.quantity }}'
                                            name='quantity' value='1'
                                            type='number'>
-                                    <a type='button' onclick='this.parentNode.querySelector('input[type=number]').stepUp()'>
+                                    <a type='button' onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
                                         <i class='fas fa-plus'></i>
                                     </a>
                                 </div>

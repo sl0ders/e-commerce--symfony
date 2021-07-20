@@ -15,6 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PublicContactController extends AbstractController
 {
+
+
     /**
      * @Route("/new", name="public_contact_new", methods={"GET","POST"})
      * @param Request $request

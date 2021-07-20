@@ -29,16 +29,22 @@ class NotificationController extends AbstractController
     private UserRepository|DatatableFactory $userRepository;
     private DatatableFactory $datatableFactory;
     private DatatableResponse|DatatableFactory $datatableResponse;
+    /**
+     * @var TranslatorInterface
+     */
+    private TranslatorInterface $translator;
 
     public function __construct(
         DatatableFactory $datatableFactory,
         DatatableResponse $datatableResponse,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        TranslatorInterface $translator
     )
     {
         $this->datatableFactory = $datatableFactory;
         $this->datatableResponse = $datatableResponse;
         $this->userRepository = $userRepository;
+        $this->translator = $translator;
     }
 
     /**

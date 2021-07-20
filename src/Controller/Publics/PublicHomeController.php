@@ -31,6 +31,7 @@ class PublicHomeController extends AbstractController
     /**
      * @Route("/", name="home")
      * @param ProductRepository $productRepository
+     * @param Request $request
      * @return Response
      */
     public function index(ProductRepository $productRepository, Request $request): Response
@@ -56,7 +57,7 @@ class PublicHomeController extends AbstractController
         return $this->render('Public/homePublic.html.twig', [
             'cartProducts' => $this->cartService->getAllCart(),
             'cartTotal' => $this->cartService->getTotal(),
-            'products' => $productRepository->findAll(),
+            'products' => $productRepository->findBy(["enabled" => true]),
             "form" => $form->createView()
         ]);
     }

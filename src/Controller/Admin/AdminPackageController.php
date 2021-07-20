@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route("/admin/package")]
 class AdminPackageController extends AbstractController
@@ -30,9 +31,10 @@ class AdminPackageController extends AbstractController
      */
     private DatatableResponse $response;
 
-    public function __construct(DatatableFactory $factory, DatatableResponse $response)
+    public function __construct(DatatableFactory $factory, DatatableResponse $response, TranslatorInterface $translator)
     {
         $this->factory = $factory;
+        $this->translator = $translator;
         $this->response = $response;
     }
 

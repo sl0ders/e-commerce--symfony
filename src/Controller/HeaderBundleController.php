@@ -10,6 +10,7 @@ use App\Repository\UserRepository;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * this class manage all system of header
@@ -18,6 +19,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class HeaderBundleController extends AbstractController
 {
+
+    private TranslatorInterface $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
     /**
      * this function Manage the notification system of header
      * @param UserRepository $userRepository
@@ -29,12 +37,10 @@ class HeaderBundleController extends AbstractController
     {
         $notificationDescSorting = [];
         if ($this->getUser()) {// retrieve the user connected for reference in condition
-            $user = $userRepository->find($this->getUser());
-
             if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
                 $notificationDescSorting = $notificationRepository->findBy(["receiver" => $this->getUser()], ["createdAt" => "ASC"]);
             } else {
-                $notifications = $user->getNotifications();
+                $notifications = $this->getUser()->getNotifications();
                 $iterator = $notifications->getIterator();
                 $iterator->uasort(function ($a, $b) {
                     return ($a->getCreatedAt() > $b->getCreatedAt()) ? +1 : 1;
