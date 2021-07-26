@@ -52,6 +52,8 @@ class Notification
      */
     private $expirationDate;
 
+    private $sender = "teraneo";
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -104,12 +106,12 @@ class Notification
         return $this;
     }
 
-    public function getSender(): ?User
+    public function getSender(): string
     {
         return $this->sender;
     }
 
-    public function setSender(?User $sender): self
+    public function setSender(?String $sender): self
     {
         $this->sender = $sender;
 
@@ -174,5 +176,21 @@ class Notification
         $this->idPath = $idPath;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReceiver()
+    {
+        return $this->receiver;
+    }
+
+    /**
+     * @param mixed $receiver
+     */
+    public function setReceiver($receiver): void
+    {
+        $this->receiver = $receiver;
     }
 }

@@ -45,6 +45,7 @@ class Public_UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            "translation_domain" => "NegasProjectTrans",
             'data_class' => User::class,
         ]);
     }

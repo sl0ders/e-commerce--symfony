@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -83,11 +84,6 @@ class Product
     private $updated_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Orders", mappedBy="products")
-     */
-    private $orders;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\News", mappedBy="product")
      */
     private $news;
@@ -116,7 +112,6 @@ class Product
 
     public function __construct()
     {
-        $this->orders = new ArrayCollection();
         $this->news = new ArrayCollection();
         $this->pictures = new ArrayCollection();
     }
@@ -174,37 +169,6 @@ class Product
         // set the owning side of the relation if necessary
         if ($stock->getProduct() !== $this) {
             $stock->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Orders[]
-     */
-    public function getOrders(): Collection
-    {
-        return $this->orders;
-    }
-
-    public function addOrder(Orders $order): self
-    {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-            $order->setProducts($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrder(Orders $order): self
-    {
-        if ($this->orders->contains($order)) {
-            $this->orders->removeElement($order);
-            // set the owning side to null (unless already changed)
-            if ($order->getProducts() === $this) {
-                $order->setProducts(null);
-            }
         }
 
         return $this;
@@ -329,12 +293,12 @@ class Product
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
 

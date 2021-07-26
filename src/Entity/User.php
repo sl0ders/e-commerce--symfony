@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+
+
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -14,6 +18,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+    const STATE_VISITOR = "user.state.visitor";
+    const STATE_ADMINISTRATOR = "user.state.admin";
+    const STATE_CLIENT = "user.state.client";
+    const STATE_BAN = "user.state.ban";
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -31,6 +40,12 @@ class User implements UserInterface
      */
     private $notifications;
 
+
+    /**
+     * @var string
+     */
+    private string $fullname;
+
     /**
      * @ORM\Column(type="json")
      */
@@ -40,12 +55,12 @@ class User implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password;
 
     /**
      * @Assert\EqualTo(propertyPath="password", message="le mot de passe doit etre identique a sa confirmation")
      */
-    private $confirm_password;
+    private ?string $confirm_password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -213,12 +228,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
@@ -379,5 +394,23 @@ class User implements UserInterface
     public function setNotifications(mixed $notifications): void
     {
         $this->notifications = $notifications;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullname(): string
+    {
+        return $this->firstname . " " . $this->name;
+    }
+
+    /**
+     * @param string $fullname
+     * @return User
+     */
+    public function setFullname(string $fullname): User
+    {
+        $this->fullname = $fullname;
+        return $this;
     }
 }

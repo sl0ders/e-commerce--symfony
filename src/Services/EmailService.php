@@ -32,17 +32,17 @@ class EmailService
 
     /**
      * @param String $subject
-     * @param User[] $receivers
+     * @param array $receivers
      * @param array $context []
      */
     public function sendMail(string $subject, array $receivers, array $context = [])
     {
         // for each user of an company
-        foreach ($receivers as $user) {
+        foreach ($receivers as $receiver) {
             //creation of an email
             $email = (new TemplatedEmail())
                 ->from("sl0ders@gmail.com")
-                ->to($user->getEmail())
+                ->to($receiver)
                 ->replyTo("sl0ders@gmail.com")
                 ->subject($subject)
                 ->htmlTemplate("Emails/alert_email.html.twig")

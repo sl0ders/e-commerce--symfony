@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,17 +12,18 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Orders
 {
+
+    const STATE_IN_COURSE = "orders.states.in_course";
+    const STATE_VALIDATE = "orders.states.validate";
+    const STATE_COMPLETED = "orders.states.completed";
+    const STATE_HONORED = "orders.states.honored";
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $quantity;
 
     /**
      * @ORM\Column(type="datetime")
@@ -41,42 +45,35 @@ class Orders
      */
     private $nCmd;
 
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="orders")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $products;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="orders")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private ?User $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Product::class)
+     */
+    private $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
 
-    public function setQuantity(int $quantity): self
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
@@ -119,18 +116,6 @@ class Orders
         return $this;
     }
 
-    public function getProducts(): ?Product
-    {
-        return $this->products;
-    }
-
-    public function setProducts(?Product $products): self
-    {
-        $this->products = $products;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -139,6 +124,30 @@ class Orders
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        $this->products->removeElement($product);
 
         return $this;
     }

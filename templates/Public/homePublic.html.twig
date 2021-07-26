@@ -40,7 +40,7 @@
                                 <p>Ce produit est bientot en rupture de stock dêpechez vous!</p>
                             </div>
                         {% endif %}
-                        <div class='font-weight-bold'>{{ product.price }}€ / {{ product.package.unity }}</div>
+                        <div class='font-weight-bold'>{{ product.price }}€ / {{ product.package.quantity}} {{ product.package.unity }}</div>
                         {% if product.stock.quantity > 0 %}
                             <form action='{{ path('cart_add', {'id': product.id }) }}' class='mt-2 cart-refresh' method='post'>
                                 <div class='form-action'>
@@ -64,7 +64,7 @@
                                             </button>
                                         </div>
                                         {% if not is_granted('ROLE_ADMIN') %}
-                                            <button type="submit" class="btn btn-primary p-2 btn-sm btn-cart">
+                                            <button type="submit" class="btn btn-primary p-2 btn-sm btn-cart ml-2">
                                                 <i class="fas fa-shopping-cart fa-2x"></i>
                                             </button>
                                         {% endif %}

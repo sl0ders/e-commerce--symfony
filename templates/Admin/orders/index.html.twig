@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain "NegasProjectTrans" %}
-{% block title %}Index de gestion des commandes{% endblock %}
+{% block title %}{{ "orders.title.index"| trans }}{% endblock %}
 
 {% block body %}
     <div class="datatable">
         <h5 class="card-header text-center py-4">
-            <strong>Index de gestion des commandes</strong>
+            <strong>{{ "orders.title.index"| trans }}</strong>
         </h5>
         <div class="datatable_content">
            {{ include('Layout/_datatable.html.twig', {subject: "order"}) }}

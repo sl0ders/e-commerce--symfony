@@ -14,10 +14,6 @@
                         <td>{{ order.products }}</td>
                     </tr>
                     <tr>
-                        <th>Quantitée</th>
-                        <td>{{ order.quantity }}</td>
-                    </tr>
-                    <tr>
                         <th>Crée le ...</th>
                         <td>{{ order.createdAt ? order.createdAt|date('d/m/Y H:i:s') : '' }}</td>
                     </tr>
@@ -41,7 +37,7 @@
                     Annuler la commande
                 </a>
             </div>
-            <a href='{{ path('user_orders', {'name' : app.user.firstname}) }}' class='btn btn-primary'>Retour</a>
+            <a href='{{ path('user_orders', {'name' : app.user.firstname}) }}' class='btn btn-primary float-left'>{{ "button.return"| trans }}</a>
             </div>
 
     </div>

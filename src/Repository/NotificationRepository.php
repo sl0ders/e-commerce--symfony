@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Notification|null findOneBy(array $criteria, array $orderBy = null)
  * @method Notification[]    findAll()
  * @method Notification[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method findByReceiver(object|\Symfony\Component\Security\Core\User\UserInterface|null $getUser)
  */
 class NotificationRepository extends ServiceEntityRepository
 {
@@ -27,7 +28,7 @@ class NotificationRepository extends ServiceEntityRepository
     public function findByUser($user): mixed
     {
         $qb = $this->createQueryBuilder("n")
-            ->leftJoin("n.sender", "user")
+            ->leftJoin("n.receiver", "user")
             ->andWhere("user = :user")
             ->setParameter("user", $user);
         return $qb->getQuery()->getResult();

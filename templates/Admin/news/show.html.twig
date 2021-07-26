@@ -3,40 +3,36 @@
 {% block title %}News "{{ news.title }}"{% endblock %}
 
 {% block body %}
-    <div class="d-flex">
-        <a href="{{ path('admin_news_index') }}">
-            <div class="btn btn-primary">Retour</div>
-        </a>
-        <div class="h1 m-auto"><div class="btn btn-success">Création d'un élément</div>News "{{ news.title }}"</div>
+    <div class="datatable">
+        <div class="h1 m-auto">
+            News "{{ news.title }}"
+        </div>
+        <div class="datatable_content">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>{{ "news.subject" | trans }}</th>
+                    <td>{{ news.title }}</td>
+                </tr>
+                <tr>
+                    <th>{{ "news.content" | trans }}</th>
+                    <td>{{ news.content }}</td>
+                </tr>
+                <tr>
+                    <th>{{ "news.picture" | trans }}</th>
+                    <td>{{ news.image }}</td>
+                </tr>
+                <tr>
+                    <th>{{ "table.created_at" | trans }}</th>
+                    <td>{{ news.createdAt ? news.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="button">
+                <a href="{{ path('admin_news_index') }}" class="btn btn-primary">{{ "button.return"| trans }}</a>
+                <a class="btn btn-warning" href="{{ path('admin_news_edit', {'id': news.id}) }}">Éditer</a>
+                {{ include('Admin/news/_delete_form.html.twig') }}
+            </div>
+        </div>
     </div>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ news.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ news.Titre }}</td>
-            </tr>
-            <tr>
-                <th>Contenu</th>
-                <td>{{ news.content }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ news.image }}</td>
-            </tr>
-            <tr>
-                <th>Crée le ...</th>
-                <td>{{ news.createdAt ? news.createdAt|date('d/m/Y H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-
-    <a href="{{ path('admin_news_edit', {'id': news.id}) }}"><img src="{{ asset('images/svg/edition.png') }}" alt="edition"></a>
-
-    {{ include('Admin/news/_delete_form.html.twig') }}
 {% endblock %}

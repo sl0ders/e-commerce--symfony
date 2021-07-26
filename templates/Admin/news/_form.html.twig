@@ -1,9 +1,25 @@
+{% trans_default_domain "NegasProjectTrans" %}
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+<div class="md-form">
+    {{ form_widget(form.Title) }}
+    {{ form_label(form.Title) }}
+</div>
+<div class="md-form">
+    {{ form_widget(form.content) }}
+    {{ form_label(form.content) }}
+</div>
+<div class="md-form">
+    {{ form_widget(form.product) }}
+</div>
+<div class="md-form">
+    {{ form_widget(form.image) }}
+</div>
+
 <div class="button">
-    <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
+    <button class="btn btn-success">{{ button_label|default( "button.save" | trans ) }}</button>
     <a href="{{ path('admin_news_index') }}">
-        <div class="btn btn-primary">Retour</div>
+        <div class="btn btn-primary float-left">{{ "button.return" | trans }}</div>
     </a>
 </div>
 {{ form_end(form) }}
+

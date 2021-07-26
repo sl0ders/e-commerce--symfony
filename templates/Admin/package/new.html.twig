@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain "NegasProjectTrans" %}
 {% block body %}
-    <div class="datatable formulary">
-        <h5 class="card-header text-center py-4">
-            <strong>Nouveau type de package</strong>
-        </h5>
-        <div class="form_content">
-            {{ include('Admin/package/_form.html.twig') }}
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-10 m-auto border shadow p-5 rgba-blue-grey-light">
+                <h1>{{ "package.title.new"| trans }}</h1>
+                <div class="form_content">
+                    {{ include('Admin/package/_form.html.twig') }}
+                </div>
+                    <a href="{{ path('admin_package_index') }}" class="btn btn-primary float-left">{{ "button.return" |trans }}</a>
+            </div>
         </div>
     </div>
 {% endblock %}

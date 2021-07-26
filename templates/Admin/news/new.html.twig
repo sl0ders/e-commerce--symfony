@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain "NegasProjectTrans" %}
-{% block title %}Création d'une nouvelle news{% endblock %}
+{% block title %}{{ "news.title.new" | trans }}{% endblock %}
 
 {% block body %}
     <div class="datatable formulary">
         <h5 class="card-header text-center py-4">
-            <strong>Création d'une News</strong>
+            <strong>{{ "news.title.new" | trans }}</strong>
         </h5>
         <div class="datatable_content">
             {{ include('Admin/news/_form.html.twig') }}

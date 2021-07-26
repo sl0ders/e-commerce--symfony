@@ -50,7 +50,7 @@ class AdminContactController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_contact_delete", methods={"DELETE"})
+     * @Route("/{id}", name="admin_contact_delete", methods={"DELETE", "POST"})
      * @param Request $request
      * @param Contact $contact
      * @return Response
@@ -61,8 +61,9 @@ class AdminContactController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($contact);
             $entityManager->flush();
+            // display of a success message
+            $this->addFlash("success", "flash.contact.deleteSuccessfully");
         }
-
         return $this->redirectToRoute('admin_contact_index');
     }
 }

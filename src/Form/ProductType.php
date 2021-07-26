@@ -18,40 +18,48 @@ class ProductType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, $this->getConfig('Nom du produit', 'Entrez le nom du produit'))
-            ->add('quantity', IntegerType::class, $this->getConfig('Choisissez la quantitée entrée', 'Quantité'))
+            ->add('name', TextType::class, [
+                "label" => 'product.label.name',
+                "attr" => ["class" => "form-control"],
+            ])
+            ->add('quantity', IntegerType::class,[
+                "label" => 'product.label.quantity',
+                "attr" => ["class" => "form-control"],
+
+            ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description',
+                'label' => 'product.label.description',
                 "attr" => ["class" => "form-control"],
             ])
             ->add('package', EntityType::class, [
-                'label' => 'Choisissez le type de package',
+                'label' => 'product.label.package',
                 "class" => Package::class,
                 "choice_label" => "packaging",
                 "attr" => ["class" => "mdb-select md-form"]
             ])
             ->add('price', MoneyType::class, [
                 "currency" => "EUR",
-                'label' => 'Prix',
-                "attr" => ["placeholder" => "Prix du package", "class" => "form-control", 'type' => 'number'],
+                'label' => 'product.label.price',
+                "attr" => ["class" => "form-control", 'type' => 'number'],
             ])
             ->add('pictureFiles', FileType::class, [
-                "label" => 'Image JPG',
+                "label" => "product.label.jpg_file",
                 'required' => false,
                 'multiple' => true,
-                "attr" => ["class" => "file-path validate", "placeholder" => "Choisissez une image en format JPG"]
+                "attr" => ["class" => "file-path validate"]
             ])
             ->add('pictureFilesPng', FileType::class, [
-                "label" => 'Image PGN',
+                "label" => 'product.label.png_file',
                 'required' => false,
                 'multiple' => true,
-                "attr" => ["class" => "file-path validate", "placeholder" => "Choisissez une image en format PNG"]
+                "attr" => ["class" => "file-path validate"]
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            "translation_domain" => "NegasProjectTrans",
             'data_class' => Product::class,
             "attr" => ["class" => "md-form"]
         ]);

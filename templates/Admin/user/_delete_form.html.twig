@@ -1,5 +1,7 @@
-<form method="post" action="{{ path('admin_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Souhaitez-vous réelement supprimer cet utilisateur ?');">
+{% trans_default_domain "NegasProjectTrans" %}
+<form method="post" action="{{ path('admin_user_delete', {'id': user.id}) }}"
+      onsubmit="return confirm({{ "return.deleteQuestion"| trans }});">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('supprimer' ~ user.id) }}">
-    <button class="btn btn-danger">Supprimer</button>
+    <button class="btn btn-danger">{{ "button.delete"|trans }}</button>
 </form>

@@ -13,10 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+#[Route("/contact")]
 class PublicContactController extends AbstractController
 {
-
-
     /**
      * @Route("/new", name="public_contact_new", methods={"GET","POST"})
      * @param Request $request

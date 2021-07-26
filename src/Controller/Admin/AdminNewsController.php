@@ -11,22 +11,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/admin/news")
  */
 class AdminNewsController extends AbstractController
 {
-
-
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     /**
      * @Route("/", name="admin_news_index", methods={"GET"})
      * @param NewsRepository $newsRepository
@@ -56,7 +46,7 @@ class AdminNewsController extends AbstractController
             $news->setCreatedAt(new DateTime());
             $entityManager->persist($news);
             $entityManager->flush();
-
+            $this->addFlash("success", "flash.news.createSuccessfully");
             return $this->redirectToRoute('admin_news_index');
         }
 
@@ -91,7 +81,7 @@ class AdminNewsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $this->addFlash("success", "flash.news.updateSuccessfully");
             return $this->redirectToRoute('admin_news_index');
         }
 
@@ -102,7 +92,7 @@ class AdminNewsController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_news_delete", methods={"DELETE"})
+     * @Route("/{id}", name="admin_news_delete", methods={"DELETE", "POST"})
      * @param Request $request
      * @param News $news
      * @return Response
@@ -113,6 +103,7 @@ class AdminNewsController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($news);
             $entityManager->flush();
+            $this->addFlash("success", "flash.news.deleteSuccessfully");
         }
 
         return $this->redirectToRoute('admin_news_index');

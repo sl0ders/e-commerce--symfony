@@ -1,0 +1,9 @@
+{% trans_default_domain 'FlashesMessages' %}
+{% for label, flashes in app.session.flashbag.all %}
+    {% for flash in flashes %}
+        <div class="alert alert-dismissible fade show" role="alert" data-mdb-color="{{ label }}">
+            <strong>{{ label|trans }}</strong> {{ flash|trans }}
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endfor %}

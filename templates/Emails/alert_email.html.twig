@@ -1,47 +1,66 @@
 {% trans_default_domain "NegasProjectTrans" %}
-{% extends "emails/headerEmail.html.twig" %}
+<link href="{{ asset("Mdb5/css/bootstrap.min.css") }}">
+{% if order_in_course is defined %}
 
+    <h1>{{ "email.title.order_in_course"|trans }}</h1>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Un Email Responsive</title>
+        <style type="text/css">
+            body {
+                margin: 0;
+                padding: 0;
+                min-width: 100% !important;
+            }
 
-{% block content %}
-    {% if order_in_course %}
-        <h1>Votre commande est en coure</h1>
-        <div class='datatable'>
-        <div class='col-md-10 font-weight-bold m-auto'>
-        <div class='responsive-table-line' style='margin:0 auto;max-width:1700px;'>
-        <table class='table table-bordered text-center table-condensed table-body-center'>
-        <thead>
+            .content {
+                text-align: center;
+                width: 100%;
+                max-width: 600px;
+            }
+        </style>
+    </head>
+    <body bgcolor="#f6f8f1">
+    <table width="100%" bgcolor="#f6f8f1" border="0" cellpadding="0" cellspacing="0">
         <tr>
-            <th>Produits</th>
-            <th>Prix</th>
-            <th>Quantité</th>
-            <th>Total</th>
+            <td>
+                <table class="content" align="center" cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                    <tr>
+                        <th>{{ "email.product"|trans }}</th>
+                        <th>{{ "email.quantity"|trans }}</th>
+                        <th>{{ "email.price"|trans }}</th>
+                        <th>{{ "email.total"|trans }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in productsQuantity %}
+                        {% set totalPrice =  product.product.price * product.quantity %}
+                        <tr>
+                            <td>{{ product.product.name }}</td>
+                            <td>{{ product.product.price | format_currency('EUR') }}</td>
+                            <td>{{ product.quantity }}
+                                X {{ product.product.package.quantity }} {{ product.product.package.unity }}</td>
+                            <td>{{ totalPrice | format_currency('EUR') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan='3' class='text-right'>{{ "email.total"|trans }} :</td>
+                        <td>{{ order.total | format_currency('EUR') }}</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </td>
         </tr>
-        </thead>
-        <tbody>
-        {% for order in orders %}
-            {% for product in order.products %}
-                {% set totalPrice =  product.price * product.quantity %}
-                <tr>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.price | format_currency('EUR') }}</td>
-                    <td>{{ product.quantity }} Unité(s)</td>
-                    <td>{{ totalPrice | format_currency('EUR') }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colspan='3' class='text-right'>Total :</td>
-                <td>{{ order.total | format_currency('EUR') }}</td>
-            </tr>
-            </tfoot>
-            </table>
-            </div>
-            </div>
-            </div>
-        {% endfor %}
-    {% endif %}
-{% endblock %}
+    </table>
+    </body>
+    </html>
+{% endif %}
 
 
 

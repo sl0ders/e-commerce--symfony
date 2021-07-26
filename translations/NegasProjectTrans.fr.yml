@@ -1,0 +1,196 @@
+return:
+    deleteQuestion: "Souhaitez-vous réelement supprimer cet élément ?"
+
+button:
+    delete: 'Supprimer'
+    return: "Retour"
+    save: 'Sauvegarder'
+    update: 'Finaliser la modification'
+    create: "Création d'un element"
+    connection: 'Connexion'
+    signin: "S'inscrire"
+
+table:
+    action: "Actions"
+    no_element: "Aucun élément enregistré"
+    update: 'Mis a jour le ...'
+    created_at: 'Créer le ...'
+    disabled: 'Désactiver'
+    enabled: 'Activer'
+
+
+contact:
+    username: "Surnom"
+    email: "Adresse email"
+    firstName: "Prenom"
+    subject: "Sujet"
+    message: "Message"
+    created_At: "Créer le..."
+    title:
+        index: 'Index de gestion des contacts'
+        show: "Visualisation du message"
+
+news:
+    label:
+        title: "Titre de la news"
+        content: "Contenu de la news"
+        picture: "Choisissez une image pour illustrer la news"
+        product: "Produit lié a l'article"
+    placeholder:
+        title: "Titre"
+        content: "Contenu"
+    title:
+        edit: 'Édition de la News "%news_title%"'
+        index: 'Index de gestion des news'
+        new: "Création d'une nouvelle news"
+    subject: 'Titre'
+    content: 'Contenu de la news'
+    picture: 'Image liée'
+
+orders:
+    title:
+        index: 'Index de gestion des commandes'
+        show: 'Détail de la commande %order_ncmd%'
+    product: 'Produits'
+    quantity: 'Quantité'
+    total: 'Total'
+    validation: 'Status'
+    states:
+        in_course: "Validation de la commande en cours"
+        validate: "Commande validée"
+        completed: "Commande complete"
+        honored: "Commande honorée"
+    ncmd: 'Numero de commande'
+    label:
+        state: 'État de la commande'
+        total: 'Total'
+        quantity: 'Quantité'
+        created_at: 'Date de création'
+        ncmd: 'Numero de commande'
+        user_name: 'Commande effectué par...'
+        package: 'NegasProjectTrans'
+
+package:
+    title:
+        index: 'Index de gestion des packaging '
+        new: 'Nouveau type de package'
+    label:
+        quantity: "Quantité inclut dans le package"
+        unity: "Unitée de package (kg, g, l)"
+        action: 'Actions'
+
+    placeholder:
+        quantity: "Quantité"
+        unity: "Unitée"
+
+stock:
+    title:
+        index: ' Index de gestion des stocks'
+    product: 'Produit'
+    package: 'Packaging'
+    quantity: 'Quantité'
+
+user:
+    title:
+        edit_status: 'Édition du status'
+        index: 'Index de gestion des utilisateurs'
+        signin: 'Enregistrement'
+        login: 'Se connecter'
+    state:
+        visitor: 'Visiteur'
+        client: 'Client'
+        admin: 'Administrateur'
+        ban: 'Banni'
+    email: 'Adresse email'
+    role: 'Rôle'
+    status: 'Statut'
+    firstName: 'Prenom'
+    lastName: 'Nom de famille'
+    userName: 'Pseudo'
+    address: 'Adresse'
+    label:
+        email: 'Entrez votre adresse email'
+        state: 'Status'
+        roles: 'Rôles'
+        created_at: 'Créer le ...'
+        password: "Entrez votre mot de passe"
+        rePassword: "Confirmation de votre mot de passe"
+        firstname: "Entrez votre prenom"
+        lastname: "Entrez votre nom de famille"
+        username: "Entrez votre pseudo"
+        fullname: 'Nom complet'
+
+product:
+    label:
+        jpg_file: 'Choisissez une image en format JPG'
+        png_file: 'Choisissez une image en format PNG'
+        name: 'Nom du produit'
+        description: 'Description'
+        price: 'Prix du package'
+        quantity: 'Choisissez la quantitée restante'
+        created_at: 'Date de création'
+        detail: 'Détail'
+        package: "Choisissez le type de package"
+    title:
+        new: "Creation d'un nouveau produit"
+        edit: 'Édition du produit %product_name%'
+        index: 'Index de gestion des produits'
+        show: 'Édition du produit %product_name%'
+    name: 'Nom du produit'
+    description: 'Description du produit'
+    package: 'Packaging du produit'
+    price: "Prix d'un package"
+    big_picture: 'Grande image'
+    small_picture: 'Petite image'
+
+home_admin:
+    title:
+        first: 'Administration du site'
+        second: "(Page d'accueil)"
+        home: "Accueil de l'administration"
+    stock_management: 'Gestion des stocks'
+    contact_management: 'Gestion des contacts'
+    product_management: 'Gestion des produits'
+    user_management: 'Gestion des utilisateurs'
+    news_management: 'Gestion des News'
+    orders_management: 'Gestion des commandes'
+    package_management: 'Gestion des packagings'
+
+email:
+    title:
+        order_in_course: 'Votre commande est en cours de traitement'
+    product: 'Produits'
+    price: 'Prix'
+    quantity: 'Quantité'
+    total: 'Total'
+    unity: 'Unité(s)'
+    add_new_order: 'Nouvelle commande de votre part sur le site de teraneo'
+
+header:
+    tilte: "Boutique en ligne"
+    signin: "S'inscrire"
+    login: "Se connecter"
+    my_space: "Mon espace"
+    admin_home: "Accueil administrateur"
+    logout: "Déconnection"
+    my_account: "Mon compte"
+
+footer:
+    is_located: 'est situées du coté de'
+
+notification:
+    title:
+        index: 'Index de gestion des notifications'
+    label:
+        date: 'Date de creation'
+        message: 'Contenu de la notification'
+    link:
+        show: 'Visualiser'
+        archived: 'Archiver'
+        desarchived: 'Désarchiver'
+home_public:
+    setting_management: 'Gestion du profil'
+    orders_management: 'Gestion des commandes'
+    notification_management: 'Gestion des notifications'
+text:
+    or: 'où'

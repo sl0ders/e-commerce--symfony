@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain "NegasProjectTrans" %}
-{% block title %}Page d'enregistrement{% endblock %}
-{% block body %}
+{% block title %}{{ "user.title.signin"|trans }}{% endblock %}
 
-<div class="container signIn">
+{% block body %}
+<div class="container">
     <div class="row text-center">
         <div class="col-md-10 m-auto border shadow p-5 rgba-blue-grey-light">
-            <h1 class="mb-5">Enregistrement</h1>
+            <h1 class="mb-5 card-header">{{ "user.title.signin"|trans }}</h1>
             <div class="form d-flex justify-content-between">
                 {% include 'security/_form.html.twig' %}
             </div>

@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain "NegasProjectTrans" %}
-{% block title %}Édition de la News "{{ news.title }}"{% endblock %}
+{% block title %}{{ "news.title.edit" | trans({"%news_title%": news.title }) }}{% endblock %}
 
 {% block body %}
     <div class="datatable formulary">
         <h5 class="card-header text-center py-4">
-            <strong>Édition de la News "{{ news.title }}"</strong>
+            <strong>{{ "news.title.edit" | trans({"%news_title%": news.title }) }}</strong>
         </h5>
-        <div class="form_content">
-            {{ include('Admin/news/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="button">
+            {{ include('Admin/news/_form.html.twig', {'button_label':  "button.update" | trans }) }}
             {{ include('Admin/news/_delete_form.html.twig') }}
         </div>
     </div>

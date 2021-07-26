@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain "NegasProjectTrans" %}
-{% block title %}Index de gestion des stocks{% endblock %}
+{% block title %}{{ "stock.title.index" | trans }}{% endblock %}
 
 {% block body %}
     <div class="datatable">
         <h5 class="card-header text-center py-4">
-            <strong>Index de gestion des stocks</strong>
+            <strong>{{ "stock.title.index" | trans }}</strong>
         </h5>
         <div class="datatable_content">
             <div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
                 <table class="table table-bordered table-condensed table-body-center">
                     <thead>
                     <tr>
-                        <th>Produit</th>
-                        <th>Mise a jour le ...</th>
-                        <th>Packaging</th>
-                        <th>Quantité</th>
-                        <th>actions</th>
+                        <th>{{ "stock.product"| trans }}</th>
+                        <th>{{ "table.update"| trans }}</th>
+                        <th>{{ "stock.package"| trans }}</th>
+                        <th>{{ "stock.quantity"| trans }}</th>
+                        <th>{{ "table.action"| trans }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,22 +42,21 @@
                                 </a>
                                 <button name="{{ stock.id }}" type="submit" data-id="{{ stock.id }}"
                                         data-path="{{ path('admin_stock_edit', {'id': stock.id}) }}"
-                                        class="btn btn-success btn-sm edit-stock text-white">
+                                        class="ml-2 btn btn-success btn-sm edit-stock text-white">
                                     <i class="fas fa-check"></i>
                                 </button>
                             </td>
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="4">Aucun élément enregistré</td>
+                            <td colspan="4">{{ "table.no_element" | trans}}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
             <div class="button">
-                <a href="{{ path('admin_stock_new') }}" class="btn btn-success text-white">Création d'un élément</a>
-                <a href="{{ path('admin_home') }}" class="btn btn-primary">Retour</a>
+                <a href="{{ path('admin_home') }}" class="btn btn-primary float-left">{{ "button.return" | trans }}</a>
             </div>
         </div>
     </div>

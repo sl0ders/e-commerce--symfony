@@ -23,7 +23,7 @@
                         {% if order.validation > 0 and order.validation < 5 %}
                             <td><img src='/images/product/{{ order.products.picture.filename }}' width='120' alt=''>
                             </td>
-                            <td>{{ order.quantity }} X {{ order.products.package.packaging }}</td>
+                            <td>{{ order.products.package.packaging }}</td>
                             <td>{{ order.createdAt ? order.createdAt|date('d/m/Y H:i:s') : '' }}</td>
                             <td>{{ order.total }} €</td>
                             <td>
@@ -48,7 +48,7 @@
                     {{ knp_pagination_render(pagination) }}
                 </div>
             </div>
-            <a href='{{ path('home_user', {'name' : app.user.name}) }}' class='btn btn-primary'>Retour</a>
+            <a href='{{ path('home_user', {'name' : app.user.name}) }}' class='btn btn-primary float-left'>{{ "button.return"| trans }}</a>
         </div>
     </div>
 {% endblock %}

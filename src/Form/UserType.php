@@ -17,27 +17,27 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => "Entrez votre adresse email",
+                'label' => "user.label.email",
                 "attr" => ["class" => "form-control"]
             ])
             ->add('password', PasswordType::class, [
-                'label' => "Mot de passe",
+                'label' => "user.label.password",
                 "attr" => ["class" => "form-control"]
             ])
             ->add('confirm_password', PasswordType::class, [
-                'label' => "Confirmation de votre mot de passe",
+                'label' => "user.label.rePassword",
                 "attr" => ["class" => "form-control"]
             ])
             ->add('firstname', TextType::class, [
-                'label' => "Entrez votre prenom",
+                'label' => "user.label.firstname",
                 "attr" => ["class" => "form-control"]
             ])
             ->add('name', TextType::class, [
-                'label' => "Entrez votre Nom",
+                'label' => "user.label.lastname",
                 "attr" => ["class" => "form-control"]
             ])
             ->add('username', TextType::class, [
-                'label' => "Entrez votre pseudo",
+                'label' => "user.label.username",
                 "attr" => ["class" => "form-control"]
             ]);
     }
@@ -45,6 +45,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            "translation_domain" => "NegasProjectTrans",
             'data_class' => User::class,
         ]);
     }

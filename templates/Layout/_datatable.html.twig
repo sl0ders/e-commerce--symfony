@@ -1,7 +1,7 @@
 {% trans_default_domain "NegasProjectTrans" %}
 {{ sg_datatables_render(datatable) }}
 <script src="{{ asset('bundles/sgdatatables/js/pipeline.js') }}"></script>
-<script src="{{ asset("bundles/sgdatatables/js/moment-with-locales.min.js") }}"></script>
+<script src="{{ asset("bundles/sgdatatables/js/moment-with-locals.min.js") }}"></script>
 <script>
     $(document).ready(function () {
         $('#sg-datatables-datatable_' + {{ subject }}).DataTable();

@@ -1,6 +1,15 @@
+{% trans_default_domain "NegasProjectTrans" %}
 {{ form_start(form) }}
-<div class="form-outline mb-4">
-    {{ form_widget(form) }}
-</div>
-<button class="btn btn-success" type="submit">Sauvegarder</button>
-{{ form_end(form) }}
+<div class="row">
+    <div class="col-md-12">
+        <div class="md-form">
+            {{ form_label(form.quantity) }}
+            {{ form_widget(form.quantity) }}
+        </div>
+        <div class="md-form">
+            {{ form_label(form.unity) }}
+            {{ form_widget(form.unity) }}
+        </div>
+    </div>
+    <button class="btn btn-success" type="submit">{{ "button.save" | trans }}</button>
+    {{ form_end(form) }}

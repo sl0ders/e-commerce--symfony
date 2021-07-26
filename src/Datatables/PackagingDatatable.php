@@ -6,6 +6,7 @@ namespace App\Datatables;
 
 use App\Entity\Package;
 use Sg\DatatablesBundle\Datatable\AbstractDatatable;
+use Sg\DatatablesBundle\Datatable\Column\ActionColumn;
 use Sg\DatatablesBundle\Datatable\Column\Column;
 use Sg\DatatablesBundle\Datatable\Style;
 
@@ -39,14 +40,40 @@ class PackagingDatatable extends AbstractDatatable
 
         $this->columnBuilder
             ->add('quantity', Column::class, [
-                'title' => 'Quantité',
+                'title' => $this->translator->trans('package.label.quantity', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,
             ])->add('unity', Column::class, [
-                'title' => 'Unité',
+                'title' => $this->translator->trans('package.label.unity', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,
-            ]);
+            ])
+            ->add(null, ActionColumn::class, [
+                    "title" => $this->translator->trans('package.label.action', [], 'NegasProjectTrans'),
+                    'start_html' => '<div style="width:80px; text-align: center; display: flex; justify-content: space-between">',
+                    "width" => "80px",
+                    'end_html' => '</div>',
+                    'actions' => [
+                        [
+                            'confirm' => true,
+                            'confirm_message' => $this->translator->trans('return.deleteQuestion', [], 'NegasProjectTrans'),
+                            'start_html' => '<div class="start_delete_action">',
+                            'end_html' => '</div>',
+                            'route' => 'admin_package_delete',
+                            'route_parameters' => [
+                                'id' => 'id'
+                            ],
+                            'icon' => 'fa fa-trash fa-1x',
+                            'attributes' => [
+                                'rel' => 'tooltip',
+                                'title' => "enabled",
+                                'class' => 'btn btn-danger m-2',
+                                'role' => 'button'
+                            ]
+                        ],
+                    ]
+                ]
+            );
     }
 
     public function getEntity()

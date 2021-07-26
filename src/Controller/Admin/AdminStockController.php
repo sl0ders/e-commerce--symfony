@@ -17,18 +17,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class AdminStockController extends AbstractController
 {
-
-
-    /**
-     * @var TranslatorInterface
-     */
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     /**
      * @Route("/", name="admin_stock_index", methods={"GET"})
      * @param StockRepository $stockRepository
@@ -38,43 +26,6 @@ class AdminStockController extends AbstractController
     {
         return $this->render('Admin/stock/index.html.twig', [
             'stocks' => $stockRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="admin_stock_new", methods={"GET","POST"})
-     * @param Request $request
-     * @return Response
-     */
-    public function new(Request $request): Response
-    {
-        $stock = new Stock();
-        $form = $this->createForm(StockType::class, $stock);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($stock);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('admin_stock_index');
-        }
-
-        return $this->render('Admin/stock/new.html.twig', [
-            'stock' => $stock,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="admin_stock_show", methods={"GET"})
-     * @param Stock $stock
-     * @return Response
-     */
-    public function show(Stock $stock): Response
-    {
-        return $this->render('Admin/stock/show.html.twig', [
-            'stock' => $stock,
         ]);
     }
 
@@ -98,7 +49,7 @@ class AdminStockController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_stock_delete", methods={"DELETE"})
+     * @Route("/{id}", name="admin_stock_delete", methods={"DELETE", "POST"})
      * @param Request $request
      * @param Stock $stock
      * @return Response

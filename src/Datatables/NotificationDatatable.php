@@ -6,10 +6,8 @@ use App\Entity\Notification;
 use Exception;
 use Sg\DatatablesBundle\Datatable\AbstractDatatable;
 use Sg\DatatablesBundle\Datatable\Column\ActionColumn;
-use Sg\DatatablesBundle\Datatable\Column\BooleanColumn;
 use Sg\DatatablesBundle\Datatable\Column\Column;
 use Sg\DatatablesBundle\Datatable\Column\DateTimeColumn;
-use Sg\DatatablesBundle\Datatable\Editable\CombodateEditable;
 use Sg\DatatablesBundle\Datatable\Filter\TextFilter;
 use Sg\DatatablesBundle\Datatable\Style;
 
@@ -49,21 +47,15 @@ class NotificationDatatable extends AbstractDatatable
         ));
         $this->columnBuilder
             ->add("createdAt", DateTimeColumn::class, [
-                'title' => $this->translator->trans('notification.label.date', [], 'EpsonProjectTrans'),
+                'title' => $this->translator->trans('notification.label.date', [], 'NegasProjectTrans'),
                 "date_format" => 'DD-MM-YYYY H:m:s',
                 'searchable' => true,
                 'orderable' => true,
-                "width" => "40px",
+                "width" => "160px",
                 'filter' => array(TextFilter::class, array()),
             ])
-            ->add("sender.name", Column::class, [
-                'title' => $this->translator->trans('notification.label.company', [], 'EpsonProjectTrans'),
-                'searchable' => true,
-                'orderable' => true,
-                'filter' => array(TextFilter::class, array())
-            ])
             ->add("message", Column::class, [
-                'title' => $this->translator->trans('notification.label.message', [], 'EpsonProjectTrans'),
+                'title' => $this->translator->trans('notification.label.message', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,
                 'filter' => array(TextFilter::class, array())
@@ -73,8 +65,9 @@ class NotificationDatatable extends AbstractDatatable
                 "title" => "actif"
             ])
             ->add(null, ActionColumn::class, array(
-                'start_html' => '<div class="start_actions" style="width:60px; text-align: center">',
+                'start_html' => '<div class="start_actions" style="width:150px; text-align: center; display: flex; justify-content: space-between">',
                 'title' => $this->translator->trans('sg.datatables.actions.title'),
+                "width" => "200px",
                 'end_html' => '</div>',
                 'actions' => [
                     [
@@ -85,7 +78,7 @@ class NotificationDatatable extends AbstractDatatable
                         'icon' => 'fa fa-eye',
                         'attributes' => [
                             'rel' => 'tooltip',
-                            'title' => $this->translator->trans('notification.link.show', [], 'EpsonProjectTrans'),
+                            'title' => $this->translator->trans('notification.link.show', [], 'NegasProjectTrans'),
                             'class' => 'btn btn-primary btn-xs m-auto btn-sm',
                             'role' => 'button'
                         ],
@@ -97,7 +90,7 @@ class NotificationDatatable extends AbstractDatatable
                             'rel' => 'tooltip',
                             'class' => 'btn btn-danger btn-xs m-auto btn-sm',
                             'role' => 'button',
-                            'title' => $this->translator->trans('notification.link.archived', [], 'EpsonProjectTrans'),
+                            'title' => $this->translator->trans('notification.link.archived', [], 'NegasProjectTrans'),
                         ],
                         'render_if' => function ($row): bool {
                             return !$row['isEnabled'];
@@ -108,9 +101,9 @@ class NotificationDatatable extends AbstractDatatable
                         'icon' => 'fa fa-toggle-on',
                         'attributes' => [
                             'rel' => 'tooltip',
-                            'class' => 'btn btn-primary btn-xs m-auto btn-sm',
+                            'class' => 'btn btn-success btn-xs m-auto btn-sm',
                             'role' => 'button',
-                            'title' => $this->translator->trans('notification.link.desarchived', [], 'EpsonProjectTrans'),
+                            'title' => $this->translator->trans('notification.link.desarchived', [], 'NegasProjectTrans'),
                         ],
                         'render_if' => function ($row): bool {
                             return $row['isEnabled'];

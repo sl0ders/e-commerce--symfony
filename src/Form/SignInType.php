@@ -34,6 +34,7 @@ class SignInType extends ApplicationType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            "translation_domain" => "NegasProjectTrans",
             'data_class' => User::class,
         ]);
     }

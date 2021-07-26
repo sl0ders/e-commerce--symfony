@@ -52,11 +52,6 @@ class Contact
         return $this->id;
     }
 
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
     public function setUsername(string $username): self
     {
         $this->username = $username;

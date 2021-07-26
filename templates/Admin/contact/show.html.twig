@@ -1,42 +1,41 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain "NegasProjectTrans" %}
-{% block title %}Contact{% endblock %}
+{% block title %}{{ "contact.title.show" | trans }}{% endblock %}
 
 {% block body %}
-    <div class="d-flex">
-        <a href="{{ path('admin_contact_index') }}">
-            <div class="btn btn-primary">Retour</div>
-        </a>
-        <div class="h1 m-auto">Contacts</div>
-    </div>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ contact.id }}</td>
+    <div class="datatable">
+        <div class="h1 m-auto text-center">{{ "contact.title.show" | trans }}</div>
+        <div class="datatable_content">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>{{ "contact.firstName" | trans }}</th>
+                    <td>{{ contact.firstname }}</td>
             </tr>
             <tr>
-                <th>Nom</th>
-                <td>{{ contact.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Adresse email</th>
+                <th>{{ "contact.firstName" | trans }}</th>
                 <td>{{ contact.email }}</td>
             </tr>
             <tr>
-                <th>Sujet</th>
+                <th>{{ "contact.subject" | trans }}</th>
                 <td>{{ contact.subject }}</td>
             </tr>
-            <tr>
-                <th>Message</th>
-                <td>{{ contact.message }}</td>
-            </tr>
-            <tr>
-                <th>Crée le ...</th>
-                <td>{{ contact.createdAt ? contact.createdAt|date('d/m/Y H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-    {{ include('Admin/contact/_delete_form.html.twig') }}
+                <tr>
+                    <th>{{ "contact.message" | trans }}</th>
+                    <td>{{ contact.message }}</td>
+                </tr>
+                <tr>
+                    <th>{{ "table.created_at" | trans }}</th>
+                    <td>{{ contact.createdAt ? contact.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="button">
+            <a href="{{ path('admin_contact_index') }}" class="btn btn-primary float-left">{{ "button.return" | trans }}</a>
+            {{ include('Admin/contact/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+
 {% endblock %}

@@ -72,11 +72,6 @@ class PublicOrderController extends AbstractController
         ]);
     }
 
-    #[Route("/generate-pdf", name: "admin_order_generate")]
-    public function generatePdf(Pdf $knpSnappy_Pdf) {
-
-    }
-
     /**
      * @Route("canceled/{id}", name="public_orders_canceled")
      * @param Orders $order

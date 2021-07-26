@@ -1,3 +1,4 @@
+{% trans_default_domain "NegasProjectTrans" %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,36 +8,28 @@
     <title>Mon titre</title>
 </head>
 <body>
-    <h1 style="text-align: center" class="h1 m-auto">Détail de la commande {{ order.nCmd }}</h1>
+    <h1 style="text-align: center" class="h1 m-auto">{{ "orders.title.show" |trans({"%order_ncmd%": order.nCmd}) }}</h1>
         <div style="margin:0 auto;max-width:1700px;">
             <table>
                 <tbody>
                 <tr>
-                    <th>Id</th>
-                    <td>{{ order.id }}</td>
-                </tr>
-                <tr>
-                    <th>Produit</th>
+                    <th>{{ "orders.product"| trans }}</th>
                     <td>{{ order.products }}</td>
                 </tr>
                 <tr>
-                    <th>Quantitée</th>
-                    <td>{{ order.quantity }}</td>
-                </tr>
-                <tr>
-                    <th>Crée le ...</th>
+                    <th>{{ "table.created_at"| trans }}</th>
                     <td>{{ order.createdAt ? order.createdAt|date('d/m/Y H:i:s') : '' }}</td>
                 </tr>
                 <tr>
-                    <th>Total</th>
+                    <th>{{ "orders.total"| trans }}</th>
                     <td>{{ order.total }}</td>
                 </tr>
                 <tr>
-                    <th>Validation</th>
+                    <th>{{ "orders.validation"| trans }}</th>
                     <td>{{ order.validation }}</td>
                 </tr>
                 <tr>
-                    <th>NCmd</th>
+                    <th>{{ "orders.ncmd"| trans }}</th>
                     <td>{{ order.nCmd }}</td>
                 </tr>
                 </tbody>

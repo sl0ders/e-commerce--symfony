@@ -6,19 +6,25 @@
         <div class='admin-home text-center font-weight-bold'>
             <div class='container-fluid'>
                 <div class='row d-flex justify-content-center'>
-                    <div class='case-stock col-md-3 m-3 border rounded rgba-light-green-light'>
-                        <a class='text-decoration-none' href='{{ path('user_profile_detail', {'name' : app.user.firstname}) }}'>
-                            <h3 class='text-center font-weight-bold mt-3'>Gestion de votre compte</h3>
-                            <img src='{{ asset('images/svg/gestion_user.png') }}' width='60%' alt='Gestion des stock'></a>
-                    </div>
-                    <div class='case-contact col-md-3 m-3 border rounded rgba-light-blue-light'>
-                        <a class='text-decoration-none' href='{{ path('user_orders', {'name' : app.user.firstname}) }}'>
-                            <h3 class='text-center font-weight-bold mt-3'>Gestion de vos commandes</h3>
-                            <img src='{{ asset('images/gestion_order.png') }}' width='60%' alt='Gestion des contacts'></a>
-                    </div>
+                    <a href="{{ path('user_profile_detail', {'name' : app.user.firstname}) }}" class="case-contact case col-md-3 m-1 rgba-light-blue-light">
+                        <div class="text-decoration-none text-black-50">
+                            <h3 class="text-center mt-3 mb-2">{{ "home_public.setting_management"|trans }}</h3>
+                            <i class="fas fa-user-cog fa-5x"></i>
+                        </div>
+                    </a>
+                    <a href="{{ path('user_orders', {'name' : app.user.firstname}) }}" class="case-order case col-md-3 m-1">
+                        <div class="text-decoration-none text-black-50">
+                            <h3 class="text-center mt-3 mb-5">{{ "home_public.orders_management"|trans }}</h3>
+                            <i class="fas fa-dolly-flatbed fa-5x"></i></div>
+                    </a>
+                    <a href="{{ path('user_notification_index', {'name' : app.user.firstname}) }}" class="case-notification case col-md-3 m-1">
+                        <div class="text-decoration-none text-black-50">
+                            <h3 class="text-center mt-3 mb-5">{{ "home_public.notification_management"|trans }}</h3>
+                            <i class="fas fa-bell fa-5x"></i></div>
+                    </a>
                 </div>
             </div>
-            <a href='{{ path('home') }}' class='btn btn-primary'>Retour</a>
+            <a href='{{ path('home') }}' class='btn btn-primary float-left'>{{ "button.return"| trans }}</a>
         </div>
 {% endblock %}
 

@@ -4,33 +4,35 @@
 
 {% block body %}
     <div class="datatable">
-        <div class="h1 m-auto text-center">Produit</div>
+        <h5 class="card-header text-center py-4">
+            <strong>{{ "product.title.show"| trans({"%product_name%": product.name}) }}</strong>
+        </h5>
         <div class="datatable_content">
             <div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
                 <table class="table table-bordered table-condensed table-body-center">
                     <tbody>
                     <tr>
-                        <th>Nom</th>
+                        <th>{{ "product.name" | trans }}</th>
                         <td>{{ product.name }}</td>
                     </tr>
                     <tr>
-                        <th>Description</th>
+                        <th>{{ "product.description" | trans }}</th>
                         <td>{{ product.description }}</td>
                     </tr>
                     <tr>
-                        <th>Package</th>
+                        <th>{{ "product.package" | trans }}</th>
                         <td>{{ product.package.quantity }} {{ product.package.unity }}</td>
                     </tr>
                     <tr>
-                        <th>Prix</th>
+                        <th>{{ "product.price" | trans }}</th>
                         <td>{{ product.price| format_currency("EUR") }}</td>
                     </tr>
                     <tr>
-                        <th>Grande image</th>
+                        <th>{{ "product.big_picture" | trans }}</th>
                         <td><img src="{{ vich_uploader_asset(product.picture, 'imageFile') }}" alt="{{ product.name }} large" width="500"></td>
                     </tr>
                     <tr>
-                        <th>Petite image</th>
+                        <th>{{ "product.small_picture" | trans }}</th>
                         <td>
                             <img class="img_png" src="/images/product/{{ product.filenamePng }}" alt="{{ product.name }} small" width="500">
                         </td>
@@ -40,9 +42,8 @@
                 </table>
             </div>
             <div class="button">
-                <a href="{{ path('admin_product_index') }}" class="btn btn-primary">Retour</a>
-                <a href="{{ path('admin_product_edit', {'id': product.id}) }}" class="btn btn-warning text-white"><i
-                            class="fas fa-edit"></i></a>
+                <a href="{{ path('admin_product_index') }}" class="btn btn-primary float-left">{{ "button.return" | trans }}</a>
+                <a href="{{ path('admin_product_edit', {'id': product.id}) }}" class="btn btn-warning text-white"><i class="fas fa-edit"></i></a>
                 {{ include('Admin/product/_delete_form.html.twig') }}
             </div>
         </div>

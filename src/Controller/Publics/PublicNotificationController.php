@@ -3,6 +3,7 @@
 namespace App\Controller\Publics;
 
 use App\Datatables\NotificationDatatable;
+use App\Datatables\OrderDatatable;
 use App\Entity\Notification;
 use App\Repository\NotificationRepository;
 use App\Repository\UserRepository;
@@ -19,52 +20,45 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
+ * @property TranslatorInterface translator
  * @Route("/parameters/notification")
  */
-class NotificationController extends AbstractController
+class PublicNotificationController extends AbstractController
 {
     /**
-     * @var DatatableFactory|UserRepository
+     * @var DatatableFactory
      */
-    private UserRepository|DatatableFactory $userRepository;
-    private DatatableFactory $datatableFactory;
-    private DatatableResponse|DatatableFactory $datatableResponse;
-    /**
-     * @var TranslatorInterface
-     */
-    private TranslatorInterface $translator;
+    private DatatableFactory $factory;
 
-    public function __construct(
-        DatatableFactory $datatableFactory,
-        DatatableResponse $datatableResponse,
-        UserRepository $userRepository,
-        TranslatorInterface $translator
-    )
+    /**
+     * @var DatatableResponse
+     */
+    private DatatableResponse $response;
+
+    public function __construct(DatatableFactory $factory, DatatableResponse $response, TranslatorInterface $translator)
     {
-        $this->datatableFactory = $datatableFactory;
-        $this->datatableResponse = $datatableResponse;
-        $this->userRepository = $userRepository;
         $this->translator = $translator;
+        $this->factory = $factory;
+        $this->response = $response;
     }
 
     /**
      * @Route("/", name="user_notification_index", methods={"GET"})
      * @param Request $request
+     * @param NotificationRepository $notificationRepository
      * @return Response
      * @throws Exception
      */
     public function index(Request $request, NotificationRepository $notificationRepository): Response
     {
-        $user = $this->userRepository->find($this->getUser());
         // Variable initialize
         $isAjax = $request->isXmlHttpRequest();
-        // Datatable initialize
-        $datatable = $this->datatableFactory->create(NotificationDatatable::class);
+        $datatable = $this->factory->create(NotificationDatatable::class);
         $datatable->buildDatatable();
+
         if ($isAjax) {
-            $responseService = $this->datatableResponse;
+            $responseService = $this->response;
             $responseService->setDatatable($datatable);
-            // if the person connected is an administrator he will see all the notifications of all the companies
             if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
                 $responseService->getDatatableQueryBuilder();
             } else {
@@ -72,14 +66,14 @@ class NotificationController extends AbstractController
                 $datatableQueryBuilder = $responseService->getDatatableQueryBuilder();
                 $qb = $datatableQueryBuilder->getQb();
                 $qb
-                    ->leftJoin("notification.receiver", "company")
-                    ->andWhere($qb->expr()->eq('company', ':q_company'))
-                    ->setParameter("q_company", $user->getCompany());
+                    ->leftJoin("notification.receiver", "user")
+                    ->andWhere($qb->expr()->eq('user.id', ':q_user'))
+                    ->setParameter("q_user", $this->getUser()->getId());
             }
             return $responseService->getResponse();
         }
         return $this->render('Public/notification/index.html.twig', [
-            'notifications' => $notificationRepository->findByUser($user),
+            'notifications' => $notificationRepository->findByReceiver($this->getUser()),
             'datatable' => $datatable
         ]);
     }

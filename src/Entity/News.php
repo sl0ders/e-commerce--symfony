@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -37,12 +38,6 @@ class News
      * @Groups({"news_read"})
      */
     private $content;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"news_read"})
-     */
-    private $filename;
 
     /**
      * @Assert\Image(mimeTypes="image/jpeg")
@@ -105,12 +100,12 @@ class News
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
@@ -127,21 +122,5 @@ class News
         $this->product = $product;
 
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFilename()
-    {
-        return $this->filename;
-    }
-
-    /**
-     * @param mixed $filename
-     */
-    public function setFilename($filename): void
-    {
-        $this->filename = $filename;
     }
 }

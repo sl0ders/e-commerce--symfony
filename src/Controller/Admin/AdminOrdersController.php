@@ -31,9 +31,8 @@ class AdminOrdersController extends AbstractController
      */
     private DatatableResponse $response;
 
-    public function __construct(DatatableFactory $factory, DatatableResponse $response, TranslatorInterface $translator)
+    public function __construct(DatatableFactory $factory, DatatableResponse $response)
     {
-        $this->translator = $translator;
         $this->factory = $factory;
         $this->response = $response;
     }
@@ -95,20 +94,19 @@ class AdminOrdersController extends AbstractController
 
 
     /**
-     * @Route("/{id}", name="admin_orders_delete", methods={"DELETE"})
+     * @Route("/{id}", name="admin_orders_delete", )
      * @param Request $request
      * @param Orders $order
      * @return Response
      */
-    public
-    function delete(Request $request, Orders $order): Response
+    public function delete(Request $request, Orders $order): Response
     {
         if ($this->isCsrfTokenValid('delete' . $order->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($order);
             $entityManager->flush();
+            $this->addFlash("success", "flash.order.deleteSuccessfully");
         }
-
         return $this->redirectToRoute('admin_orders_index');
     }
 }

@@ -22,7 +22,7 @@ class ApplicationType extends AbstractType
             'label' => $label,
             'attr' => [
                 'placeholder' => $placeholder,
-                "class" => "form-control"
+                "class" => "form-control md-form"
             ]
         ], $options);
     }

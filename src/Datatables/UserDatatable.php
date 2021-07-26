@@ -44,34 +44,34 @@ class UserDatatable extends AbstractDatatable
 
         $this->columnBuilder
             ->add('email', Column::class, [
-                'title' => 'Adresse email',
+                'title' => $this->translator->trans('user.label.email', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,
                 "width" => "150px"
             ])->add('status', Column::class, [
-                'title' => 'Status',
+                'title' => $this->translator->trans('user.label.state', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,
                 "width" => "150px"
             ])->add('roles', Column::class, [
-                'title' => 'Role',
+                'title' => $this->translator->trans('user.label.roles', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,
                 "width" => "150px"
             ])
             ->add('created_at', DateTimeColumn::class, [
-                'title' => 'Créer le ...',
+                'title' => $this->translator->trans('user.label.created_at', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,
                 "width" => "150px"
             ])->add('enabled', Column::class, [
-                'title' => "désactiver",
+                'title' => $this->translator->trans('table.disabled', [], 'NegasProjectTrans'),
                 'visible' => false,
                 "width" => "150px"
             ])->add(null, ActionColumn::class, [
                     'title' => 'Actions',
-                    'start_html' => '<div class="start_actions">',
-                    "width" => "20px",
+                    'start_html' => '<div class="start_actions" style="width:70px; text-align: center; display: flex; justify-content: space-between">',
+                    "width" => "70px",
                     'end_html' => '</div>',
                     'actions' => [
                         [
@@ -82,7 +82,7 @@ class UserDatatable extends AbstractDatatable
                             'icon' => 'fas fa-toggle-off fa-2x',
                             'attributes' => [
                                 'rel' => 'tooltip',
-                                'title' => "enabled",
+                                'title' => $this->translator->trans('table.enabled', [], 'NegasProjectTrans'),
                                 'class' => 'btn btn-danger btn-sm',
                                 'role' => 'button'
                             ],
@@ -98,7 +98,7 @@ class UserDatatable extends AbstractDatatable
                             'icon' => 'fas fa-toggle-on fa-2x',
                             'attributes' => [
                                 'rel' => 'tooltip',
-                                'title' => "disabled",
+                                'title' => $this->translator->trans('table.disabled', [], 'NegasProjectTrans'),
                                 'class' => 'btn btn-success btn-sm',
                                 'role' => 'button'
                             ],
@@ -113,7 +113,7 @@ class UserDatatable extends AbstractDatatable
                             'icon' => 'fas fa-eye fa-2x',
                             'attributes' => [
                                 'rel' => 'tooltip',
-                                'title' => "Détail",
+                                'title' => $this->translator->trans('product.label.detail', [], 'NegasProjectTrans'),
                                 'class' => 'btn btn-primary btn-sm',
                                 'role' => 'button'
                             ],

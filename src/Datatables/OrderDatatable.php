@@ -5,20 +5,55 @@ namespace App\Datatables;
 
 
 use App\Entity\Orders;
+use App\Entity\User;
+use Closure;
 use Exception;
+use NumberFormatter;
 use Sg\DatatablesBundle\Datatable\AbstractDatatable;
 use Sg\DatatablesBundle\Datatable\Column\ActionColumn;
 use Sg\DatatablesBundle\Datatable\Column\Column;
 use Sg\DatatablesBundle\Datatable\Column\DateTimeColumn;
+use Sg\DatatablesBundle\Datatable\Column\NumberColumn;
+use Sg\DatatablesBundle\Datatable\Column\VirtualColumn;
 use Sg\DatatablesBundle\Datatable\Style;
 
 class OrderDatatable extends AbstractDatatable
 {
+
+    public function getLineFormatter(): Closure
+    {
+        return function ($row) {
+            $order = $this->em->getRepository(Orders::class)->find($row["id"]);
+            /** @var User $user */
+            $user = $order->getUser();
+            $row['userFullName'] = $user->getFullname();
+
+            switch ($order->getValidation()) {
+                case 1 :
+                    $row['state'] = $this->translator->trans($order::STATE_IN_COURSE, [], 'NegasProjectTrans');
+                    break;
+                case 2 :
+                    $row['state'] = $this->translator->trans($order::STATE_VALIDATE, [], 'NegasProjectTrans');
+                    break;
+                case 3 :
+                    $row['state'] = $this->translator->trans($order::STATE_COMPLETED, [], 'NegasProjectTrans');
+                    break;
+                case 4 :
+                    $row['state'] = $this->translator->trans($order::STATE_HONORED, [], 'NegasProjectTrans');
+                    break;
+            }
+            return $row;
+        };
+    }
+
+
     /**
      * @throws Exception
      */
     public function buildDatatable(array $options = [])
     {
+        $formatter = new NumberFormatter("de_DE", NumberFormatter::CURRENCY);
+
         $this->language->set(array(
             'cdn_language_by_locale' => true,
         ));
@@ -43,45 +78,46 @@ class OrderDatatable extends AbstractDatatable
         ]);
 
         $this->columnBuilder
-            ->add('id', Column::class, [
-                'title' => 'id',
+            ->add("id", Column::class, [
                 "visible" => false
             ])
-            ->add("user.name", Column::class, [
-                'title' => "Commande effectué par...",
-                'searchable' => true,
-                'orderable' => true
-            ])
             ->add('nCmd', Column::class, [
-                'title' => 'Numero de commande',
+                'title' => $this->translator->trans('orders.label.ncmd', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,
             ])
+            ->add("userFullName", VirtualColumn::class, array(
+                'title' => $this->translator->trans('user.label.fullname', [], 'NegasProjectTrans'),
+                'searchable' => true,
+                'search_column' => 'isDefault',
+                'order_column' => 'created_at',
+                'orderable' => true,
+            ))
             ->add('created_at', DateTimeColumn::class, [
-                'title' => 'Date de création',
+                'title' => $this->translator->trans('orders.label.created_at', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,
             ])
-            ->add('quantity', Column::class, [
-                'title' => 'Quantité',
+            ->add('total', NumberColumn::class, [
+                'title' => $this->translator->trans('orders.label.total', [], 'NegasProjectTrans'),
                 'searchable' => true,
+                'formatter' => $formatter,
+                'use_format_currency' => true, // needed for \NumberFormatter::CURRENCY
+                'currency' => 'EUR',
                 'orderable' => true,
             ])
-            ->add('total', Column::class, [
-                'title' => 'Total',
-                'searchable' => true,
-                'orderable' => true,
-            ])
-            ->add('validation', Column::class, [
-                'title' => 'État de la commande',
+            ->add('state', VirtualColumn::class, [
+                'title' => $this->translator->trans('orders.label.state', [], 'NegasProjectTrans'),
                 "class_name" => "validation",
                 'searchable' => true,
+                'search_column' => 'isDefault',
                 'orderable' => true,
+                'order_column' => 'created_at'
             ])
             ->add(null, ActionColumn::class, [
                     'title' => 'Actions',
-                    'start_html' => '<div class="start_actions">',
-                    "width" => "110px",
+                    'start_html' => '<div class="start_actions" style="width:150px; text-align: center; display: flex; justify-content: space-between">',
+                    "width" => "200px",
                     'end_html' => '</div>',
                     'actions' => [
                         [

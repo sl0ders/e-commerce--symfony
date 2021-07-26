@@ -1,32 +1,30 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain "NegasProjectTrans" %}
-{% block title %}Index de gestion des news{% endblock %}
+{% block title %}{{ "news.title.index" | trans }}{% endblock %}
 
 {% block body %}
     <div class="datatable">
         <h5 class="card-header text-center py-4">
-            <strong>Index de gestion des news</strong>
+            <strong>{{ "news.title.index" | trans }}</strong>
         </h5>
         <div class="datatable_content">
             <div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
                 <table class="table table-bordered table-condensed table-body-center">
                     <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Titre</th>
-                        <th>Contenu</th>
-                        <th>Image</th>
-                        <th>Crée le ...</th>
-                        <th>actions</th>
+                        <th>{{ "news.subject" | trans }}</th>
+                        <th>{{ "news.content" | trans }}</th>
+                        <th>{{ "news.picture" | trans }}</th>
+                        <th>{{ "table.created_at" | trans }}</th>
+                        <th>{{ "table.action" | trans }}</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for news in news %}
                         <tr>
-                            <td>{{ news.id }}</td>
                             <td>{{ news.Title }}</td>
                             <td>{{ news.content }}</td>
-                            <td>{{ news.filename }}</td>
+                            <td><img src="{{ vich_uploader_asset(news.product.picture, 'imageFile') | imagine_filter("thumb") }}" alt=""></td>
                             <td>{{ news.createdAt ? news.createdAt|date('d/m/Y H:i:s') : '' }}</td>
                             <td>
                                 <a href="{{ path('admin_news_show', {'id': news.id}) }}" class="btn btn-primary"><i
@@ -37,14 +35,15 @@
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="6">Aucun élément enregistré</td>
+                            <td colspan="6">{{ "table.no_element" | trans }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
             <div class="button">
-                <a href="{{ path('admin_news_new') }}" class="btn btn-success text-white">Création d'un élément</a>
+                <a href="{{ path('admin_news_new') }}" class="btn btn-success text-white">{{ "button.create" | trans }}</a>
+                <a href="{{ path('admin_home') }}" class="btn btn-primary text-white float-left">{{ "button.return" | trans }}</a>
             </div>
         </div>
     </div>

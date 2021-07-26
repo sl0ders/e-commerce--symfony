@@ -235,6 +235,7 @@ body {
       align-items: center;
       justify-content: center;
       height: 300px;
+      border-radius: 50%;
 
       &.case-product {
         background: rgba(220, 150, 2, 0.3);
@@ -258,6 +259,9 @@ body {
 
       &.case-packing {
         background: rgba(220, 0, 26, 0.3);
+      }
+      &.case-notification {
+        background: rgba(243, 136, 149, 0.3);
       }
     }
 
@@ -475,9 +479,22 @@ body {
       max-width: 60%;
       margin: auto;
       padding: 50px;
+
+      .card-header {
+        margin-bottom: 50px;
+      }
     }
 
     .datatable_content {
+      .form-outline {
+        .md-form {
+          label {
+            font-weight: 900;
+            font-size: 1.2em;
+          }
+        }
+      }
+
       thead {
         tr {
           th {

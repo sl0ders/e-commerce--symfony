@@ -36,9 +36,10 @@
 </head>
 <header>
     {{ render(controller('App\\Controller\\HeaderBundleController::getNotification')) }}
+
 </header>
 <body>
-
+{% include 'Layout/Flashes/negasFlashes.html.twig' %}
 <div class="container-fluid">
     <div class="row">
         {% if not is_granted("ROLE_ADMIN") %}

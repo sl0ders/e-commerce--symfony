@@ -23,11 +23,13 @@ class CartController extends AbstractController
      * @var CartService
      */
     private CartService $cartService;
+    private EmailService $emailService;
 
-    public function __construct(CartService $cartService, TranslatorInterface $translator)
+    public function __construct(CartService $cartService, TranslatorInterface $translator, EmailService $emailService)
     {
         $this->cartService = $cartService;
         $this->translator = $translator;
+        $this->emailService = $emailService;
     }
 
     /**
@@ -39,17 +41,10 @@ class CartController extends AbstractController
     {
         $quantity = $_POST["quantity"];
         $this->cartService->add($id, $quantity);
-        return $this->redirectToRoute("home",
-            [
-                "productId" => $id,
-                "productQuantity" => $quantity
-            ]);
-    }
-
-    #[Route("/remove/cart-item", name: "remove_cart_idem")]
-    public function removeCartItem()
-    {
-
+        return $this->redirectToRoute("home", [
+            "productId" => $id,
+            "productQuantity" => $quantity
+        ]);
     }
 
     /**
@@ -71,24 +66,25 @@ class CartController extends AbstractController
      */
     public function validCart(EmailService $email): RedirectResponse
     {
-        $orders = [];
+        $productsQuantity = [];
         $em = $this->getDoctrine()->getManager();
         $carts = $this->cartService->getAllCart();
+        $subject = $this->translator->trans("email.add_new_order", [], "NegasProjectTrans");
+        $order = new Orders();
+        $order->setUser($this->getUser());
+        $order->setCreatedAt(new DateTime());
+        $order->setNCmd(date("Y-d-m-i-s"));
+        $order->setTotal(intval($this->cartService->getTotal()));
+        $order->setValidation($this->translator->trans($order::STATE_IN_COURSE, [], "NegasProjectTrans"));
         foreach ($carts as $cart) {
-            $order = new Orders();
-            $order
-                ->setCreatedAt(new DateTime())
-                ->setNCmd(date("Y-d-m-i-s"))
-                ->setQuantity($cart['quantity'])
-                ->setUser($this->getUser())
-                ->setProducts($cart['product'])
-                ->setTotal(intval($this->cartService->getTotal()))
-                ->setValidation(1);
-            $em->persist($order);
-            array_push($orders, $order);
+            $order->addProduct($cart['product']);
+            $productQuantity["product"] = $cart["product"];
+            $productQuantity["quantity"] = $cart["quantity"];
+            array_push($productsQuantity, $productQuantity);
         }
-        $email->sendMail("Commande en cour de traitement", [$this->getUser()], ["order_in_course" => true, "orders" => $orders]);
+        $em->persist($order);
         $em->flush();
+        $email->sendMail($subject, [$this->getUser()->getEmail()], ["order_in_course" => true, "order" => $order, "productsQuantity" => $productsQuantity]);
         $this->get('session')->remove('cart');
         return $this->redirectToRoute("home");
     }

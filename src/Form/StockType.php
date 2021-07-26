@@ -19,7 +19,9 @@ class StockType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            "translation_domain" => "NegasProjectTrans",
             'data_class' => Stock::class,
+            'attr' => ['class' => "d-flex align-items-center justify-around flex-column"]
         ]);
     }
 }

@@ -1,4 +1,16 @@
 danger: "Attention"
 success: "Ok"
 flash:
-
+    contact:
+        deleteSuccessfullyflash: "Le contact a bien été supprimé"
+    news:
+        createSuccessfully: "La news a bien été créé"
+        updateSuccessfully: "La news a bien été mise a jour"
+        deleteSuccessfully: "La news a bien été supprimé"
+    order:
+        deleteSuccessfully: "La commande a bien été supprimé"
+    package:
+        createSuccessfully: "Le packaging a bien été enregistré"
+        deleteCancelled: "Impossible de supprimer le package, un produit est actuelement lié a celui-ci"
+    connection:
+        email_not_foud: "L'adresse email n'a pas été trouvée"

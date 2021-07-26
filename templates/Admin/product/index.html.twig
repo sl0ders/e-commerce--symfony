@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain "NegasProjectTrans" %}
-{% block title %}Index de gestion des produits{% endblock %}
+{% block title %}{{ "product.title.index" | trans }}{% endblock %}
 
 {% block body %}
     <div class="datatable">
         <h5 class="card-header text-center py-4">
-            <strong>Index de gestion des produits</strong>
+            <strong>{{ "product.title.index" | trans }}</strong>
         </h5>
         <div class="datatable_content">
             {{ include('Layout/_datatable.html.twig', {subject : "product"}) }}
             <div class="button">
-                <a href="{{ path('admin_package_new') }}" class="btn btn-success text-white">Création d'un élément</a>
-                <a href="{{ path('admin_home') }}" class="btn btn-primary">Retour</a>
+                <a href="{{ path('admin_product_new') }}" class="btn btn-success text-white">{{ "button.create" | trans }}</a>
+                <a href="{{ path('admin_home') }}" class="btn btn-primary float-left">{{ "button.return" | trans }}</a>
             </div>
         </div>
     </div>

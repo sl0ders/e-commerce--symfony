@@ -3,14 +3,16 @@
 
 namespace App\Controller\Admin;
 
-use App\Datatables\OrderDatatable;
 use App\Datatables\PackagingDatatable;
 use App\Entity\Package;
+use App\Entity\Product;
 use App\Form\PackageType;
-use App\Repository\PackageRepository;
+use App\Repository\ProductRepository;
+use Exception;
 use Sg\DatatablesBundle\Datatable\DatatableFactory;
 use Sg\DatatablesBundle\Response\DatatableResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,8 +41,11 @@ class AdminPackageController extends AbstractController
     }
 
 
+    /**
+     * @throws Exception
+     */
     #[Route('/', name: 'admin_package_index')]
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse|Response
     {
         $isAjax = $request->isXmlHttpRequest();
         $datatable = $this->factory->create(PackagingDatatable::class);
@@ -58,9 +63,9 @@ class AdminPackageController extends AbstractController
         ]);
     }
 
-#[Route("/new", name: 'admin_package_new')]
+    #[Route("/new", name: 'admin_package_new')]
     public function new(Request $request): RedirectResponse|Response
-{
+    {
         $package = new Package();
         $form = $this->createForm(PackageType::class, $package);
         $form->handleRequest($request);
@@ -68,11 +73,26 @@ class AdminPackageController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($package);
             $em->flush();
-            $this->addFlash("success", "Le packaging a bien été enregistré");
+            $this->addFlash("success", "flash.package.createSuccessfully");
             return $this->redirectToRoute("admin_package_index");
         }
         return $this->render("Admin/package/new.html.twig", [
             "form" => $form->createView()
         ]);
+    }
+
+    #[Route("/delete/{id}", name: "admin_package_delete", methods: ["DELETE", "GET"])]
+    public function delete(ProductRepository $productRepository, Package $package): RedirectResponse
+    {
+        $product = $productRepository->findBy(["package" => $package]);
+        if ($product instanceof Product) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($package);
+            $em->flush();
+            $this->addFlash("success", "flash.package.deleteSuccessfully");
+        } else {
+            $this->addFlash("danger", "flash.package.deleteCancelled");
+        }
+        return $this->redirectToRoute('admin_package_index');
     }
 }

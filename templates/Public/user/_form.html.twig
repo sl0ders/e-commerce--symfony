@@ -17,7 +17,7 @@
     <div class="button">
         <button class='btn btn-success w-25' type='submit'>Modifier le profile</button>
         <a href='{{ path('user_profile_detail', {'name' : app.user.name}) }}'>
-            <div class='btn btn-primary'>Retour</div>
+            <div class='btn btn-primary float-left'>{{ "button.return"| trans }}</div>
         </a>
     </div>
 {{ form_end(form) }}

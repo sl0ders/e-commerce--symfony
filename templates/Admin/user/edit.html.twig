@@ -1,6 +1,12 @@
 {% trans_default_domain "NegasProjectTrans" %}
 {% block body %}
-    <div class="p-5">
-        {{ include('Admin/user/_form.html.twig') }}
+        <div class="datatable formulary w-100">
+            <h5 class="card-header text-center py-4">
+                <strong>{{ "user.title.edit_status"|trans }}</strong>
+            </h5>
+            <div class="datatable_content">
+                {{ include('Admin/user/_form.html.twig') }}
+            </div>
+        </div>
     </div>
 {% endblock %}

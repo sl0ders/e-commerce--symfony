@@ -35,9 +35,9 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+         if ($this->getUser()) {
+             return $this->redirectToRoute('home');
+         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -54,7 +54,7 @@ class SecurityController extends AbstractController
      * @return RedirectResponse|Response
      * @throws Exception
      */
-    public function add(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function add(Request $request, UserPasswordEncoderInterface $passwordEncoder): RedirectResponse|Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -65,6 +65,7 @@ class SecurityController extends AbstractController
             $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt(new DateTime());
             $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
+            $user->setEnabled(1);
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('app_login');

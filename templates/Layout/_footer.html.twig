@@ -1,59 +1,58 @@
 {% trans_default_domain "NegasProjectTrans" %}
     <!-- Footer Links -->
-        <div class="container text-center text-md-left mt-5 text-white">
-            <!-- Grid row -->
-            <div class="row mt-3">
+<div class="container text-center text-md-left mt-5 text-white">
+    <!-- Grid row -->
+    <div class="row mt-3">
 
-                <!-- Grid column -->
-                <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
 
-                    <!-- Content -->
-                    <h6 class="text-uppercase font-weight-bold">Teraneo</h6>
-                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                    <p>Teraneo est situées du coté de <a href="https://fr.wikipedia.org/wiki/Canoh%C3%A8s">Rivesaltes</a> et
-                        <a href="https://fr.wikipedia.org/wiki/Ille-sur-T%C3%AAt">Illes sur Tet</a>
-                    </p>
+            <!-- Content -->
+            <h6 class="text-uppercase font-weight-bold">Teraneo</h6>
+            <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p>Teraneo {{ "footer.is_located" |trans }}<a
+                        href="https://fr.wikipedia.org/wiki/Canoh%C3%A8s">Rivesaltes</a> et
+                <a href="https://fr.wikipedia.org/wiki/Ille-sur-T%C3%AAt">Illes sur Tet</a>
+            </p>
 
-                </div>
-                <!-- Grid column -->
+        </div>
+        <!-- Grid column -->
 
-                <!-- Grid column -->
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 
-                    <!-- Links -->
+            <!-- Links -->
                     <h6 class="text-uppercase font-weight-bold">Nos Produits</h6>
                     <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>
                         <a href="#!">Fruit</a>
                     </p>
-                    <p>
-                        <a href="#!">legumes</a>
-                    </p>
-                    <p>
-                        <a href="#!">Aromate</a>
-                    </p>
-                </div>
-                <!-- Grid column -->
+            <p>
+                <a href="#!">legumes</a>
+            </p>
+            <p>
+                <a href="#!">Aromate</a>
+            </p>
+        </div>
+        <!-- Grid column -->
 
-                <!-- Grid column -->
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-
-                    <!-- Links -->
-                    <h6 class="text-uppercase font-weight-bold">Liens pratique</h6>
-                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                    <p>
-                        <a href="<?php if ($_SESSION['auth']): ?>index.php?p=profil.index<?php else: ?>index.php?p=users.login <?php endif; ?>">Votre
-                            compte</a>
-                    </p>
-                    <p>
-                        <a href="<?php if ($_SESSION['auth']): ?>index.php?p=users.show<?php else: ?>index.php?p=users.login <?php endif; ?>">Vos
-                            Informations</a>
-                    </p>
-                    <p>
-                        <a href="<?php if ($_SESSION['auth']): ?>index.php?p=order.index<?php else: ?>index.php?p=users.login <?php endif; ?>">Vos
-                            commandes</a>
-                    </p>
-                </div>
+        <!-- Grid column -->
+        {% if app.user %}
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase font-weight-bold">Liens pratique</h6>
+                <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>
+                    <a href="{{ path('home_user', {'name': app.user.name}) }}">Votre compte</a>
+                </p>
+                <p>
+                    <a href="{{ path('user_profile_detail', {'name': app.user.name}) }}">Vos Informations</a>
+                </p>
+                <p>
+                    <a href="{{ path('user_orders', {'name': app.user.name}) }}">Vos commandes</a>
+                </p>
+            </div>
+        {% endif %}
                 <!-- Grid column -->
 
                 <!-- Grid column -->

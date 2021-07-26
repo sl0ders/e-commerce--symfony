@@ -3,18 +3,25 @@
 namespace App\Datatables;
 
 use App\Entity\Product;
+use NumberFormatter;
 use Sg\DatatablesBundle\Datatable\AbstractDatatable;
 use Sg\DatatablesBundle\Datatable\Column\ActionColumn;
 use Sg\DatatablesBundle\Datatable\Column\Column;
 use Sg\DatatablesBundle\Datatable\Column\DateTimeColumn;
 use Sg\DatatablesBundle\Datatable\Column\ImageColumn;
+use Sg\DatatablesBundle\Datatable\Column\NumberColumn;
 use Sg\DatatablesBundle\Datatable\Style;
 
 class ProductDatatable extends AbstractDatatable
 {
 
+    /**
+     * @throws \Exception
+     */
     public function buildDatatable(array $options = [])
     {
+        $formatter = new NumberFormatter("de_DE", NumberFormatter::CURRENCY);
+
         $this->language->set(array(
             'cdn_language_by_locale' => true,
         ));
@@ -39,57 +46,34 @@ class ProductDatatable extends AbstractDatatable
         ]);
 
         $this->columnBuilder
-            ->add('id', Column::class, [
-                'title' => 'Id',
-                'searchable' => true,
-                'orderable' => true,
-                "width" => "50px"
-            ])
-            ->add("name", Column::class, [
-                "title" => "Nom du produit",
-                "searchable" => true,
-                "orderable" => true,
-                "width" => "110px"
+            ->add("filenameJpg", ImageColumn::class, [
+                "title" => $this->translator->trans('product.label.jpg_file', [], 'NegasProjectTrans'),
+                "imagine_filter" => "thumb",
+                "relative_path" => "images/product",
+                "holder_width" => "50",
+                "holder_height" => "50",
+                "width" => "100px"
             ])
             ->add("description", Column::class, [
-                "title" => "Description",
+                "title" => $this->translator->trans('product.label.description', [], 'NegasProjectTrans'),
                 "searchable" => true,
                 "orderable" => true,
                 "width" => "300px"
             ])
-            ->add("price", Column::class, [
-                "title" => "Prix",
+            ->add("price", NumberColumn::class, [
+                "title" => $this->translator->trans('product.label.price', [], 'NegasProjectTrans'),
                 "searchable" => true,
                 "orderable" => true,
+                'formatter' => $formatter,
+                'use_format_currency' => true, // needed for \NumberFormatter::CURRENCY
+                'currency' => 'EUR',
                 "width" => "50px"
             ])
             ->add("stock.quantity", Column::class, [
-                "title" => "Quantité",
+                "title" => $this->translator->trans('product.label.quantity', [], 'NegasProjectTrans'),
                 "searchable" => true,
                 "orderable" => true,
                 "width" => "50px"
-            ])
-            ->add("updated_at", DateTimeColumn::class, [
-                "title" => "Date de creation",
-                "searchable" => true,
-                "orderable" => true,
-                "width" => "150px"
-            ])
-            ->add("filenameJpg", ImageColumn::class, [
-                "title" => "Image jpg",
-                "imagine_filter" => "thumb",
-                "relative_path" => "images/product",
-                "holder_width" => "50",
-                "holder_height" => "50",
-                "width" => "100px"
-            ])
-            ->add("filenamePng", ImageColumn::class, [
-                "title" => "Image png",
-                "imagine_filter" => "thumb",
-                "relative_path" => "images/product",
-                "holder_width" => "50",
-                "holder_height" => "50",
-                "width" => "100px"
             ])
             ->add("enabled", Column::class, [
                 'title' => "désactiver",
@@ -97,8 +81,8 @@ class ProductDatatable extends AbstractDatatable
             ])
             ->add(null, ActionColumn::class, [
                     'title' => 'Actions',
-                    'start_html' => '<div class="start_actions">',
-                    "width" => "110px",
+                    'start_html' => '<div class="start_actions" style="width:160px; text-align: center; display: flex; justify-content: space-between">',
+                    "width" => "200px",
                     'end_html' => '</div>',
                     'actions' => [
                         [

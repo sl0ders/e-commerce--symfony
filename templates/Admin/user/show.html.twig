@@ -10,46 +10,42 @@
                 <table class="table table-bordered table-condensed table-body-center">
                     <tbody>
                     <tr>
-                        <th>Email</th>
+                        <th>{{ "user.email" |trans }}</th>
                         <td>{{ user.email }}</td>
                     </tr>
                     <tr>
-                        <th>Roles</th>
+                        <th>{{ "user.role" |trans }}</th>
                         <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
                     </tr>
                     <tr>
-                        <th>Status</th>
+                        <th>{{ "user.status" |trans }}</th>
                         <td>
-                            {% if user.status == "visiteur" %}
-                                Visiteur
+                            {% if user.status ==  "visiteur" %}
+                            {{  "user.state.visitor" |trans }}
                             {% elseif user.status == "client" %}
-                                Client(e)
+                               {{"user.state.client" |trans }}
                             {% elseif user.status == "administrateur" %}
-                                Administrateur
+                                {{"user.state.admin" |trans}}
                             {% elseif user.status == "ban" %}
-                                Utilisateur bannie
+                                {{"user.state.ban" |trans}}
                             {% endif %}
                         </td>
                     </tr>
                     <tr>
-                        <th>Prénom</th>
-                        <td>{{ user.firstname }}</td>
+                        <th>{{ "user.firstName"|trans }}</th>
+                        <td>{{ user.fullname }}</td>
                     </tr>
                     <tr>
-                        <th>Nom</th>
-                        <td>{{ user.name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Pseudo</th>
+                        <th>{{ "user.userName"|trans }}</th>
                         <td>{{ user.username }}</td>
                     </tr>
                     <tr>
-                        <th>Date de creation du compte</th>
+                        <th>{{ "table.created_at"|trans }}</th>
                         <td>{{ user.createdAt ? user.createdAt|date('d/m/Y H:i:s') : '' }}</td>
                     </tr>
                     {% if user.adresse %}
                         <tr>
-                            <th>Adresse</th>
+                            <th>{{ "user.address"|trans }}</th>
                             <td>{{ user.adresse }}</td>
                         </tr>
                     {% endif %}
@@ -59,7 +55,7 @@
             <a data-target="{{ path('admin_user_editStatus', {'id': user.id}) }}" data-tooltip="voir"
                class="font-weight-bold tooltipped modal-trigger right-align" href="#modal1">
                 <button class="btn btn-warning text-white" data-toggle="modal" data-target="#centralModalSm">
-                    <i class="fas fa-edit"></i>
+                    Éditer
                 </button>
             </a>
             {{ include('Admin/user/_delete_form.html.twig') }}
@@ -69,7 +65,7 @@
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title w-100" id="myModalLabel">Modifier le status</h4>
+                            <h4 class="modal-title w-100" id="myModalLabel">{{ "user.title.edit_status"|trans }}</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -77,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ path('admin_user_index') }}" class="btn btn-primary">Retour</a>
+            <a href="{{ path('admin_user_index') }}" class="btn btn-primary float-left">{{ "button.return"|trans }}</a>
         </div>
     </div>
 {% endblock %}

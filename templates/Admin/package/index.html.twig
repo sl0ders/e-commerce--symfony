@@ -4,13 +4,13 @@
 
     <div class="datatable">
         <h5 class="card-header text-center py-4">
-            <strong>Index de gestion des packaging</strong>
+            <strong>{{ "package.title.index" | trans }}</strong>
         </h5>
         <div class="datatable_content">
             {{ include('Layout/_datatable.html.twig', {subject : "packaging"}) }}
             <div class="button">
-                <a href="{{ path('admin_package_new') }}" class="btn btn-success text-white">Création d'un élément</a>
-                <a href="{{ path('admin_home') }}" class="btn btn-primary">Retour</a>
+                <a href="{{ path('admin_package_new') }}" class="btn btn-success text-white">{{ "button.create" | trans }}</a>
+                <a href="{{ path('admin_home') }}" class="btn btn-primary float-left">{{ "button.return" | trans }}</a>
             </div>
         </div>
     </div>
