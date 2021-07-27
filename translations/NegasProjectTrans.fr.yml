@@ -9,6 +9,7 @@ button:
     create: "Création d'un element"
     connection: 'Connexion'
     signin: "S'inscrire"
+    edit: 'Éditer'
 
 table:
     action: "Actions"
@@ -45,21 +46,24 @@ news:
         new: "Création d'une nouvelle news"
     subject: 'Titre'
     content: 'Contenu de la news'
-    picture: 'Image liée'
+    picture: 'Produit liée'
 
 orders:
     title:
         index: 'Index de gestion des commandes'
         show: 'Détail de la commande %order_ncmd%'
+        edit_status: "Édition du status de la commande n°%order_ncmd%"
     product: 'Produits'
     quantity: 'Quantité'
     total: 'Total'
+    price: 'Prix'
     validation: 'Status'
     states:
         in_course: "Validation de la commande en cours"
         validate: "Commande validée"
         completed: "Commande complete"
         honored: "Commande honorée"
+        aborded: "Commande interrompue"
     ncmd: 'Numero de commande'
     label:
         state: 'État de la commande'
@@ -68,7 +72,7 @@ orders:
         created_at: 'Date de création'
         ncmd: 'Numero de commande'
         user_name: 'Commande effectué par...'
-        package: 'NegasProjectTrans'
+        package: 'Packaging'
 
 package:
     title:
@@ -96,6 +100,7 @@ user:
         index: 'Index de gestion des utilisateurs'
         signin: 'Enregistrement'
         login: 'Se connecter'
+        show: "Détail de l'utilisateur %fullname%"
     state:
         visitor: 'Visiteur'
         client: 'Client'
@@ -155,6 +160,7 @@ home_admin:
     news_management: 'Gestion des News'
     orders_management: 'Gestion des commandes'
     package_management: 'Gestion des packagings'
+    notification_management: 'Gestion des notifications'
 
 email:
     title:
@@ -165,6 +171,12 @@ email:
     total: 'Total'
     unity: 'Unité(s)'
     add_new_order: 'Nouvelle commande de votre part sur le site de teraneo'
+    order:
+        changeState: 'Votre commande numero %orderNumber% a changer de status'
+        orderValidate: 'Votre commande a été validé par notre service, a present celle-ci est en cour de préparation, nous vous remerçions pour votre confiance, nous mettons tout en oeuvre pour compléter votre commande au plus vite'
+        orderCompleted: 'Bonne nouvelle ! Votre commande est maintenant prete, celle-ci vous attend a notre point de vente'
+        orderHonored: 'Votre commande est maintenant cloturé. Nous vous remercions du fond du coeur pour la confiance apporté a notre service de vente sur le site Teraneo et nous esperons vous revoir tres bientot'
+        orderAborded: 'La commande a été abandonnée, veuillez contacter teraneo pour plus de détail'
 
 header:
     tilte: "Boutique en ligne"
@@ -188,9 +200,14 @@ notification:
         show: 'Visualiser'
         archived: 'Archiver'
         desarchived: 'Désarchiver'
+    orders:
+        changeState: 'Votre commande numero %orderNumber% a changer de status'
 home_public:
     setting_management: 'Gestion du profil'
     orders_management: 'Gestion des commandes'
     notification_management: 'Gestion des notifications'
 text:
     or: 'où'
+order:
+    title:
+        edit_status: 'NegasProjectTrans'

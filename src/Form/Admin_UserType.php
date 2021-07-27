@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,10 +16,10 @@ class Admin_UserType extends AbstractType
         $builder
             ->add('Status', ChoiceType::class, [
                 'choices' => [
-                    'Visiteur' => "Visiteur",
-                    'Client' => 'Client',
-                    'Administrateur' =>  'Administrateur',
-                    'Banni' => 'Banni'
+                   User::STATE_VISITOR =>  User::STATE_VISITOR ,
+                    User::STATE_CLIENT => User::STATE_CLIENT,
+                    User::STATE_ADMINISTRATOR => User::STATE_ADMINISTRATOR,
+                    User::STATE_BAN => User::STATE_BAN
                 ]
             ]);
     }

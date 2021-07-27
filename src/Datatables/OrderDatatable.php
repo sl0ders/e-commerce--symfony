@@ -27,21 +27,6 @@ class OrderDatatable extends AbstractDatatable
             /** @var User $user */
             $user = $order->getUser();
             $row['userFullName'] = $user->getFullname();
-
-            switch ($order->getValidation()) {
-                case 1 :
-                    $row['state'] = $this->translator->trans($order::STATE_IN_COURSE, [], 'NegasProjectTrans');
-                    break;
-                case 2 :
-                    $row['state'] = $this->translator->trans($order::STATE_VALIDATE, [], 'NegasProjectTrans');
-                    break;
-                case 3 :
-                    $row['state'] = $this->translator->trans($order::STATE_COMPLETED, [], 'NegasProjectTrans');
-                    break;
-                case 4 :
-                    $row['state'] = $this->translator->trans($order::STATE_HONORED, [], 'NegasProjectTrans');
-                    break;
-            }
             return $row;
         };
     }
@@ -52,7 +37,7 @@ class OrderDatatable extends AbstractDatatable
      */
     public function buildDatatable(array $options = [])
     {
-        $formatter = new NumberFormatter("de_DE", NumberFormatter::CURRENCY);
+        $formatter = new NumberFormatter("fr_FR", NumberFormatter::CURRENCY);
 
         $this->language->set(array(
             'cdn_language_by_locale' => true,
@@ -106,13 +91,11 @@ class OrderDatatable extends AbstractDatatable
                 'currency' => 'EUR',
                 'orderable' => true,
             ])
-            ->add('state', VirtualColumn::class, [
+            ->add('validation', Column::class, [
                 'title' => $this->translator->trans('orders.label.state', [], 'NegasProjectTrans'),
                 "class_name" => "validation",
                 'searchable' => true,
-                'search_column' => 'isDefault',
                 'orderable' => true,
-                'order_column' => 'created_at'
             ])
             ->add(null, ActionColumn::class, [
                     'title' => 'Actions',
@@ -121,7 +104,7 @@ class OrderDatatable extends AbstractDatatable
                     'end_html' => '</div>',
                     'actions' => [
                         [
-                            'route' => 'admin_orders_show',
+                            'route' => 'admin_orders_show_pdf',
                             'label' => null,
                             'route_parameters' => [
                                 'id' => 'id',
@@ -129,6 +112,23 @@ class OrderDatatable extends AbstractDatatable
                                 '_locale' => 'fr'
                             ],
                             'icon' => 'fas fa-file-pdf fa-2x',
+                            'attributes' => [
+                                'rel' => 'tooltip',
+                                'title' => "Detail de la commande",
+                                'role' => 'button',
+                                'class' => "btn btn-danger btn-sm m-2"
+                            ],
+                            'start_html' => '<div class="start_show_action">',
+                            'end_html' => '</div>',
+                        ],[
+                            'route' => 'admin_orders_show',
+                            'label' => null,
+                            'route_parameters' => [
+                                'id' => 'id',
+                                '_format' => 'html',
+                                '_locale' => 'fr'
+                            ],
+                            'icon' => 'fas fa-eye fa-2x',
                             'attributes' => [
                                 'rel' => 'tooltip',
                                 'title' => "Detail de la commande",

@@ -1,39 +1,66 @@
+{% extends "base.html.twig" %}
 {% trans_default_domain "NegasProjectTrans" %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mon titre</title>
-</head>
-<body>
-    <h1 style="text-align: center" class="h1 m-auto">{{ "orders.title.show" |trans({"%order_ncmd%": order.nCmd}) }}</h1>
-        <div style="margin:0 auto;max-width:1700px;">
-            <table>
-                <tbody>
-                <tr>
-                    <th>{{ "orders.product"| trans }}</th>
-                    <td>{{ order.products }}</td>
-                </tr>
-                <tr>
-                    <th>{{ "table.created_at"| trans }}</th>
-                    <td>{{ order.createdAt ? order.createdAt|date('d/m/Y H:i:s') : '' }}</td>
-                </tr>
-                <tr>
-                    <th>{{ "orders.total"| trans }}</th>
-                    <td>{{ order.total }}</td>
-                </tr>
-                <tr>
-                    <th>{{ "orders.validation"| trans }}</th>
-                    <td>{{ order.validation }}</td>
-                </tr>
-                <tr>
-                    <th>{{ "orders.ncmd"| trans }}</th>
-                    <td>{{ order.nCmd }}</td>
-                </tr>
-                </tbody>
-            </table>
+
+{% block body %}
+<div class="datatable">
+    <h5 class="card-header text-center py-4 mb-2">
+        <strong>{{ "orders.title.show"| trans({"%order_ncmd%": order.nCmd}) }}</strong>
+    </h5>
+    <div class="datatable_content">
+        <div class='col-md-10 font-weight-bold m-auto'>
+            <div class='responsive-table-line' style='margin:0 auto;max-width:1700px;'>
+                <h4 class="text-center">{{ order.validation | trans }}</h4>
+                <table class='table table-bordered text-center table-condensed table-body-center'>
+                    <thead>
+                    <tr>
+                        <th>{{ "orders.product" | trans }}</th>
+                        <th>{{ "orders.price" | trans }}</th>
+                        <th>{{ "orders.quantity" | trans }}</th>
+                        <th>{{ "orders.total" | trans }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for linkOrderProduct in order.linkOrderProducts %}
+                    {% set totalPrice =  linkOrderProduct.product.price * linkOrderProduct.quantity %}
+                    <tr>
+                        <td>{{ linkOrderProduct.product.name }}</td>
+                        <td>{{ linkOrderProduct.product.price | format_currency('EUR') }}</td>
+                        <td>{{ linkOrderProduct.quantity }} Unité(s)</td>
+                        <td>{{ totalPrice | format_currency('EUR') }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-</body>
-</html>
+    </div>
+    <div class="button">
+        <a href="{{ path('admin_order_changeState', {'id': order.id}) }}" data-tooltip="voir"
+           class="font-weight-bold tooltipped">
+            <button class="btn btn-warning text-white">
+                {{ "button.edit" | trans }}
+            </button>
+        </a>
+        <a href="{{ path('admin_orders_index') }}" class="btn btn-primary float-left">{{ "button.return" | trans }}</a>
+    </div>
+    {% endblock %}
+    {% block javascripts %}
+        <script>
+            $(document).ready(function () {
+                //On écoute le "click" sur le bouton ayant la classe "modal-trigger"
+                $('.modal-trigger').click(function () {
+                    //On initialise les modales materialize
+                    $('.modal').modal();
+                    //On récupère l'url depuis la propriété "Data-target" de la balise html a
+                    url = $(this).attr('data-target');
+                    //on fait un appel ajax vers l'action symfony qui nous renvoie la vue
+                    $.get(url, function (data) {
+                        //on injecte le html dans la modale
+                        $('.modal-content').html(data);
+                        //on ouvre la modale
+                        $('#modalEditState').modal();
+                    });
+                })
+            });
+        </script>
+    {% endblock %}

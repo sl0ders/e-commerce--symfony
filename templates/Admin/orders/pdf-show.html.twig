@@ -1,0 +1,39 @@
+{% trans_default_domain "NegasProjectTrans" %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mon titre</title>
+</head>
+<body>
+<h1 style="text-align: center" class="h1 m-auto">{{ "orders.title.show" |trans({"%order_ncmd%": order.nCmd}) }}</h1>
+<div style="margin:0 auto;max-width:1700px;">
+    <table>
+        <tbody>
+        <tr>
+            <th>{{ "orders.product"| trans }}</th>
+            <td>{{ order.products }}</td>
+        </tr>
+        <tr>
+            <th>{{ "table.created_at"| trans }}</th>
+            <td>{{ order.createdAt ? order.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>{{ "orders.total"| trans }}</th>
+            <td>{{ order.total }}</td>
+        </tr>
+        <tr>
+            <th>{{ "orders.validation"| trans }}</th>
+            <td>{{ order.validation }}</td>
+        </tr>
+        <tr>
+            <th>{{ "orders.ncmd"| trans }}</th>
+            <td>{{ order.nCmd }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

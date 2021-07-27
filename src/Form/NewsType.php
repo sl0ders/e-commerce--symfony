@@ -24,11 +24,6 @@ class NewsType extends ApplicationType
                 "label" => "news.label.content",
                 "attr" => ["class" => "form-control"]
             ])
-            ->add('image', FileType::class, [
-                'required' => false,
-                'label' => 'news.label.picture',
-                "attr" => ["class" => "form-control"]
-            ])
             ->add('product', EntityType::class, [
                 'attr' => [
                     'class' => 'browser-default custom-select form-control'

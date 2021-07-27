@@ -2,9 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\LinkOrderProduct;
 use App\Entity\Orders;
+use App\Entity\User;
+use App\Repository\LinkOrderProductRepository;
+use App\Repository\ProductRepository;
+use App\Repository\StockRepository;
+use App\Repository\UserRepository;
 use App\Services\CartService;
 use App\Services\EmailService;
+use App\Services\NotificationServices;
 use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -64,7 +71,7 @@ class CartController extends AbstractController
      * @return RedirectResponse
      * @throws Exception
      */
-    public function validCart(EmailService $email): RedirectResponse
+    public function validCart(EmailService $email, StockRepository $stockRepository, NotificationServices $notificationServices, UserRepository $userRepository, LinkOrderProductRepository $linkOrderProductRepository): RedirectResponse
     {
         $productsQuantity = [];
         $em = $this->getDoctrine()->getManager();
@@ -77,11 +84,22 @@ class CartController extends AbstractController
         $order->setTotal(intval($this->cartService->getTotal()));
         $order->setValidation($this->translator->trans($order::STATE_IN_COURSE, [], "NegasProjectTrans"));
         foreach ($carts as $cart) {
-            $order->addProduct($cart['product']);
+            $linkOrderProduct = new LinkOrderProduct();
+            $linkOrderProduct->setOrders($order);
+            $linkOrderProduct->setProduct($cart["product"]);
+            $linkOrderProduct->setQuantity($cart["quantity"]);
+            $em->persist($linkOrderProduct);
             $productQuantity["product"] = $cart["product"];
             $productQuantity["quantity"] = $cart["quantity"];
+            $stock = $stockRepository->findOneBy(['product' => $productQuantity["product"]]);
+            $stock->setQuantity($stock->getQuantity() - $productQuantity["quantity"]);
+            $stock->setMajAt(new DateTime());
+            $em->persist($stock);
             array_push($productsQuantity, $productQuantity);
         }
+        $user = $this->getUser()->getFullname();
+        $userAdmin = $userRepository->findBy(["status" => "Administrateur"]);
+        $notificationServices->newNotification("Une nouvelle commande a eu lieu de la part de $user", $userAdmin);
         $em->persist($order);
         $em->flush();
         $email->sendMail($subject, [$this->getUser()->getEmail()], ["order_in_course" => true, "order" => $order, "productsQuantity" => $productsQuantity]);

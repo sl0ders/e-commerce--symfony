@@ -17,6 +17,7 @@ class Orders
     const STATE_VALIDATE = "orders.states.validate";
     const STATE_COMPLETED = "orders.states.completed";
     const STATE_HONORED = "orders.states.honored";
+    const STATE_ABORDED = "orders.states.aborded";
 
     /**
      * @ORM\Id()
@@ -36,7 +37,7 @@ class Orders
     private $total;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="string", length=255)
      */
     private $validation;
 
@@ -52,13 +53,13 @@ class Orders
     private ?User $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class)
+     * @ORM\OneToMany(targetEntity=LinkOrderProduct::class, mappedBy="orders")
      */
-    private $products;
+    private $linkOrderProducts;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+        $this->linkOrderProducts = new ArrayCollection();
     }
 
 
@@ -92,12 +93,12 @@ class Orders
         return $this;
     }
 
-    public function getValidation(): ?int
+    public function getValidation(): ?string
     {
         return $this->validation;
     }
 
-    public function setValidation(int $validation): self
+    public function setValidation(string $validation): self
     {
         $this->validation = $validation;
 
@@ -128,26 +129,37 @@ class Orders
         return $this;
     }
 
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProducts(): Collection
+    public function __toString(): string
     {
-        return $this->products;
+        return $this->getNCmd();
     }
 
-    public function addProduct(Product $product): self
+    /**
+     * @return Collection|LinkOrderProduct[]
+     */
+    public function getLinkOrderProducts(): Collection
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
+        return $this->linkOrderProducts;
+    }
+
+    public function addLinkOrderProduct(LinkOrderProduct $linkOrderProduct): self
+    {
+        if (!$this->linkOrderProducts->contains($linkOrderProduct)) {
+            $this->linkOrderProducts[] = $linkOrderProduct;
+            $linkOrderProduct->setOrders($this);
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function removeLinkOrderProduct(LinkOrderProduct $linkOrderProduct): self
     {
-        $this->products->removeElement($product);
+        if ($this->linkOrderProducts->removeElement($linkOrderProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($linkOrderProduct->getOrders() === $this) {
+                $linkOrderProduct->setOrders(null);
+            }
+        }
 
         return $this;
     }

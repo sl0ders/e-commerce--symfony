@@ -1,0 +1,13 @@
+{% trans_default_domain "NegasProjectTrans" %}
+
+{% block body %}
+<div class="datatable formulary w-100">
+    <h5 class="card-header text-center py-4">
+        <strong>{{ "orders.title.edit_status" |trans({"%order_ncmd%": order}) }}</strong>
+    </h5>
+    <div class="datatable_content">
+        {{ include('Admin/orders/_form.html.twig') }}
+        <a href="{{ path('admin_orders_index') }}" class="btn btn-primary">{{ "button.return" | trans }}</a>
+    </div>
+</div>
+{% endblock %}

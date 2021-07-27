@@ -36,12 +36,6 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity=Notification::class, mappedBy="receiver")
-     */
-    private $notifications;
-
-
-    /**
      * @var string
      */
     private string $fullname;
@@ -112,10 +106,16 @@ class User implements UserInterface
      */
     private $enabled;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Notification::class, mappedBy="users")
+     */
+    private $notifications;
+
     public function __construct()
     {
         $this->contact = new ArrayCollection();
         $this->orders = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -381,22 +381,6 @@ class User implements UserInterface
     }
 
     /**
-     * @return mixed
-     */
-    public function getNotifications(): mixed
-    {
-        return $this->notifications;
-    }
-
-    /**
-     * @param mixed $notifications
-     */
-    public function setNotifications(mixed $notifications): void
-    {
-        $this->notifications = $notifications;
-    }
-
-    /**
      * @return string
      */
     public function getFullname(): string
@@ -411,6 +395,33 @@ class User implements UserInterface
     public function setFullname(string $fullname): User
     {
         $this->fullname = $fullname;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Notification[]
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): self
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications[] = $notification;
+            $notification->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): self
+    {
+        if ($this->notifications->removeElement($notification)) {
+            $notification->removeUser($this);
+        }
+
         return $this;
     }
 }

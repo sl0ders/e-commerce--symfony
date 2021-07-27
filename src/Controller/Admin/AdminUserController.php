@@ -96,10 +96,13 @@ class AdminUserController extends AbstractController
         $formStatus->handleRequest($request);
         if ($formStatus->isSubmitted() && $formStatus->isValid()) {
             if ($formStatus->getData()->getStatus() === "Administrateur") {
-                $user->setRoles(["ROLE_ADMIN"]);
+                $user->setRoles(["ROLE_ADMIN", "ROLE_USER"]);
             } else {
                 $user->setRoles(["ROLE_USER"]);
             }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
         }
         return $this->render('Admin/user/edit.html.twig', [
             "form" => $formStatus->createView()

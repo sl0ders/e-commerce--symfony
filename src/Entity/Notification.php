@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\NotificationRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,11 +36,6 @@ class Notification
     private $isEnabled;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="notifications")
-     */
-    private $receiver;
-
-    /**
      * @var DateTime
      *
      * @ORM\Column(name="readAt", type="datetime", nullable=true)
@@ -63,6 +60,16 @@ class Notification
      * @ORM\Column(type="integer", nullable=true)
      */
     private $idPath;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="notifications")
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -179,18 +186,26 @@ class Notification
     }
 
     /**
-     * @return mixed
+     * @return Collection|User[]
      */
-    public function getReceiver()
+    public function getUsers(): Collection
     {
-        return $this->receiver;
+        return $this->users;
     }
 
-    /**
-     * @param mixed $receiver
-     */
-    public function setReceiver($receiver): void
+    public function addUser(User $user): self
     {
-        $this->receiver = $receiver;
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        $this->users->removeElement($user);
+
+        return $this;
     }
 }

@@ -1,28 +1,26 @@
 {% trans_default_domain "NegasProjectTrans" %}
-<link href="{{ asset("Mdb5/css/bootstrap.min.css") }}">
+<h1>{{ "email.title.order_in_course"|trans }}</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Un Email Responsive</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            min-width: 100% !important;
+        }
+
+        .content {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+    </style>
+</head>
 {% if order_in_course is defined %}
-
-    <h1>{{ "email.title.order_in_course"|trans }}</h1>
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>Un Email Responsive</title>
-        <style type="text/css">
-            body {
-                margin: 0;
-                padding: 0;
-                min-width: 100% !important;
-            }
-
-            .content {
-                text-align: center;
-                width: 100%;
-                max-width: 600px;
-            }
-        </style>
-    </head>
     <body bgcolor="#f6f8f1">
     <table width="100%" bgcolor="#f6f8f1" border="0" cellpadding="0" cellspacing="0">
         <tr>
@@ -62,5 +60,31 @@
     </html>
 {% endif %}
 
+{% if orderValidate is defined %}
+    <h1>{{ "email.order.changeState" | trans }}</h1>
+    <p style="text-align: center">
+        {{ "email.order.orderValidate" | trans }}
+    </p>
+{% endif %}
+
+{% if orderCompleted is defined %}
+    <h1>{{ "email.order.changeState" | trans }}</h1>
+    <p style="text-align: center">
+        {{ "email.order.orderCompleted" | trans }}
+    </p>
+{% endif %}
+
+{% if orderHonored is defined %}
+    <h1>{{ "email.order.changeState" | trans }}</h1>
+    <p style="text-align: center">
+        {{ "email.order.orderHonored" | trans }}
+    </p>
+{% endif %}
+{% if orderAborded is defined %}
+    <h1>{{ "email.order.changeState" | trans }}</h1>
+    <p style="text-align: center">
+        {{ "email.order.orderHonored" | trans }}
+    </p>
+{% endif %}
 
 

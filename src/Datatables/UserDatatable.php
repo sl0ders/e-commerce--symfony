@@ -9,10 +9,25 @@ use Sg\DatatablesBundle\Datatable\AbstractDatatable;
 use Sg\DatatablesBundle\Datatable\Column\ActionColumn;
 use Sg\DatatablesBundle\Datatable\Column\Column;
 use Sg\DatatablesBundle\Datatable\Column\DateTimeColumn;
+use Sg\DatatablesBundle\Datatable\Column\VirtualColumn;
 use Sg\DatatablesBundle\Datatable\Style;
 
 class UserDatatable extends AbstractDatatable
 {
+
+    /**
+     * @return callable|Closure|null
+     */
+    public function getLineFormatter()
+    {
+        $formatter = function ($row) {
+
+            $row['statusVirtual'] = $this->translator->trans($row['status'], [], 'NegasProjectTrans');
+            return $row;
+        };
+
+        return $formatter;
+    }
 
     /**
      * @inheritDoc
@@ -48,12 +63,18 @@ class UserDatatable extends AbstractDatatable
                 'searchable' => true,
                 'orderable' => true,
                 "width" => "150px"
-            ])->add('status', Column::class, [
+            ])
+            ->add('status', Column::class, array(
                 'title' => $this->translator->trans('user.label.state', [], 'NegasProjectTrans'),
-                'searchable' => true,
+                'visible' => false,
+            ))
+            ->add('statusVirtual', VirtualColumn::class, [
+                'title' => $this->translator->trans('user.label.state', [], 'NegasProjectTrans'),
                 'orderable' => true,
+                'order_column' => 'status',
                 "width" => "150px"
-            ])->add('roles', Column::class, [
+            ])
+            ->add('roles', Column::class, [
                 'title' => $this->translator->trans('user.label.roles', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,

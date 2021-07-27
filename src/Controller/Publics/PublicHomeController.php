@@ -39,11 +39,11 @@ class PublicHomeController extends AbstractController
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $stock = new Stock();
             $stock->setProduct($product);
-            $stock->setQuantity($product->getQuantity());
+            $stock->setQuantity($form->get("quantity")->getData());
             $stock->setMajAt(new DateTime());
             $entityManager = $this->getDoctrine()->getManager();
             $product->setUpdatedAt(new DateTime());

@@ -94,12 +94,6 @@ class Product
     private $pictures;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"products_read"})
-     */
-    private $quantity;
-
-    /**
      * @ORM\Column(type="boolean")
      * @Groups({"products_read"})
      */
@@ -110,10 +104,16 @@ class Product
      */
     private $package;
 
+    /**
+     * @ORM\OneToMany(targetEntity=LinkOrderProduct::class, mappedBy="product")
+     */
+    private $linkOrderProducts;
+
     public function __construct()
     {
         $this->news = new ArrayCollection();
         $this->pictures = new ArrayCollection();
+        $this->linkOrderProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -305,18 +305,6 @@ class Product
         return $this;
     }
 
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(?int $quantity): self
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
     /**
      * @param mixed $filenamePng
      * @return Product
@@ -378,6 +366,36 @@ class Product
     public function setPackage(?package $package): self
     {
         $this->package = $package;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LinkOrderProduct[]
+     */
+    public function getLinkOrderProducts(): Collection
+    {
+        return $this->linkOrderProducts;
+    }
+
+    public function addLinkOrderProduct(LinkOrderProduct $linkOrderProduct): self
+    {
+        if (!$this->linkOrderProducts->contains($linkOrderProduct)) {
+            $this->linkOrderProducts[] = $linkOrderProduct;
+            $linkOrderProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLinkOrderProduct(LinkOrderProduct $linkOrderProduct): self
+    {
+        if ($this->linkOrderProducts->removeElement($linkOrderProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($linkOrderProduct->getProduct() === $this) {
+                $linkOrderProduct->setProduct(null);
+            }
+        }
 
         return $this;
     }

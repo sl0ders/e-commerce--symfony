@@ -28,17 +28,16 @@ class HeaderBundleController extends AbstractController
     }
     /**
      * this function Manage the notification system of header
-     * @param UserRepository $userRepository
      * @param NotificationRepository $notificationRepository
      * @return Response
      * @throws Exception
      */
-    public function getNotification(UserRepository $userRepository, NotificationRepository $notificationRepository): Response
+    public function getNotification(NotificationRepository $notificationRepository): Response
     {
         $notificationDescSorting = [];
         if ($this->getUser()) {// retrieve the user connected for reference in condition
             if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-                $notificationDescSorting = $notificationRepository->findBy(["receiver" => $this->getUser()], ["createdAt" => "ASC"]);
+                $notificationDescSorting = $notificationRepository->findBy([], ["createdAt" => "ASC"]);
             } else {
                 $notifications = $this->getUser()->getNotifications();
                 $iterator = $notifications->getIterator();

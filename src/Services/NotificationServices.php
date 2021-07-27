@@ -63,35 +63,4 @@ class NotificationServices
         }
         return true;
     }
-
-
-    /**
-     * This function determines if there has been printer activity for the last ten days, if not then a notification is sent
-     * @param $message
-     * @param $printer
-     * @param $sixLastConsumable
-     * @param $sender
-     * @return bool
-     */
-    public function notificationOfPrintAnomaly($message, $printer, $sixLastConsumable, $sender): bool
-    {
-        $dateM = new DateTime();
-        $dateM = $dateM->modify("+6 month");
-        $date = $sixLastConsumable[0]->getDateUpdate();
-        $date = $date->format("d/m/Y H:i:s");
-        $printer->setState(0);
-        $notification = $this->notificationRepository->findBy(['message' => $message]);
-        if (!$notification) {
-            $notification = new Notification();
-            $notification
-                ->setIsEnabled(true)
-                ->setExpirationDate($dateM)
-                ->setSender($printer->getCompany())
-                ->setReceiver($sender)
-                ->setCreatedAt($date)
-                ->setMessage($message);
-            $this->em->persist($notification);
-            return true;
-        }
-    }
 }

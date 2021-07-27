@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain "NegasProjectTrans" %}
-{% block title %}Utilisateur {{ user.name }}{% endblock %}
+{% block title %}{{ "user.title.show"| trans({"userName" : user.name}) }}{% endblock %}
 
 {% block body %}
     <div class="datatable">
-        <div class="h1 m-auto text-center">Utilisateur {{ user.name }}</div>
+        <div class="h1 m-auto text-center">{{ "user.title.show"| trans({"%fullname%" : user.fullname}) }}</div>
         <div class="datatable_content">
             <div class="responsive-table-line">
                 <table class="table table-bordered table-condensed table-body-center">
@@ -55,7 +55,7 @@
             <a data-target="{{ path('admin_user_editStatus', {'id': user.id}) }}" data-tooltip="voir"
                class="font-weight-bold tooltipped modal-trigger right-align" href="#modal1">
                 <button class="btn btn-warning text-white" data-toggle="modal" data-target="#centralModalSm">
-                    Éditer
+                    {{ "button.edit"|trans }}
                 </button>
             </a>
             {{ include('Admin/user/_delete_form.html.twig') }}

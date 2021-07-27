@@ -20,7 +20,7 @@
                 </tr>
                 <tr>
                     <th>{{ "news.picture" | trans }}</th>
-                    <td>{{ news.image }}</td>
+                    <td><img src="{{ vich_uploader_asset(news.product.picture) | imagine_filter("medium") }}" alt="{{ news.product.name }}"></td>
                 </tr>
                 <tr>
                     <th>{{ "table.created_at" | trans }}</th>

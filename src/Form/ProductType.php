@@ -25,6 +25,7 @@ class ProductType extends ApplicationType
             ->add('quantity', IntegerType::class,[
                 "label" => 'product.label.quantity',
                 "attr" => ["class" => "form-control"],
+                "mapped" => false
 
             ])
             ->add('description', TextareaType::class, [

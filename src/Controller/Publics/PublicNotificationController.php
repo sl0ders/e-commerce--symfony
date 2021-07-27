@@ -66,14 +66,14 @@ class PublicNotificationController extends AbstractController
                 $datatableQueryBuilder = $responseService->getDatatableQueryBuilder();
                 $qb = $datatableQueryBuilder->getQb();
                 $qb
-                    ->leftJoin("notification.receiver", "user")
+                    ->leftJoin("notification.users", "user")
                     ->andWhere($qb->expr()->eq('user.id', ':q_user'))
                     ->setParameter("q_user", $this->getUser()->getId());
             }
             return $responseService->getResponse();
         }
         return $this->render('Public/notification/index.html.twig', [
-            'notifications' => $notificationRepository->findByReceiver($this->getUser()),
+            'notifications' => $notificationRepository->findByUser($this->getUser()),
             'datatable' => $datatable
         ]);
     }
