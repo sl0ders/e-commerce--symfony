@@ -2,15 +2,20 @@
 
 namespace App\Controller\Admin;
 
+use App\Datatables\NewsDatatable;
+use App\Datatables\OrderDatatable;
 use App\Entity\News;
 use App\Form\NewsType;
 use App\Repository\NewsRepository;
 use DateTime;
 use Exception;
+use Sg\DatatablesBundle\Datatable\DatatableFactory;
+use Sg\DatatablesBundle\Response\DatatableResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/admin/news")
@@ -18,14 +23,44 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminNewsController extends AbstractController
 {
     /**
+     * @var DatatableFactory
+     */
+    private DatatableFactory $factory;
+
+    /**
+     * @var DatatableResponse
+     */
+    private DatatableResponse $response;
+    private TranslatorInterface $translator;
+
+    public function __construct(DatatableFactory $factory, DatatableResponse $response, TranslatorInterface $translator)
+    {
+        $this->factory = $factory;
+        $this->response = $response;
+        $this->translator = $translator;
+    }
+
+    /**
      * @Route("/", name="admin_news_index", methods={"GET"})
      * @param NewsRepository $newsRepository
      * @return Response
      */
-    public function index(NewsRepository $newsRepository): Response
+    public function index(NewsRepository $newsRepository, Request $request): Response
     {
+        $isAjax = $request->isXmlHttpRequest();
+        $datatable = $this->factory->create(NewsDatatable::class);
+        $datatable->buildDatatable();
+
+        if ($isAjax) {
+            $responseService = $this->response;
+            $responseService->setDatatable($datatable);
+            $responseService->getDatatableQueryBuilder();
+
+            return $responseService->getResponse();
+        }
         return $this->render('Admin/news/index.html.twig', [
             'news' => $newsRepository->findAll(),
+            'datatable' => $datatable
         ]);
     }
 

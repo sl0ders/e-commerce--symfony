@@ -8,6 +8,8 @@ flash:
         updateSuccessfully: "La news a bien été mise a jour"
         deleteSuccessfully: "La news a bien été supprimé"
     order:
+        addedSuccessfully: "Votre commande a bien été enregistrer, un email de confirmation vous a été envoyé"
+        updateStateCancelled: "Impossible de remplacer le status de cette commande par le meme status"
         deleteSuccessfully: "La commande a bien été supprimé"
     package:
         createSuccessfully: "Le packaging a bien été enregistré"

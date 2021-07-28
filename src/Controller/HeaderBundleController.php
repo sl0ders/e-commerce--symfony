@@ -37,7 +37,7 @@ class HeaderBundleController extends AbstractController
         $notificationDescSorting = [];
         if ($this->getUser()) {// retrieve the user connected for reference in condition
             if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-                $notificationDescSorting = $notificationRepository->findBy([], ["createdAt" => "ASC"]);
+                $notificationDescSorting = $notificationRepository->findBy([], ["createdAt" => "DESC"],5);
             } else {
                 $notifications = $this->getUser()->getNotifications();
                 $iterator = $notifications->getIterator();

@@ -37,6 +37,8 @@ news:
         content: "Contenu de la news"
         picture: "Choisissez une image pour illustrer la news"
         product: "Produit lié a l'article"
+        detail: 'Détail'
+        edit: 'Édition'
     placeholder:
         title: "Titre"
         content: "Contenu"
@@ -47,6 +49,7 @@ news:
     subject: 'Titre'
     content: 'Contenu de la news'
     picture: 'Produit liée'
+    created_at: 'Créé le ...'
 
 orders:
     title:
@@ -73,6 +76,9 @@ orders:
         ncmd: 'Numero de commande'
         user_name: 'Commande effectué par...'
         package: 'Packaging'
+    hover:
+        detail-pdf: 'Télécharger le pdf'
+        detail: 'Détail de la facture'
 
 package:
     title:
@@ -86,6 +92,8 @@ package:
     placeholder:
         quantity: "Quantité"
         unity: "Unitée"
+    hover:
+        disabled: 'desactiver le packaging'
 
 stock:
     title:
@@ -136,6 +144,9 @@ product:
         created_at: 'Date de création'
         detail: 'Détail'
         package: "Choisissez le type de package"
+        edit: 'NegasProjectTrans'
+    datatable:
+        quantity: "Quantitée restante"
     title:
         new: "Creation d'un nouveau produit"
         edit: 'Édition du produit %product_name%'
@@ -147,6 +158,17 @@ product:
     price: "Prix d'un package"
     big_picture: 'Grande image'
     small_picture: 'Petite image'
+    hover:
+        disabled: 'désactiver'
+        enabled: 'Activer'
+        detail: 'Détail du produit'
+        edit: 'Édition du produit'
+        findOutMore: 'En savoir plus'
+        soonFindOutMore: 'Ce produit est bientot en rupture de stock dêpechez vous!'
+        cart: 'Valider'
+        minus: 'Diminuer la valeur'
+        plus: 'Augmenter la valeur'
+    soldOut: 'Ce produit est malheureusement en rupture de stock'
 
 home_admin:
     title:
@@ -177,6 +199,7 @@ email:
         orderCompleted: 'Bonne nouvelle ! Votre commande est maintenant prete, celle-ci vous attend a notre point de vente'
         orderHonored: 'Votre commande est maintenant cloturé. Nous vous remercions du fond du coeur pour la confiance apporté a notre service de vente sur le site Teraneo et nous esperons vous revoir tres bientot'
         orderAborded: 'La commande a été abandonnée, veuillez contacter teraneo pour plus de détail'
+        title: 'Commande TERANEO'
 
 header:
     tilte: "Boutique en ligne"
@@ -202,12 +225,10 @@ notification:
         desarchived: 'Désarchiver'
     orders:
         changeState: 'Votre commande numero %orderNumber% a changer de status'
+        new: 'Une nouvelle commande vient etre effectué par %user%'
 home_public:
     setting_management: 'Gestion du profil'
     orders_management: 'Gestion des commandes'
     notification_management: 'Gestion des notifications'
 text:
     or: 'où'
-order:
-    title:
-        edit_status: 'NegasProjectTrans'

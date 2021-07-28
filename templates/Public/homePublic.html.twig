@@ -17,36 +17,43 @@
     <div class='container'>
         <div class='grid'>
             {% for product in products %}
-                <div class='card wow fadeInUp'>
+                <div class='card'>
                     <a href='{{ path('public_product_show', {'id' : product.id}) }}'
                        class='text-center m-auto card-img-top'>
                         <img class='img_png' src='/images/product/{{ product.filenamePng }}'
                              alt='{{ product.name }} small'>
+                        {% if app.session.get("cart")[product.id] is defined %}
+                            <span class="position-absolute border rounded-circle p-2 text-white" style="font-size:1.5em; background-color: #093b37; top: -10%; width: 3vw ;right: 0">
+                                {{ app.session.get("cart")[product.id] }}
+                            </span>
+                        {% endif %}
                     </a>
                     <span class="plus-moins-{{ product.id }}"></span>
                     <div class='card-body'>
                         <h4 class='card-title'>{{ product.name |capitalize }}</h4>
-                        <a href='{{ path('public_product_show', {'id' : product.id}) }}'>
-                            <button class='btn-sm btn-primary'>En savoir plus</button>
+                        <a href='{{ path('public_product_show', {'id' : product.id}) }}'
+                           title="{{ "product.hover.findOutMore" | trans }}">
+                            <button class='btn-sm btn-primary'>{{ "product.hover.findOutMore" | trans }}</button>
                         </a>
                         {% if product.stock.quantity <1 %}
                             <div class='text-center mt-2'>
                                 <img src='{{ asset('images/svg/danger.svg') }}' alt=''>
-                                <p>Ce produit est malheureusement en rupture de stock</p>
+                                <p>{{ "product.soldOut" | trans }}</p>
                             </div>
                         {% elseif product.stock.quantity < 30 %}
                             <div class='text-center mt-2'>
                                 <img src='{{ asset('images/svg/warning.svg') }}' alt=''>
-                                <p>Ce produit est bientot en rupture de stock dêpechez vous!</p>
+                                <p>{{ "product.hover.soonFindOutMore" | trans }}</p>
                             </div>
                         {% endif %}
                         <div class='font-weight-bold'>{{ product.price }}€ / {{ product.package.quantity}} {{ product.package.unity }}</div>
                         {% if product.stock.quantity > 0 %}
-                            <form action='{{ path('cart_add', {'id': product.id }) }}' class='mt-2 cart-refresh' method='post'>
+                            <form action='{{ path('cart_add', {'id': product.id }) }}' class='mt-2 cart-refresh'
+                                  method='post'>
                                 <div class='form-action'>
                                     <div class='minus-plus'>
                                         <div class='def-number-input number-input safari_only minus-plus-content'>
-                                            <button type='button'
+                                            <button type='button' title="{{ "product.hover.minus"| trans }}"
                                                     onclick='this.parentNode.querySelector("input[type=number]").stepDown()'>
                                                 <i class='fas fa-minus'></i>
                                             </button>
@@ -56,15 +63,16 @@
                                                    min='0'
                                                    max='{{ product.stock.quantity }}'
                                                    name='quantity'
-                                                   value="1"
+                                                   value="{{  app.session.get("cart")[product.id] is defined ? app.session.get("cart")[product.id] : 1}}"
                                                    type='number'>
-                                            <button type='button'
+                                            <button type='button' title="{{ "product.hover.plus"| trans }}"
                                                     onclick='this.parentNode.querySelector("input[type=number]").stepUp()'>
                                                 <i class='fas fa-plus'></i>
                                             </button>
                                         </div>
                                         {% if not is_granted('ROLE_ADMIN') %}
-                                            <button type="submit" class="btn btn-primary p-2 btn-sm btn-cart ml-2">
+                                            <button type="submit" class="btn btn-primary p-2 btn-sm btn-cart ml-2"
+                                                    title="{{ "product.hover.cart" | trans }}">
                                                 <i class="fas fa-shopping-cart fa-2x"></i>
                                             </button>
                                         {% endif %}

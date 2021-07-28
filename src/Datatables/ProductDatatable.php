@@ -7,7 +7,6 @@ use NumberFormatter;
 use Sg\DatatablesBundle\Datatable\AbstractDatatable;
 use Sg\DatatablesBundle\Datatable\Column\ActionColumn;
 use Sg\DatatablesBundle\Datatable\Column\Column;
-use Sg\DatatablesBundle\Datatable\Column\DateTimeColumn;
 use Sg\DatatablesBundle\Datatable\Column\ImageColumn;
 use Sg\DatatablesBundle\Datatable\Column\NumberColumn;
 use Sg\DatatablesBundle\Datatable\Style;
@@ -50,30 +49,30 @@ class ProductDatatable extends AbstractDatatable
                 "title" => $this->translator->trans('product.label.jpg_file', [], 'NegasProjectTrans'),
                 "imagine_filter" => "thumb",
                 "relative_path" => "images/product",
-                "holder_width" => "50",
-                "holder_height" => "50",
-                "width" => "100px"
+                'searchable' => true,
+                'orderable' => true,
+                "width" => "20%"
             ])
             ->add("description", Column::class, [
                 "title" => $this->translator->trans('product.label.description', [], 'NegasProjectTrans'),
-                "searchable" => true,
+                "searchable" => false,
                 "orderable" => true,
-                "width" => "300px"
+                "width" => "40%"
             ])
             ->add("price", NumberColumn::class, [
                 "title" => $this->translator->trans('product.label.price', [], 'NegasProjectTrans'),
-                "searchable" => true,
+                "searchable" => false,
                 "orderable" => true,
                 'formatter' => $formatter,
                 'use_format_currency' => true, // needed for \NumberFormatter::CURRENCY
                 'currency' => 'EUR',
-                "width" => "50px"
+                "width" => "10%"
             ])
             ->add("stock.quantity", Column::class, [
-                "title" => $this->translator->trans('product.label.quantity', [], 'NegasProjectTrans'),
-                "searchable" => true,
+                "title" => $this->translator->trans('product.datatable.quantity', [], 'NegasProjectTrans'),
                 "orderable" => true,
-                "width" => "50px"
+                "searchable" => false,
+                "width" => "10%"
             ])
             ->add("enabled", Column::class, [
                 'title' => "désactiver",
@@ -81,8 +80,8 @@ class ProductDatatable extends AbstractDatatable
             ])
             ->add(null, ActionColumn::class, [
                     'title' => 'Actions',
-                    'start_html' => '<div class="start_actions" style="width:160px; text-align: center; display: flex; justify-content: space-between">',
-                    "width" => "200px",
+                    'start_html' => '<div class="start_actions" style="text-align: center">',
+                    "width" => "10%",
                     'end_html' => '</div>',
                     'actions' => [
                         [
@@ -90,11 +89,11 @@ class ProductDatatable extends AbstractDatatable
                             'route_parameters' => [
                                 'id' => 'id'
                             ],
-                            'icon' => 'fa fa-toggle-off fa-1x',
+                            'icon' => 'fa fa-toggle-off fa-2x',
                             'attributes' => [
                                 'rel' => 'tooltip',
-                                'title' => "enabled",
-                                'class' => 'btn btn-danger m-2',
+                                'title' => $this->translator->trans('product.hover.enabled', [], 'NegasProjectTrans'),
+                                'class' => 'btn btn-danger btn-sm m-2',
                                 'role' => 'button'
                             ],
                             'render_if' => function ($row) {
@@ -106,11 +105,11 @@ class ProductDatatable extends AbstractDatatable
                             'route_parameters' => [
                                 'id' => 'id'
                             ],
-                            'icon' => 'fa fa-toggle-on fa-1x',
+                            'icon' => 'fa fa-toggle-on fa-2x',
                             'attributes' => [
                                 'rel' => 'tooltip',
-                                'title' => "disabled",
-                                'class' => 'btn btn-success m-2 btn-sm',
+                                'title' => $this->translator->trans('product.hover.disabled', [], 'NegasProjectTrans'),
+                                'class' => 'btn btn-success btn-sm m-2',
                                 'role' => 'button'
                             ],
                             'render_if' => function ($row) {
@@ -125,10 +124,10 @@ class ProductDatatable extends AbstractDatatable
                                 '_format' => 'html',
                                 '_locale' => 'fr'
                             ],
-                            'icon' => 'fa fa-eye fa-1x',
+                            'icon' => 'fa fa-eye fa-2x',
                             'attributes' => [
                                 'rel' => 'tooltip',
-                                'title' => "Detail du produit",
+                                'title' => $this->translator->trans('product.hover.detail', [], 'NegasProjectTrans'),
                                 'role' => 'button',
                                 'class' => "btn btn-primary btn-sm m-2"
                             ],
@@ -142,10 +141,10 @@ class ProductDatatable extends AbstractDatatable
                                 '_format' => 'html',
                                 '_locale' => 'fr'
                             ],
-                            'icon' => 'fa fa-edit fa-1x',
+                            'icon' => 'fa fa-edit fa-2x',
                             'attributes' => [
                                 'rel' => 'tooltip',
-                                'title' => "Detail du produit",
+                                'title' => $this->translator->trans('product.hover.edit', [], 'NegasProjectTrans'),
                                 'role' => 'button',
                                 'class' => "btn btn-warning m-2 btn-sm"
                             ],

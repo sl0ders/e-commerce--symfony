@@ -21,37 +21,41 @@ class ProductType extends ApplicationType
             ->add('name', TextType::class, [
                 "label" => 'product.label.name',
                 "attr" => ["class" => "form-control"],
+                "required" => true
             ])
             ->add('quantity', IntegerType::class,[
                 "label" => 'product.label.quantity',
                 "attr" => ["class" => "form-control"],
-                "mapped" => false
+                "mapped" => false,
+                "required" => true
 
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'product.label.description',
-                "attr" => ["class" => "form-control"],
+                "attr" => ["class" => "form-control"]
             ])
             ->add('package', EntityType::class, [
                 'label' => 'product.label.package',
                 "class" => Package::class,
                 "choice_label" => "packaging",
-                "attr" => ["class" => "mdb-select md-form"]
+                "attr" => ["class" => "mdb-select md-form"],
+                "required" => true
             ])
             ->add('price', MoneyType::class, [
                 "currency" => "EUR",
                 'label' => 'product.label.price',
                 "attr" => ["class" => "form-control", 'type' => 'number'],
+                "required" => true
             ])
             ->add('pictureFiles', FileType::class, [
                 "label" => "product.label.jpg_file",
-                'required' => false,
+                "required" => true,
                 'multiple' => true,
                 "attr" => ["class" => "file-path validate"]
             ])
             ->add('pictureFilesPng', FileType::class, [
                 "label" => 'product.label.png_file',
-                'required' => false,
+                "required" => true,
                 'multiple' => true,
                 "attr" => ["class" => "file-path validate"]
             ]);

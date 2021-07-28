@@ -1,5 +1,4 @@
 {% trans_default_domain "NegasProjectTrans" %}
-<h1>{{ "email.title.order_in_course"|trans }}</h1>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
 <head>
@@ -61,27 +60,27 @@
 {% endif %}
 
 {% if orderValidate is defined %}
-    <h1>{{ "email.order.changeState" | trans }}</h1>
+    <h1>{{ "email.order.changeState" | trans({"%orderNumber%": order}) }}</h1>
     <p style="text-align: center">
         {{ "email.order.orderValidate" | trans }}
     </p>
 {% endif %}
 
 {% if orderCompleted is defined %}
-    <h1>{{ "email.order.changeState" | trans }}</h1>
+    <h1>{{ "email.order.changeState" | trans({"%orderNumber%": order}) }}</h1>
     <p style="text-align: center">
         {{ "email.order.orderCompleted" | trans }}
     </p>
 {% endif %}
 
 {% if orderHonored is defined %}
-    <h1>{{ "email.order.changeState" | trans }}</h1>
+    <h1>{{ "email.order.changeState" | trans({"%orderNumber%": order}) }}</h1>
     <p style="text-align: center">
         {{ "email.order.orderHonored" | trans }}
     </p>
 {% endif %}
 {% if orderAborded is defined %}
-    <h1>{{ "email.order.changeState" | trans }}</h1>
+    <h1>{{ "email.order.changeState" | trans({"%orderNumber%": order}) }}</h1>
     <p style="text-align: center">
         {{ "email.order.orderHonored" | trans }}
     </p>

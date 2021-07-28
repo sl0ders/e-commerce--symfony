@@ -27,6 +27,21 @@ class OrderDatatable extends AbstractDatatable
             /** @var User $user */
             $user = $order->getUser();
             $row['userFullName'] = $user->getFullname();
+
+            switch ($order->getValidation()) {
+                case $order::STATE_IN_COURSE :
+                    $row['state'] = $this->translator->trans($order::STATE_IN_COURSE, [], 'NegasProjectTrans');
+                    break;
+                case $order::STATE_VALIDATE :
+                    $row['state'] = $this->translator->trans($order::STATE_VALIDATE, [], 'NegasProjectTrans');
+                    break;
+                case $order::STATE_COMPLETED :
+                    $row['state'] = $this->translator->trans($order::STATE_COMPLETED, [], 'NegasProjectTrans');
+                    break;
+                case $order::STATE_HONORED :
+                    $row['state'] = $this->translator->trans($order::STATE_HONORED, [], 'NegasProjectTrans');
+                    break;
+            }
             return $row;
         };
     }
@@ -114,7 +129,7 @@ class OrderDatatable extends AbstractDatatable
                             'icon' => 'fas fa-file-pdf fa-2x',
                             'attributes' => [
                                 'rel' => 'tooltip',
-                                'title' => "Detail de la commande",
+                                'title' => $this->translator->trans('orders.hover.detail-pdf', [], 'NegasProjectTrans'),
                                 'role' => 'button',
                                 'class' => "btn btn-danger btn-sm m-2"
                             ],
@@ -131,7 +146,7 @@ class OrderDatatable extends AbstractDatatable
                             'icon' => 'fas fa-eye fa-2x',
                             'attributes' => [
                                 'rel' => 'tooltip',
-                                'title' => "Detail de la commande",
+                                'title' => $this->translator->trans('orders.hover.detail', [], 'NegasProjectTrans'),
                                 'role' => 'button',
                                 'class' => "btn btn-primary btn-sm m-2"
                             ],

@@ -31,6 +31,7 @@ class CartController extends AbstractController
      */
     private CartService $cartService;
     private EmailService $emailService;
+    private TranslatorInterface $translator;
 
     public function __construct(CartService $cartService, TranslatorInterface $translator, EmailService $emailService)
     {
@@ -68,10 +69,18 @@ class CartController extends AbstractController
 
     /**
      * @Route("/valid", name="cart_valid")
+     * @param EmailService $email
+     * @param StockRepository $stockRepository
+     * @param NotificationServices $notificationServices
+     * @param UserRepository $userRepository
      * @return RedirectResponse
      * @throws Exception
      */
-    public function validCart(EmailService $email, StockRepository $stockRepository, NotificationServices $notificationServices, UserRepository $userRepository, LinkOrderProductRepository $linkOrderProductRepository): RedirectResponse
+    public function validCart(EmailService $email,
+                              StockRepository $stockRepository,
+                              NotificationServices $notificationServices,
+                              UserRepository $userRepository
+    ): RedirectResponse
     {
         $productsQuantity = [];
         $em = $this->getDoctrine()->getManager();
@@ -97,9 +106,10 @@ class CartController extends AbstractController
             $em->persist($stock);
             array_push($productsQuantity, $productQuantity);
         }
+        $this->addFlash("success", "flash.order.addedSuccessfully");
         $user = $this->getUser()->getFullname();
         $userAdmin = $userRepository->findBy(["status" => "Administrateur"]);
-        $notificationServices->newNotification("Une nouvelle commande a eu lieu de la part de $user", $userAdmin);
+        $notificationServices->newNotification($this->translator->trans("notification.orders.new", ["%user%" => $user], "NegasProjectTrans"), $userAdmin);
         $em->persist($order);
         $em->flush();
         $email->sendMail($subject, [$this->getUser()->getEmail()], ["order_in_course" => true, "order" => $order, "productsQuantity" => $productsQuantity]);

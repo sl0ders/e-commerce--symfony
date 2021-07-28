@@ -117,24 +117,26 @@ class AdminOrdersController extends AbstractController
         if ($formStatus->isSubmitted() && $formStatus->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $notificationServices->newNotification($this->translator->trans("notification.orders.changeState", ["%orderNumber%" => $order->getNCmd()], "NegasProjectTrans"), $order->getUser());
-            $emailSubject = $this->translator->trans("email.order.changeState", ["%order%" => $order], "NegasProjectTrans");
-            switch ($formStatus->getData()->getValidation()) {
-                case Orders::STATE_VALIDATE:
-                    $order->setValidation(Orders::STATE_VALIDATE);
-                    $emailService->sendMail($emailSubject, [$order->getUser()->getEmail()], ["orderValidate" => true]);
-                    break;
-                case Orders::STATE_COMPLETED:
-                    $order->setValidation(Orders::STATE_COMPLETED);
-                    $emailService->sendMail($emailSubject, [$order->getUser()->getEmail()], ["orderCompleted" => true]);
-                    break;
-                case Orders::STATE_HONORED:
-                    $order->setValidation(Orders::STATE_HONORED);
-                    $emailService->sendMail($emailSubject, [$order->getUser()->getEmail()], ["orderHonored" => true]);
-                    break;
-                case Orders::STATE_ABORDED:
-                    $order->setValidation(Orders::STATE_ABORDED);
-                    $emailService->sendMail($emailSubject, [$order->getUser()->getEmail()], ["orderAborded" => true]);
-                    break;
+            $emailSubject = $this->translator->trans("email.order.title", ["%orderNumber%" => $order->getNCmd()], "NegasProjectTrans");
+            if ($formStatus->getData()->getValidation() != $order->getValidation()) {
+                switch ($formStatus->getData()->getValidation()) {
+                    case Orders::STATE_VALIDATE:
+                        $order->setValidation($this->translator->trans(Orders::STATE_VALIDATE, [], "NegasProjectTrans"));
+                        $emailService->sendMail($emailSubject, [$order->getUser()->getEmail()], ["orderValidate" => true, "order" => $order->getNCmd()]);
+                        break;
+                    case Orders::STATE_COMPLETED:
+                        $order->setValidation($this->translator->trans(Orders::STATE_COMPLETED, [], "NegasProjectTrans"));
+                        $emailService->sendMail($emailSubject, [$order->getUser()->getEmail()], ["orderCompleted" => true, "order" => $order->getNCmd()]);
+                        break;
+                    case Orders::STATE_HONORED:
+                        $order->setValidation($this->translator->trans(Orders::STATE_HONORED, [], "NegasProjectTrans"));
+                        $emailService->sendMail($emailSubject, [$order->getUser()->getEmail()], ["orderHonored" => true, "order" => $order->getNCmd()]);
+                        break;
+                    case Orders::STATE_ABORDED:
+                        $order->setValidation($this->translator->trans(Orders::STATE_ABORDED, [], "NegasProjectTrans"));
+                        $emailService->sendMail($emailSubject, [$order->getUser()->getEmail()], ["orderAborded" => true, "order" => $order->getNCmd()]);
+                        break;
+                }
             }
             $em->persist($order);
             $em->flush();

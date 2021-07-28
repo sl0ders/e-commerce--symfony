@@ -51,13 +51,14 @@ class NotificationDatatable extends AbstractDatatable
                 "date_format" => 'DD-MM-YYYY H:m:s',
                 'searchable' => true,
                 'orderable' => true,
-                "width" => "160px",
+                "width" => "30%",
                 'filter' => array(TextFilter::class, array()),
             ])
             ->add("message", Column::class, [
                 'title' => $this->translator->trans('notification.label.message', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,
+                "width" => "50%",
                 'filter' => array(TextFilter::class, array())
             ])
             ->add('isEnabled', Column::class,[
@@ -65,9 +66,9 @@ class NotificationDatatable extends AbstractDatatable
                 "title" => "actif"
             ])
             ->add(null, ActionColumn::class, array(
-                'start_html' => '<div class="start_actions" style="width:150px; text-align: center; display: flex; justify-content: space-between">',
+                'start_html' => '<div class="start_actions" style="text-align: center; display: flex; justify-content: space-around">',
                 'title' => $this->translator->trans('sg.datatables.actions.title'),
-                "width" => "200px",
+                "width" => "10%",
                 'end_html' => '</div>',
                 'actions' => [
                     [
@@ -75,20 +76,20 @@ class NotificationDatatable extends AbstractDatatable
                         'route_parameters' => array(
                             'id' => 'id'
                         ),
-                        'icon' => 'fa fa-eye',
+                        'icon' => 'fa fa-eye fa-2x',
                         'attributes' => [
                             'rel' => 'tooltip',
                             'title' => $this->translator->trans('notification.link.show', [], 'NegasProjectTrans'),
-                            'class' => 'btn btn-primary btn-xs m-auto btn-sm',
+                            'class' => 'btn btn-primary btn-sm m-2',
                             'role' => 'button'
                         ],
                     ], [
                         'route' => 'user_notification_enabled',
                         'route_parameters' => ['id' => 'id'],
-                        'icon' => 'fa fa-toggle-off',
+                        'icon' => 'fa fa-toggle-off fa-2x',
                         'attributes' => [
                             'rel' => 'tooltip',
-                            'class' => 'btn btn-danger btn-xs m-auto btn-sm',
+                            'class' => 'btn btn-danger btn-sm m-2',
                             'role' => 'button',
                             'title' => $this->translator->trans('notification.link.archived', [], 'NegasProjectTrans'),
                         ],
@@ -98,10 +99,10 @@ class NotificationDatatable extends AbstractDatatable
                     ], [
                         'route' => 'user_notification_enabled',
                         'route_parameters' => ['id' => 'id'],
-                        'icon' => 'fa fa-toggle-on',
+                        'icon' => 'fa fa-toggle-on fa-2x',
                         'attributes' => [
                             'rel' => 'tooltip',
-                            'class' => 'btn btn-success btn-xs m-auto btn-sm',
+                            'class' => 'btn btn-success btn-sm m-2',
                             'role' => 'button',
                             'title' => $this->translator->trans('notification.link.desarchived', [], 'NegasProjectTrans'),
                         ],

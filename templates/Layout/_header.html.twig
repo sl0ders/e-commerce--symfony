@@ -39,19 +39,19 @@
                         <i class="fa fa-bell"></i><span class="not-read-number">{{ nNotificationNotRead }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
-                        style="width: 20vw; padding-bottom: 10px">
+                        style="width: 22vw">
                         {% for notification in notifications %}
-                            <a class="text-decoration-none notif rounded" id="{{ notification.id }}" href="{{ path("user_notification_show", {'id': notification.id}) }}">
-                                <div class="p-2" {{ notification.readAt is null ? " style='background-color : #a7d4f7'" }}>
-                                    <em class="font-bold">{{ notification.createdAt|date("d/m/Y H:i:s") }}</em>
-                                    - <br> {{ notification.message |slice(0, 40) }}
+                            <li {{ notification.readAt is null ? " style='background-color : #a7d4f7'" }}class="text-decoration-none notif rounded mb-1 p-2" id="{{ notification.id }}">
+                                <a href="{{ path("user_notification_show", {'id': notification.id}) }}" class="m-0 p-0">
+                                    <div class="font-bold font-italic font-weight-bold">{{ notification.createdAt|date("d/m/Y H:i:s") }}</div>
+                                    {{ notification.message }}
                                     {% if notification.path is not null %}
                                         <a class="text-decoration-none text-primary"
                                            href="{{ path(notification.path, {'id': notification.idPath}) }}">
                                         </a>
                                     {% endif %}
-                                </div>
-                            </a>
+                                </a>
+                            </li>
                         {% endfor %}
                     </ul>
                     {% endif %}

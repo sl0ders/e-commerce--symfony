@@ -66,7 +66,7 @@ class PackagingDatatable extends AbstractDatatable
                             'icon' => 'fa fa-trash fa-1x',
                             'attributes' => [
                                 'rel' => 'tooltip',
-                                'title' => "enabled",
+                                'title' => $this->translator->trans('package.hover.disabled', [], 'NegasProjectTrans'),
                                 'class' => 'btn btn-danger m-2',
                                 'role' => 'button'
                             ]
