@@ -90,29 +90,32 @@ class CartController extends AbstractController
         $order->setUser($this->getUser());
         $order->setCreatedAt(new DateTime());
         $order->setNCmd(date("Y-d-m-i-s"));
-        $order->setTotal(intval($this->cartService->getTotal()));
+        $order->setTotal($this->cartService->getTotal());
         $order->setValidation($this->translator->trans($order::STATE_IN_COURSE, [], "NegasProjectTrans"));
         foreach ($carts as $cart) {
-            $linkOrderProduct = new LinkOrderProduct();
-            $linkOrderProduct->setOrders($order);
-            $linkOrderProduct->setProduct($cart["product"]);
-            $linkOrderProduct->setQuantity($cart["quantity"]);
-            $em->persist($linkOrderProduct);
-            $productQuantity["product"] = $cart["product"];
-            $productQuantity["quantity"] = $cart["quantity"];
-            $stock = $stockRepository->findOneBy(['product' => $productQuantity["product"]]);
-            $stock->setQuantity($stock->getQuantity() - $productQuantity["quantity"]);
-            $stock->setMajAt(new DateTime());
-            $em->persist($stock);
-            array_push($productsQuantity, $productQuantity);
+            if ($cart['quantity'] > 0) {
+                $linkOrderProduct = new LinkOrderProduct();
+                $linkOrderProduct->setOrders($order);
+                $linkOrderProduct->setProduct($cart["product"]);
+                $linkOrderProduct->setQuantity($cart["quantity"]);
+                $em->persist($linkOrderProduct);
+                $productQuantity["product"] = $cart["product"];
+                $productQuantity["quantity"] = $cart["quantity"];
+                $stock = $stockRepository->findOneBy(['product' => $productQuantity["product"]]);
+                $stock->setQuantity($stock->getQuantity() - $productQuantity["quantity"]);
+                $stock->setMajAt(new DateTime());
+                $em->persist($stock);
+                array_push($productsQuantity, $productQuantity);
+            }
         }
         $this->addFlash("success", "flash.order.addedSuccessfully");
         $user = $this->getUser()->getFullname();
         $userAdmin = $userRepository->findBy(["status" => "Administrateur"]);
-        $notificationServices->newNotification($this->translator->trans("notification.orders.new", ["%user%" => $user], "NegasProjectTrans"), $userAdmin);
         $em->persist($order);
         $em->flush();
+        $notificationServices->newNotification($this->translator->trans("notification.orders.new", ["%user%" => $user], "NegasProjectTrans"), $userAdmin, ["admin_orders_show", $order->getId()]);
         $email->sendMail($subject, [$this->getUser()->getEmail()], ["order_in_course" => true, "order" => $order, "productsQuantity" => $productsQuantity]);
+        $em->flush();
         $this->get('session')->remove('cart');
         return $this->redirectToRoute("home");
     }

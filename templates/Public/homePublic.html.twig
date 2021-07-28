@@ -10,7 +10,9 @@
                 {% else %}
                     <img src='{{ asset('images/order_Cart_full.png') }}' alt='cart'>
                 {% endif %}
-                <div class='nb-cart'>{{ cartTotal }}€</div>
+                <div class='position-absolute border rounded-circle p-3 text-white'
+                     style="font-size:1em; background-color: #093b37; bottom: -20px; right: -40px">{{ cartTotal }}€
+                </div>
             </a>
         </div>
     {% endif %}
@@ -22,7 +24,7 @@
                        class='text-center m-auto card-img-top'>
                         <img class='img_png' src='/images/product/{{ product.filenamePng }}'
                              alt='{{ product.name }} small'>
-                        {% if app.session.get("cart")[product.id] is defined %}
+                        {% if app.session.get("cart")[product.id] is defined and app.session.get("cart")[product.id] > "0" %}
                             <span class="position-absolute border rounded-circle p-2 text-white" style="font-size:1.5em; background-color: #093b37; top: -10%; width: 3vw ;right: 0">
                                 {{ app.session.get("cart")[product.id] }}
                             </span>
@@ -48,8 +50,7 @@
                         {% endif %}
                         <div class='font-weight-bold'>{{ product.price }}€ / {{ product.package.quantity}} {{ product.package.unity }}</div>
                         {% if product.stock.quantity > 0 %}
-                            <form action='{{ path('cart_add', {'id': product.id }) }}' class='mt-2 cart-refresh'
-                                  method='post'>
+                            <form action='{{ path('cart_remove', {'id': product.id }) }}' class='mt-2 cart-refresh' method='post'>
                                 <div class='form-action'>
                                     <div class='minus-plus'>
                                         <div class='def-number-input number-input safari_only minus-plus-content'>
@@ -63,7 +64,7 @@
                                                    min='0'
                                                    max='{{ product.stock.quantity }}'
                                                    name='quantity'
-                                                   value="{{  app.session.get("cart")[product.id] is defined ? app.session.get("cart")[product.id] : 1}}"
+                                                   value="{{  app.session.get("cart")[product.id] is defined ? app.session.get("cart")[product.id] : 0}}"
                                                    type='number'>
                                             <button type='button' title="{{ "product.hover.plus"| trans }}"
                                                     onclick='this.parentNode.querySelector("input[type=number]").stepUp()'>

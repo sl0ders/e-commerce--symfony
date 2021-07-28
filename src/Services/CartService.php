@@ -31,9 +31,7 @@ class CartService
     public function refresh($id, $quantity)
     {
         $cart = $this->session->get('cart', []);
-        if (!empty($cart[$id])) {
-            $cart[$id] = $quantity;
-        }
+        $cart[$id] = $quantity;
         $this->session->set('cart', $cart);
     }
 

@@ -116,7 +116,7 @@ class AdminOrdersController extends AbstractController
         $formStatus->handleRequest($request);
         if ($formStatus->isSubmitted() && $formStatus->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $notificationServices->newNotification($this->translator->trans("notification.orders.changeState", ["%orderNumber%" => $order->getNCmd()], "NegasProjectTrans"), $order->getUser());
+            $notificationServices->newNotification($this->translator->trans("notification.orders.changeState", ["%orderNumber%" => $order->getNCmd()], "NegasProjectTrans"), [$order->getUser()], ['orders_show', $order->getId()]);
             $emailSubject = $this->translator->trans("email.order.title", ["%orderNumber%" => $order->getNCmd()], "NegasProjectTrans");
             if ($formStatus->getData()->getValidation() != $order->getValidation()) {
                 switch ($formStatus->getData()->getValidation()) {

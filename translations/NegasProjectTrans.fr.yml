@@ -1,5 +1,6 @@
 return:
     deleteQuestion: "Souhaitez-vous réelement supprimer cet élément ?"
+    abordedOrderQuestion: "Souhaitez-vous réelement annuler la commande ?"
 
 button:
     delete: 'Supprimer'
@@ -79,6 +80,7 @@ orders:
     hover:
         detail-pdf: 'Télécharger le pdf'
         detail: 'Détail de la facture'
+    aborded: 'Annuler la commande'
 
 package:
     title:

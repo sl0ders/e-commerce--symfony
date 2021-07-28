@@ -41,15 +41,12 @@
                     <ul class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                         style="width: 22vw">
                         {% for notification in notifications %}
-                            <li {{ notification.readAt is null ? " style='background-color : #a7d4f7'" }}class="text-decoration-none notif rounded mb-1 p-2" id="{{ notification.id }}">
-                                <a href="{{ path("user_notification_show", {'id': notification.id}) }}" class="m-0 p-0">
+                            <li {{ notification.readAt is null ? " style='background-color : #a7d4f7'" }}class="text-decoration-none notif rounded mb-1 p-2"
+                                id="{{ notification.id }}">
+                                <a href="{{ notification.path is not null ? path(notification.path, {'id': notification.idPath}): path("user_notification_show", {'id': notification.id}) }}"
+                                   class="m-0 p-0">
                                     <div class="font-bold font-italic font-weight-bold">{{ notification.createdAt|date("d/m/Y H:i:s") }}</div>
                                     {{ notification.message }}
-                                    {% if notification.path is not null %}
-                                        <a class="text-decoration-none text-primary"
-                                           href="{{ path(notification.path, {'id': notification.idPath}) }}">
-                                        </a>
-                                    {% endif %}
                                 </a>
                             </li>
                         {% endfor %}

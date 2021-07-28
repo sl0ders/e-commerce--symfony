@@ -49,8 +49,17 @@ class PublicOrderController extends AbstractController
         ]);
     }
 
+    #[Route("/show/{id}", name: "orders_show")]
+    public function show(Orders $order): Response
+    {
+        return $this->render("Public/orders/show.html.twig", [
+            "order" => $order
+        ]);
+    }
+
+
     /**
-     * @Route("/detail-commande/{id}", name="order_show")
+     * @Route("/detail-commande/{id}", name="order_show-pdf")
      * @param Orders $order
      * @param Pdf $knpSnappy_Pdf
      * @return Response

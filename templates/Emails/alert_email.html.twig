@@ -38,9 +38,8 @@
                         {% set totalPrice =  product.product.price * product.quantity %}
                         <tr>
                             <td>{{ product.product.name }}</td>
+                            <td>{{ product.quantity }} X {{ product.product.package.quantity }} {{ product.product.package.unity }}</td>
                             <td>{{ product.product.price | format_currency('EUR') }}</td>
-                            <td>{{ product.quantity }}
-                                X {{ product.product.package.quantity }} {{ product.product.package.unity }}</td>
                             <td>{{ totalPrice | format_currency('EUR') }}</td>
                         </tr>
                     {% endfor %}

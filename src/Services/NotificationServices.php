@@ -15,7 +15,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class NotificationServices
 {
-    private $notificationRepository, $em;
+    private $em;
+    private NotificationRepository $notificationRepository;
     private TokenStorageInterface $tokenStorage;
     private UserRepository $userRepository;
 
@@ -37,7 +38,7 @@ class NotificationServices
     /**
      * @throws Exception
      */
-    public function newNotification($message, $receiver, $path = [])
+    public function newNotification($message, $receivers, $path = []): bool
     {
         $date = new DateTime();
         // This date is the time limit before filing the notification
@@ -46,11 +47,11 @@ class NotificationServices
         $datesync = $datesync->format("d-m-Y H:i:s");
         $dateFinal = new DateTime($datesync);
 
-        // we check if this notification exists, and if it does not exist we create a new one
-        $notification = $this->notificationRepository->findOneBy(['message' => $message]);
-        if (!isset($notification)) {
+        foreach ($receivers as $receiver) {
             $notification = new Notification();
-            $notification->setIsEnabled(true)
+            $notification
+                ->setIsEnabled(true)
+                ->addUser($receiver)
                 ->setCreatedAt($dateFinal)
                 ->setMessage($message)
                 ->setExpirationDate($dateM);

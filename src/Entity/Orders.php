@@ -32,7 +32,7 @@ class Orders
     private $created_at;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $total;
 
@@ -81,12 +81,12 @@ class Orders
         return $this;
     }
 
-    public function getTotal(): ?int
+    public function getTotal(): ?float
     {
         return $this->total;
     }
 
-    public function setTotal(int $total): self
+    public function setTotal(float $total): self
     {
         $this->total = $total;
 
