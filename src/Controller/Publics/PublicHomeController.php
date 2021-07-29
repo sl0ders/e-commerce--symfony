@@ -40,7 +40,7 @@ class PublicHomeController extends AbstractController
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $stock = new Stock();
             $stock->setProduct($product);
             $stock->setQuantity($form->get("quantity")->getData());
@@ -88,7 +88,7 @@ class PublicHomeController extends AbstractController
 
 
     /**
-     * @Route("/{name}/édit-profil", name="public_edit_user")
+     * @Route("/{id}/édit-profil", name="public_edit_user")
      * @param User $user
      * @param Request $request
      * @return Response

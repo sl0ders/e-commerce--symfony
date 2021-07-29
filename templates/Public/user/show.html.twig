@@ -25,21 +25,21 @@
                         <tr>
                             <th scope='row' class='font-weight-bolder'>Status</th>
                             <td>
-                                {% if user.status == 'visiteur' %}
-                                    Visiteur
-                                {% elseif user.status == 'Client' %}
-                                    Client(e)
-                                {% elseif user.status == 'administrateur' %}
-                                    Administrateur
-                                {% elseif user.status == 'ban' %}
-                                    Utilisateur bannie
+                                {% if user.status ==  "Visiteur" %}
+                                    {{  "user.state.visitor" |trans }}
+                                {% elseif user.status == "Client" %}
+                                    {{"user.state.client" |trans }}
+                                {% elseif user.status == "Administrateur" %}
+                                    {{"user.state.admin" |trans}}
+                                {% elseif user.status == "Banni" %}
+                                    {{"user.state.ban" |trans}}
                                 {% endif %}
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    {% if user.status == 'Client' or  user.status == 2 %}
-                        <a href='{{ path('public_edit_user', {'name' : user.name}) }}' class='btn-success btn'>Modifier
+                    {% if user.status == "user.state.client" |trans or  user.status == "user.state.admin" |trans %}
+                        <a href='{{ path('public_edit_user', {'id' : user.id}) }}' class='btn-success btn'>Modifier
                             mon compte</a>
                     {% endif %}
                     <a href='{{ path('home_user', {'name' : app.user.name}) }}' class='btn btn-primary float-left'>{{ "button.return"| trans }}</a>

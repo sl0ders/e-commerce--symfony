@@ -130,10 +130,10 @@ class AdminUserController extends AbstractController
     {
         if ($user->getEnabled()) {
             $user->setEnabled(false);
-            $user->setStatus("ban");
+            $user->setStatus($this->translator->trans(User::STATE_BAN, [], "NegasProjectTrans"));
         } else {
             $user->setEnabled(true);
-            $user->setStatus("client");
+            $user->setStatus($this->translator->trans(User::STATE_CLIENT, [], "NegasProjectTrans"));
         }
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);

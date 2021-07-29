@@ -64,6 +64,9 @@ class SecurityController extends AbstractController
      * @Route("/signin", name="app_signin")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param EmailService $emailService
+     * @param NotificationServices $notificationServices
+     * @param UserRepository $userRepository
      * @return RedirectResponse|Response
      * @throws Exception
      */

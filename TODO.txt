@@ -7,24 +7,23 @@ L'orsqu'une datatable est en place sur une page, le menu header est modifier
 Regrouper les commande par ncmd dans la vue show (pdf)
 
 -- TEST USER
-    -   Creation
-        -   statut = visiteur
-    -   Modification de status (admin)
-    -   Modification (user)
-    -   Affichage
+    -**   Creation
+        -**   statut = visiteur
+    -**   Modification de status (admin)
+    -**   Modification (user)
+    -**   Affichage
             -   admin
-                -   index (datatable)
-                -   show
+                -**   index (datatable)
+                -**   show
+                -**   enable / disabled
             -   user
-                -   show
-    -   Activation desactivation user
-    -   Envoi de la notification au admin suite a une creation
+                -**   show
 
 -- TEST LOGIN SIGNIN
-    -   Test login
-    -   Test signin
-        -   Envoi de l'email d'avertisement a l'administrateur
-        -   Envoi de l'email a l'utilisateur pour confirmer l'adresse email
+    -**   Test login
+    -**   Test signin
+        -**   Envoi de l'email d'avertisement a l'administrateur
+        -**   Envoi de l'email a l'utilisateur pour confirmer l'adresse email
 
 -- TEST STOCK
     -   Creation
@@ -61,7 +60,7 @@ Regrouper les commande par ncmd dans la vue show (pdf)
 
 --  TEST NOTIFICATION
     -   Admin (reçoit)
-        -   Suite a la creation d'un utilisateur
+        -**   Suite a la creation d'un utilisateur
         -   lors d'un contact (footer)
         -   lors d'une validation de panier
         -   lors d'une annulation de commande
@@ -77,10 +76,11 @@ Regrouper les commande par ncmd dans la vue show (pdf)
     -   Admin (recoit)
         -   Lors de l'arriver d'une commande
         -   Lors de l'annulation d'une commande par l'utilisateur
-        -   Lors de l'inscription d'un utilisateur
+        -**   Lors de l'inscription d'un utilisateur
         -   Lost de la rupture de stock d'un produit
         -   Lors d'un contact d'un utilisateur
     -   User (recoit)
+        -**   Systeme de mailing confirm_email
         -   Lors d'une validation de panier
         -   Lors de la reponse d'un admin a un contact
         -   Lors du changement de status d'une commande

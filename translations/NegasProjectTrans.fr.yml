@@ -57,12 +57,12 @@ orders:
     title:
         index: 'Index de gestion des commandes'
         show: 'Détail de la commande %order_ncmd%'
-        edit_status: "Édition du status de la commande n°%order_ncmd%"
+        edit_status: "Édition du statut de la commande n°%order_ncmd%"
     product: 'Produits'
     quantity: 'Quantité'
     total: 'Total'
     price: 'Prix'
-    validation: 'Status'
+    validation: 'Statut'
     states:
         in_course: "Validation de la commande en cours"
         validate: "Commande validée"
@@ -107,7 +107,7 @@ stock:
 
 user:
     title:
-        edit_status: 'Édition du status'
+        edit_status: 'Édition du statut'
         index: 'Index de gestion des utilisateurs'
         signin: 'Enregistrement'
         login: 'Se connecter'
@@ -126,7 +126,7 @@ user:
     address: 'Adresse'
     label:
         email: 'Entrez votre adresse email'
-        state: 'Status'
+        state: 'Statut'
         roles: 'Rôles'
         created_at: 'Créer le ...'
         password: "Entrez votre mot de passe"
@@ -197,7 +197,7 @@ email:
     unity: 'Unité(s)'
     add_new_order: 'Nouvelle commande de votre part sur le site de teraneo'
     order:
-        changeState: 'Votre commande numero %orderNumber% a changer de status'
+        changeState: 'Votre commande numero %orderNumber% a changer de statut'
         orderValidate: 'Votre commande a été validé par notre service, a present celle-ci est en cour de préparation, nous vous remerçions pour votre confiance, nous mettons tout en oeuvre pour compléter votre commande au plus vite'
         orderCompleted: 'Bonne nouvelle ! Votre commande est maintenant prete, celle-ci vous attend a notre point de vente'
         orderHonored: 'Votre commande est maintenant cloturé. Nous vous remercions du fond du coeur pour la confiance apporté a notre service de vente sur le site Teraneo et nous esperons vous revoir tres bientot'
@@ -234,7 +234,7 @@ notification:
         archived: 'Archiver'
         desarchived: 'Désarchiver'
     orders:
-        changeState: 'Votre commande numero %orderNumber% a changer de status'
+        changeState: 'Votre commande numero %orderNumber% a changer de statut'
         new: 'Une nouvelle commande vient etre effectué par %user%'
 home_public:
     setting_management: 'Gestion du profil'
