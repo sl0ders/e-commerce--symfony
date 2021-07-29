@@ -20,13 +20,13 @@
                     <tr>
                         <th>{{ "user.status" |trans }}</th>
                         <td>
-                            {% if user.status ==  "visiteur" %}
+                            {% if user.status ==  "Visiteur" %}
                             {{  "user.state.visitor" |trans }}
-                            {% elseif user.status == "client" %}
+                            {% elseif user.status == "Client" %}
                                {{"user.state.client" |trans }}
-                            {% elseif user.status == "administrateur" %}
+                            {% elseif user.status == "Administrateur" %}
                                 {{"user.state.admin" |trans}}
-                            {% elseif user.status == "ban" %}
+                            {% elseif user.status == "Banni" %}
                                 {{"user.state.ban" |trans}}
                             {% endif %}
                         </td>
