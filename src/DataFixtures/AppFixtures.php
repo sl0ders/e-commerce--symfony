@@ -30,7 +30,8 @@ class AppFixtures extends Fixture
             ->setName("Sommesous")
             ->setFirstName("Quentin")
             ->setUsername("sl0ders")
-            ->setStatus("administrateur")
+            ->setStatus("Administrateur")
+            ->setEnabled("true")
             ->setCreatedAt(new DateTime());
         $manager->persist($user);
         $manager->flush();

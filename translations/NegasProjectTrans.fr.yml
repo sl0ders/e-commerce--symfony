@@ -11,6 +11,7 @@ button:
     connection: 'Connexion'
     signin: "S'inscrire"
     edit: 'Éditer'
+    login: "Se connecter"
 
 table:
     action: "Actions"
@@ -202,6 +203,13 @@ email:
         orderHonored: 'Votre commande est maintenant cloturé. Nous vous remercions du fond du coeur pour la confiance apporté a notre service de vente sur le site Teraneo et nous esperons vous revoir tres bientot'
         orderAborded: 'La commande a été abandonnée, veuillez contacter teraneo pour plus de détail'
         title: 'Commande TERANEO'
+    user:
+        add_new_user: 'Nouvelle utilisateur '
+        add_user: "Un nouvelle utilisateur nommé %user% vient de s'inscrire sur le site teraneo"
+        confirme_email: "Email de confirmation d'inscription au site Teraneo"
+        confirmEmail:
+            title: 'Bonjour %user%, bienvenue sur le site ecomerce de teraneo'
+            text: 'Afin de valider votre adresse email merci de cliquer sur ce lien'
 
 header:
     tilte: "Boutique en ligne"

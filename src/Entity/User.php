@@ -97,7 +97,7 @@ class User implements UserInterface
     private $status;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $EmailCode;
 
@@ -346,12 +346,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getEmailCode(): ?int
+    public function getEmailCode(): ?string
     {
         return $this->EmailCode;
     }
 
-    public function setEmailCode(?int $EmailCode): self
+    public function setEmailCode(?string $EmailCode): self
     {
         $this->EmailCode = $EmailCode;
 

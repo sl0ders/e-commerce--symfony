@@ -5,3 +5,87 @@ Afficher le panier sous forme de fenetre
 Modifier la couleur du bandeau "votre panier"
 L'orsqu'une datatable est en place sur une page, le menu header est modifier
 Regrouper les commande par ncmd dans la vue show (pdf)
+
+-- TEST USER
+    -   Creation
+        -   statut = visiteur
+    -   Modification de status (admin)
+    -   Modification (user)
+    -   Affichage
+            -   admin
+                -   index (datatable)
+                -   show
+            -   user
+                -   show
+    -   Activation desactivation user
+    -   Envoi de la notification au admin suite a une creation
+
+-- TEST LOGIN SIGNIN
+    -   Test login
+    -   Test signin
+        -   Envoi de l'email d'avertisement a l'administrateur
+        -   Envoi de l'email a l'utilisateur pour confirmer l'adresse email
+
+-- TEST STOCK
+    -   Creation
+    -   Modification
+    -   Test sur l'achat des produit (diminution des stock creation commande, ou reinitialisation si commande annulé)
+
+-- TEST produit
+    -   Creation
+    -   Edition
+    -   Affichage (homePage et admin datatable)
+
+--  TEST NEWS
+    -   Creation
+    -   Modification
+    -   Affichage datatable et homepage
+    -   Activation desactivation
+
+--  TEST COMMANDE
+    -   Creation d'une commande
+    -   Modification du status
+    -   Annulation d'une commande (user)
+    -   Envoie de la notification
+    -   Envoie de l'email
+
+--  TEST PACKAGING
+    -   Creation
+    -   Modification
+    -   Utilisation
+        -   stock
+        -   produit
+        -   Packaging
+        -   Panier
+        -   homePage
+
+--  TEST NOTIFICATION
+    -   Admin (reçoit)
+        -   Suite a la creation d'un utilisateur
+        -   lors d'un contact (footer)
+        -   lors d'une validation de panier
+        -   lors d'une annulation de commande
+    -   User (recoit)
+        -   Apres avoir effectuer un commande (recapitulatif)
+        -   A chaque modification de status de la commande par l'administrateur
+            -   Validée
+            -   Complete
+            -   honnorée
+            -   annulée
+
+--  TEST EMAIL
+    -   Admin (recoit)
+        -   Lors de l'arriver d'une commande
+        -   Lors de l'annulation d'une commande par l'utilisateur
+        -   Lors de l'inscription d'un utilisateur
+        -   Lost de la rupture de stock d'un produit
+        -   Lors d'un contact d'un utilisateur
+    -   User (recoit)
+        -   Lors d'une validation de panier
+        -   Lors de la reponse d'un admin a un contact
+        -   Lors du changement de status d'une commande
+            -   Validée
+            -   Completée
+            -   honorée
+            -   annulée par l'administrateur
+            -   Tout les mois un résumer des nouveau produit en stock en vente

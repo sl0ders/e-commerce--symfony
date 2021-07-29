@@ -7,7 +7,7 @@
     </h5>
     <div class="datatable_content">
         {{ include('Admin/orders/_form.html.twig') }}
-        <a href="{{ path('admin_orders_index') }}" class="btn btn-primary">{{ "button.return" | trans }}</a>
+        <a href="{{ path('admin_orders_index') }}" class="btn btn-primary" title="{{ "button.return"|trans }}">{{ "button.return" | trans }}</a>
     </div>
 </div>
 {% endblock %}

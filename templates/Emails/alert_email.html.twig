@@ -85,4 +85,11 @@
     </p>
 {% endif %}
 
+{% if newUser is defined %}
+    <p>{{ "email.user.add_user"| trans({"%user%" : user.fullname}) }}</p>
+{% endif %}
 
+{% if confirmEmail is defined %}
+    <h4>{{ "email.user.confirmEmail.title" | trans({"%user%": user.fullname}) }}</h4>
+    <p>{{ "email.user.confirmEmail.text" | trans }} <a href="{{ app.request.schemeAndHttpHost }}/confirm-account/{{ user.id }}">Confirmer</a></p>
+{% endif %}

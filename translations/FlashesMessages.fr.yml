@@ -16,3 +16,7 @@ flash:
         deleteCancelled: "Impossible de supprimer le package, un produit est actuelement lié a celui-ci"
     connection:
         email_not_foud: "L'adresse email n'a pas été trouvée"
+    user:
+        addedSuccessfully: "Felicitation, votre compte a bien été créé, il ne vous reste plus qu'a confirmer votre adresse email"
+        account_already_validated: "Votre compte a deja été validé veuillez vous connecter"
+        account_validated: "Felicitation vous etes maintenant membre a part entier de notre site veuillez a present vous connecter!"

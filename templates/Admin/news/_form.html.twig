@@ -13,9 +13,9 @@
 </div>
 
 <div class="button">
-    <button class="btn btn-success">{{ button_label|default( "button.save" | trans ) }}</button>
+    <button class="btn btn-success" title="{{ "button.save" | trans }}">{{ button_label|default( "button.save" | trans ) }}</button>
     <a href="{{ path('admin_news_index') }}">
-        <div class="btn btn-primary float-left">{{ "button.return" | trans }}</div>
+        <div class="btn btn-primary float-left" title="{{ "button.return"|trans }}">{{ "button.return" | trans }}</div>
     </a>
 </div>
 {{ form_end(form) }}

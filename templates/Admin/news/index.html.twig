@@ -10,8 +10,8 @@
         <div class="datatable_content">
             {{ include('Layout/_datatable.html.twig', {"subject" : "news"}) }}
             <div class="button">
-                <a href="{{ path('admin_news_new') }}" class="btn btn-success text-white">{{ "button.create" | trans }}</a>
-                <a href="{{ path('admin_home') }}" class="btn btn-primary text-white float-left">{{ "button.return" | trans }}</a>
+                <a href="{{ path('admin_news_new') }}" class="btn btn-success text-white" title="{{ "button.create"|trans }}">{{ "button.create" | trans }}</a>
+                <a href="{{ path('admin_home') }}" class="btn btn-primary text-white float-left" title="{{ "button.return"|trans }}">{{ "button.return" | trans }}</a>
             </div>
         </div>
     </div>

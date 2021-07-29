@@ -19,7 +19,7 @@
             {{ form_label(form.message) }}
         </div>
     </div>
-    <button class='btn btn-success w-50'>{{ button_label|default( "button.save" |trans) }}</button>
+    <button class='btn btn-success w-50' title="{{ "button.save" | trans }}">{{ button_label|default( "button.save" |trans) }}</button>
 </div>
 {{ form_end(form) }}
 

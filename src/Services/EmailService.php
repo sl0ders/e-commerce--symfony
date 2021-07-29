@@ -42,7 +42,7 @@ class EmailService
             //creation of an email
             $email = (new TemplatedEmail())
                 ->from("sl0ders@gmail.com")
-                ->to($receiver)
+                ->to($receiver->getEmail())
                 ->replyTo("sl0ders@gmail.com")
                 ->subject($subject)
                 ->htmlTemplate("Emails/alert_email.html.twig")

@@ -8,11 +8,14 @@
         </div>
         <div class="navbar-options">
             {% if not app.user %}
-            <a class="btn btn-sm btn-success" href="{{ path('app_signin') }}">{{ "header.signin"| trans }}</a>
-            <a class="btn btn-sm btn-success" href="{{ path('app_login') }}">{{ "header.login"| trans }}</a>
+            <a class="btn btn-sm btn-success" href="{{ path('app_signin') }}"
+               title="{{ "button.signin"| trans }}">{{ "header.signin"| trans }}</a>
+            <a class="btn btn-sm btn-success" href="{{ path('app_login') }}"
+               title="{{ "button.login"| trans }}">{{ "header.login"| trans }}</a>
             {% elseif  is_granted('ROLE_USER') %}
             <div class="dropdown">
-                <a class="nav-link dropdown-toggle btn btn-myspace" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ "header.my_space"|trans }}</a>
+                <a class="nav-link dropdown-toggle btn btn-myspace" id="navbarDropdownMenuLink-55"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ "header.my_space"|trans }}</a>
                 {% if is_granted('ROLE_ADMIN') %}
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary text-white"
                          aria-labelledby="navbarDropdownMenuLink-55">
@@ -41,14 +44,13 @@
                     <ul class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                         style="width: 22vw">
                         {% for notification in notifications %}
-                            <li {{ notification.readAt is null ? " style='background-color : #a7d4f7'" }}class="text-decoration-none notif rounded mb-1 p-2"
-                                id="{{ notification.id }}">
-                                <a href="{{ notification.path is not null ? path(notification.path, {'id': notification.idPath}): path("user_notification_show", {'id': notification.id}) }}"
-                                   class="m-0 p-0">
+                            <a href="{{ notification.path is not null ? path(notification.path, {'id': notification.idPath, "id-notification": notification.id}) : path("user_notification_show", {'id': notification.id}) }}"
+                               class="m-0 p-0 font-small">
+                                <li {{ notification.readAt is null ? " style='background-color : #a7d4f7'" }} class="text-decoration-none notif rounded mb-1 p-2" id="{{ notification.id }}">
                                     <div class="font-bold font-italic font-weight-bold">{{ notification.createdAt|date("d/m/Y H:i:s") }}</div>
                                     {{ notification.message }}
-                                </a>
-                            </li>
+                                </li>
+                            </a>
                         {% endfor %}
                     </ul>
                     {% endif %}

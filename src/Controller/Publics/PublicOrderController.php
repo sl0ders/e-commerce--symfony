@@ -3,9 +3,12 @@
 
 namespace App\Controller\Publics;
 
+use App\Entity\Notification;
 use App\Entity\Orders;
+use App\Repository\NotificationRepository;
 use App\Repository\OrdersRepository;
 use App\Services\CartService;
+use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,9 +52,17 @@ class PublicOrderController extends AbstractController
         ]);
     }
 
-    #[Route("/show/{id}", name: "orders_show")]
-    public function show(Orders $order): Response
+    #[Route("/show/{id}/{id-notification}", name: "orders_show", methods: ["GET"])]
+    public function show(Orders $order, Request $request, NotificationRepository $notificationRepository): Response
     {
+        $em = $this->getDoctrine()->getManager();
+        $notificationRequest = $request->get('id-notification');
+        $notification = $notificationRepository->find($notificationRequest);
+        if ($notification->getReadAt() == null) {
+            $notification->setReadAt(new DateTime());
+            $em->persist($notification);
+        }
+        $em->flush();
         return $this->render("Public/orders/show.html.twig", [
             "order" => $order
         ]);

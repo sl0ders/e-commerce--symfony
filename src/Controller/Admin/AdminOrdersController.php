@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Datatables\OrderDatatable;
+use App\Entity\Notification;
 use App\Entity\Orders;
 use App\Form\OrderChangeStateType;
 use App\Repository\OrdersRepository;
@@ -98,7 +99,7 @@ class AdminOrdersController extends AbstractController
         );
     }
 
-    #[Route("/show/{id}", name: "admin_orders_show")]
+    #[Route("/show/{id}/{id-notification}", name: "admin_orders_show")]
     public function show(Orders $order): Response
     {
         return $this->render("Admin/orders/show.html.twig", [
