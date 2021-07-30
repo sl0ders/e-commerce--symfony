@@ -17,6 +17,7 @@ class NewsDatatable extends AbstractDatatable
 
     /**
      * @inheritDoc
+     * @throws \Exception
      */
     public function buildDatatable(array $options = [])
     {
@@ -67,6 +68,10 @@ class NewsDatatable extends AbstractDatatable
                 "title" =>$this->translator->trans('news.created_at', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,
+            ])
+            ->add('enabled', Column::class, [
+                'title' => $this->translator->trans('table.disabled', [], 'NegasProjectTrans'),
+                'visible' => false,
             ])->add(null, ActionColumn::class, [
                     'title' => 'Actions',
                     'start_html' => '<div class="start_actions" style="text-align: center; display: flex; justify-content: center">',
@@ -85,7 +90,8 @@ class NewsDatatable extends AbstractDatatable
                                 'class' => 'btn btn-primary btn-sm m-2',
                                 'role' => 'button'
                             ],
-                        ],[
+                        ],
+                        [
                             'route' => 'admin_news_edit',
                             'route_parameters' => [
                                 'id' => 'id'
@@ -97,6 +103,38 @@ class NewsDatatable extends AbstractDatatable
                                 'class' => 'btn btn-warning btn-sm m-2',
                                 'role' => 'button'
                             ],
+                        ],
+                        [
+                            'route' => 'admin_news_enabled',
+                            'route_parameters' => [
+                                'id' => 'id'
+                            ],
+                            'icon' => 'fas fa-toggle-off fa-2x',
+                            'attributes' => [
+                                'rel' => 'tooltip',
+                                'title' => $this->translator->trans('table.enabled', [], 'NegasProjectTrans'),
+                                'class' => 'btn btn-danger btn-sm m-2',
+                                'role' => 'button'
+                            ],
+                            'render_if' => function ($row) {
+                                return !$row['enabled'];
+                            }
+                        ],
+                        [
+                            'route' => 'admin_news_enabled',
+                            'route_parameters' => [
+                                'id' => 'id'
+                            ],
+                            'icon' => 'fas fa-toggle-on fa-2x',
+                            'attributes' => [
+                                'rel' => 'tooltip',
+                                'title' => $this->translator->trans('table.disabled', [], 'NegasProjectTrans'),
+                                'class' => 'btn btn-success btn-sm m-2',
+                                'role' => 'button'
+                            ],
+                            'render_if' => function ($row) {
+                                return $row['enabled'];
+                            },
                         ],
                     ]
                 ]

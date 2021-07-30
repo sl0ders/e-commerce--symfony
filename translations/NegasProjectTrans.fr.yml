@@ -52,6 +52,8 @@ news:
     content: 'Contenu de la news'
     picture: 'Produit liée'
     created_at: 'Créé le ...'
+    product:
+        arrival: 'Nouvelle arrivage de %product% !!'
 
 orders:
     title:
@@ -87,6 +89,7 @@ package:
     title:
         index: 'Index de gestion des packaging '
         new: 'Nouveau type de package'
+        edit_status: 'Édition du package'
     label:
         quantity: "Quantité inclut dans le package"
         unity: "Unitée de package (kg, g, l)"
@@ -97,6 +100,7 @@ package:
         unity: "Unitée"
     hover:
         disabled: 'desactiver le packaging'
+        edit: 'Éditer le package'
 
 stock:
     title:

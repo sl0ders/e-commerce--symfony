@@ -114,7 +114,7 @@ class CartController extends AbstractController
         $em->persist($order);
         $em->flush();
         $notificationServices->newNotification($this->translator->trans("notification.orders.new", ["%user%" => $user], "NegasProjectTrans"), $userAdmin, ["admin_orders_show", $order->getId()]);
-        $email->sendMail($subject, [$this->getUser()->getEmail()], ["order_in_course" => true, "order" => $order, "productsQuantity" => $productsQuantity]);
+        $email->sendMail($subject, [$this->getUser()], ["order_in_course" => true, "order" => $order, "productsQuantity" => $productsQuantity]);
         $em->flush();
         $this->get('session')->remove('cart');
         return $this->redirectToRoute("home");

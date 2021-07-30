@@ -1,6 +1,8 @@
 danger: "Attention"
 success: "Ok"
 flash:
+    product:
+        createSuccessFully: "Le produit a bien été créer, ainsi que son stock et la news de son arrivé"
     contact:
         deleteSuccessfullyflash: "Le contact a bien été supprimé"
     news:
@@ -12,6 +14,7 @@ flash:
         updateStateCancelled: "Impossible de remplacer le status de cette commande par le meme status"
         deleteSuccessfully: "La commande a bien été supprimé"
     package:
+        editSuccessfully: "Le packaging a bien été modifié"
         createSuccessfully: "Le packaging a bien été enregistré"
         deleteCancelled: "Impossible de supprimer le package, un produit est actuelement lié a celui-ci"
     connection:

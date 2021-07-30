@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Datatables\UserDatatable;
 use App\Entity\User;
 use App\Form\Admin_UserType;
+use App\Repository\NotificationRepository;
 use App\Repository\UserRepository;
 use Sg\DatatablesBundle\Datatable\DatatableFactory;
 use Sg\DatatablesBundle\Response\DatatableResponse;
@@ -67,18 +68,25 @@ class AdminUserController extends AbstractController
      * @Route("/{id}", name="admin_user_show", methods={"GET","POST"})
      * @param User $user
      * @param Request $request
+     * @param NotificationRepository $notificationRepository
      * @return Response
      */
-    public function show(User $user, Request $request): Response
+    public function show(User $user, Request $request, NotificationRepository $notificationRepository): Response
     {
+        $em = $this->getDoctrine()->getManager();
+        if ($request->get("id-notification")) {
+            $notification = $notificationRepository->find($request->get("id-notification"));
+            $notification->setReadAt(new \DateTime());
+            $em->persist($notification);
+        }
         $formStatus = $this->createForm(Admin_UserType::class, $user);
         $formStatus->handleRequest($request);
         if ($formStatus->isSubmitted() && $formStatus->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
-            $em->flush();
             return $this->redirectToRoute("admin_user_index");
         }
+        $em->flush();
         return $this->render('Admin/user/show.html.twig', [
             'user' => $user,
         ]);

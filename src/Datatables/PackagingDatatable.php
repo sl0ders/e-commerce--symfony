@@ -43,15 +43,17 @@ class PackagingDatatable extends AbstractDatatable
                 'title' => $this->translator->trans('package.label.quantity', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,
+                "width" => "40%"
             ])->add('unity', Column::class, [
                 'title' => $this->translator->trans('package.label.unity', [], 'NegasProjectTrans'),
                 'searchable' => true,
                 'orderable' => true,
+                "width" => "40%"
             ])
             ->add(null, ActionColumn::class, [
                     "title" => $this->translator->trans('package.label.action', [], 'NegasProjectTrans'),
-                    'start_html' => '<div style="width:80px; text-align: center; display: flex; justify-content: space-between">',
-                    "width" => "80px",
+                    'start_html' => '<div style="text-align: center; display: flex; justify-content: center">',
+                "width" => "20%",
                     'end_html' => '</div>',
                     'actions' => [
                         [
@@ -63,11 +65,25 @@ class PackagingDatatable extends AbstractDatatable
                             'route_parameters' => [
                                 'id' => 'id'
                             ],
-                            'icon' => 'fa fa-trash fa-1x',
+                            'icon' => 'fa fa-trash fa-2x',
                             'attributes' => [
                                 'rel' => 'tooltip',
                                 'title' => $this->translator->trans('package.hover.disabled', [], 'NegasProjectTrans'),
                                 'class' => 'btn btn-danger m-2',
+                                'role' => 'button'
+                            ]
+                        ],[
+                            'start_html' => '<div class="start_edit_action">',
+                            'end_html' => '</div>',
+                            'route' => 'admin_package_edit',
+                            'route_parameters' => [
+                                'id' => 'id'
+                            ],
+                            'icon' => 'fa fa-edit fa-2x',
+                            'attributes' => [
+                                'rel' => 'tooltip',
+                                'title' => $this->translator->trans('package.hover.edit', [], 'NegasProjectTrans'),
+                                'class' => 'btn btn-warning m-2',
                                 'role' => 'button'
                             ]
                         ],

@@ -34,7 +34,7 @@ class News
     private $title;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      * @Groups({"news_read"})
      */
     private $content;
@@ -45,7 +45,7 @@ class News
      * @Groups({"news_read"})
      * @var File|null
      */
-    private $image;
+    private $filename;
 
     /**
      * @ORM\Column(type="datetime")
@@ -58,6 +58,11 @@ class News
      * @Groups({"news_read"})
      */
     private $product;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $enabled;
 
     public function getId(): ?int
     {
@@ -88,14 +93,14 @@ class News
         return $this;
     }
 
-    public function getImage(): ?File
+    public function getFilename(): ?File
     {
-        return $this->image;
+        return $this->filename;
     }
 
-    public function setImage(?File $image = null): self
+    public function setFilename(?File $filename = null): self
     {
-        $this->image = $image;
+        $this->filename = $filename;
 
         return $this;
     }
@@ -120,6 +125,18 @@ class News
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getEnabled(): ?int
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(int $enabled): self
+    {
+        $this->enabled = $enabled;
 
         return $this;
     }

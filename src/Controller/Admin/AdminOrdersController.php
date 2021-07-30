@@ -6,6 +6,7 @@ use App\Datatables\OrderDatatable;
 use App\Entity\Notification;
 use App\Entity\Orders;
 use App\Form\OrderChangeStateType;
+use App\Repository\NotificationRepository;
 use App\Repository\OrdersRepository;
 use App\Services\EmailService;
 use App\Services\NotificationServices;
@@ -100,8 +101,15 @@ class AdminOrdersController extends AbstractController
     }
 
     #[Route("/show/{id}/{id-notification}", name: "admin_orders_show")]
-    public function show(Orders $order): Response
+    public function show(Orders $order, Request $request, NotificationRepository $notificationRepository): Response
     {
+        $em = $this->getDoctrine()->getManager();
+        if ($request->get("id-notification")) {
+            $notification = $notificationRepository->find($request->get("id-notification"));
+            $notification->setReadAt(new \DateTime());
+            $em->persist($notification);
+        }
+        $em->flush();
         return $this->render("Admin/orders/show.html.twig", [
             "order" => $order
         ]);

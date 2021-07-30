@@ -12,6 +12,7 @@ use Exception;
 use Sg\DatatablesBundle\Datatable\DatatableFactory;
 use Sg\DatatablesBundle\Response\DatatableResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -79,6 +80,7 @@ class AdminNewsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $news->setCreatedAt(new DateTime());
+            $news->setEnabled(true);
             $entityManager->persist($news);
             $entityManager->flush();
             $this->addFlash("success", "flash.news.createSuccessfully");
@@ -141,6 +143,20 @@ class AdminNewsController extends AbstractController
             $this->addFlash("success", "flash.news.deleteSuccessfully");
         }
 
+        return $this->redirectToRoute('admin_news_index');
+    }
+
+    #[Route("/enabled/{id}", name: "admin_news_enabled")]
+    public function enabled(News $news): RedirectResponse
+    {
+        if ($news->getEnabled()) {
+            $news->setEnabled(false);
+        } else {
+            $news->setEnabled(true);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($news);
+        $em->flush();
         return $this->redirectToRoute('admin_news_index');
     }
 }

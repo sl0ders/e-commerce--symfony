@@ -28,7 +28,6 @@ class ProductType extends ApplicationType
                 "attr" => ["class" => "form-control"],
                 "mapped" => false,
                 "required" => true
-
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'product.label.description',

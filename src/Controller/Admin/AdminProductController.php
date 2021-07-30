@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Datatables\ProductDatatable;
+use App\Entity\News;
 use App\Entity\Product;
 use App\Entity\Stock;
 use App\Form\ProductType;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/admin/product")
@@ -31,11 +33,13 @@ class AdminProductController extends AbstractController
      * @var DatatableResponse
      */
     private DatatableResponse $response;
+    private TranslatorInterface $translator;
 
-    public function __construct(DatatableFactory $factory, DatatableResponse $response)
+    public function __construct(DatatableFactory $factory, DatatableResponse $response, TranslatorInterface $translator)
     {
         $this->factory = $factory;
         $this->response = $response;
+        $this->translator = $translator;
     }
 
     /**
@@ -79,16 +83,21 @@ class AdminProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $stock = new Stock();
             $stock->setProduct($product);
-            $stock->setQuantity($product->getQuantity());
+            $stock->setQuantity($form->get("quantity")->getData());
             $stock->setMajAt(new DateTime());
             $entityManager = $this->getDoctrine()->getManager();
             $product->setUpdatedAt(new DateTime());
             $product->setFilenameJpg(strtolower($form->getData()->getPictureFiles()[0]->getClientOriginalName()));
             $product->setFilenamePng(strtolower($form->getData()->getPictureFilesPng()[0]->getClientOriginalName()));
+            $news = new News();
+            $news->setProduct($product);
+            $news->setCreatedAt(new DateTime());
+            $news->setTitle($this->translator->trans("news.product.arrival", ["%product%" => $product->getName()], "NegasProjectTrans"));
+            $entityManager->persist($news);
             $entityManager->persist($product);
             $entityManager->persist($stock);
             $entityManager->flush();
-
+            $this->addFlash("success", "flash.product.createSuccessFully");
             return $this->redirectToRoute('admin_product_index');
         }
 

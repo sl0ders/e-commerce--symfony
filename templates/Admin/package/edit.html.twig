@@ -1,0 +1,13 @@
+{% trans_default_domain "NegasProjectTrans" %}
+{% extends "base.html.twig" %}
+{% block body %}
+    <div class="datatable formulary w-100">
+        <h5 class="card-header text-center py-4">
+            <strong>{{ "package.title.edit_status"|trans }}</strong>
+        </h5>
+        <div class="datatable_content">
+            {{ include('Admin/package/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
+

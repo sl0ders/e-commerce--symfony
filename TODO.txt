@@ -25,21 +25,34 @@ Regrouper les commande par ncmd dans la vue show (pdf)
         -**   Envoi de l'email d'avertisement a l'administrateur
         -**   Envoi de l'email a l'utilisateur pour confirmer l'adresse email
 
--- TEST STOCK
-    -   Creation
-    -   Modification
-    -   Test sur l'achat des produit (diminution des stock creation commande, ou reinitialisation si commande annulé)
+--  TEST PACKAGING
+    -**   Creation
+    -**   Modification
+    -**   Utilisation
+        -**   stock
+        -**   produit
+        -**   Packaging
+        -**   Panier
+        -**   homePage
 
--- TEST produit
-    -   Creation
-    -   Edition
-    -   Affichage (homePage et admin datatable)
+-- TEST PRODUIT
+    -**   Creation
+    -**   Edition
+    -**   Suppression
+    -**   Affichage (homePage et admin datatable)
+
+-- TEST STOCK
+    -**   Creation
+    -**   Modification
+    -**   Test sur l'achat des produit (diminution des stock creation commande, ou reinitialisation si commande annulé)
+
 
 --  TEST NEWS
-    -   Creation
-    -   Modification
-    -   Affichage datatable et homepage
-    -   Activation desactivation
+    -**   Creation (automatique l'ors de la creation d'un produit, et manuel)
+    -**   Modification
+    -**   Suppression
+    -**   Activation/desactivation
+    -**   Affichage datatable et homepage
 
 --  TEST COMMANDE
     -   Creation d'une commande
@@ -47,16 +60,6 @@ Regrouper les commande par ncmd dans la vue show (pdf)
     -   Annulation d'une commande (user)
     -   Envoie de la notification
     -   Envoie de l'email
-
---  TEST PACKAGING
-    -   Creation
-    -   Modification
-    -   Utilisation
-        -   stock
-        -   produit
-        -   Packaging
-        -   Panier
-        -   homePage
 
 --  TEST NOTIFICATION
     -   Admin (reçoit)
@@ -71,6 +74,8 @@ Regrouper les commande par ncmd dans la vue show (pdf)
             -   Complete
             -   honnorée
             -   annulée
+    -   Systeme
+        -   Ajout de la date de lecture l'orsque l'on clique sur la notification
 
 --  TEST EMAIL
     -   Admin (recoit)

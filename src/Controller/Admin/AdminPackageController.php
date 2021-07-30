@@ -81,6 +81,23 @@ class AdminPackageController extends AbstractController
         ]);
     }
 
+    #[Route("/edit/{id}", name: "admin_package_edit")]
+    public function edit(Package $package, Request $request) {
+        $form = $this->createForm(PackageType::class, $package);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($package);
+            $em->flush();
+            $this->addFlash("success", "flash.package.editSuccessfully");
+           return $this->redirectToRoute("admin_package_index");
+        }
+       return $this->render("Admin/package/edit.html.twig", [
+            "form" => $form->createView(),
+            "package" => $package
+        ]);
+    }
+
     #[Route("/delete/{id}", name: "admin_package_delete", methods: ["DELETE", "GET"])]
     public function delete(ProductRepository $productRepository, Package $package): RedirectResponse
     {
