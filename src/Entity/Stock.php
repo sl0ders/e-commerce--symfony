@@ -31,7 +31,6 @@ class Stock
      */
     private $maj_at;
 
-
     public function getId(): ?int
     {
         return $this->id;

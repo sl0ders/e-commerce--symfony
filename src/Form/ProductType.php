@@ -23,11 +23,29 @@ class ProductType extends ApplicationType
                 "attr" => ["class" => "form-control"],
                 "required" => true
             ])
-            ->add('quantity', IntegerType::class,[
-                "label" => 'product.label.quantity',
+            ->add('quantity', IntegerType::class, [
+                "label" => 'stock.label.quantity',
                 "attr" => ["class" => "form-control"],
                 "mapped" => false,
                 "required" => true
+            ])
+            ->add("packageValue", IntegerType::class, [
+                "label" => "package.label.quantity",
+                "attr" => ["class" => "form-control"],
+                "mapped" => false,
+                "required" => false
+            ])
+            ->add("unity", TextType::class, [
+                "label" => "package.label.unity",
+                "attr" => ["class" => "form-control"],
+                "mapped" => false,
+                "required" => false
+            ])
+            ->add("conditioning", TextType::class, [
+                "label" => "stock.label.conditioning",
+                "attr" => ["class" => "form-control"],
+                "mapped" => false,
+                "required" => false
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'product.label.description',
@@ -38,7 +56,7 @@ class ProductType extends ApplicationType
                 "class" => Package::class,
                 "choice_label" => "packaging",
                 "attr" => ["class" => "mdb-select md-form"],
-                "required" => true
+                "required" => false
             ])
             ->add('price', MoneyType::class, [
                 "currency" => "EUR",

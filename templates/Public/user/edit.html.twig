@@ -3,12 +3,11 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <div class="datatable">
-        <h1 class='mb-5'>Vos informations</h1>
+    <div class="datatable formulary">
+        <h1 class='mb-5'>Vos informations{{ "user.yourInformation"| trans }}</h1>
         <div class="datatable_content">
                     {{ include('Public/user/_form.html.twig') }}
             </div>
         </div>
-
 {% endblock %}
 

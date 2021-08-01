@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Datatables\ProductDatatable;
 use App\Entity\News;
+use App\Entity\Package;
 use App\Entity\Product;
 use App\Entity\Stock;
 use App\Form\ProductType;
@@ -76,23 +77,33 @@ class AdminProductController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get("conditioning")->getData() != null) {
+                $package = new Package();
+                $package->setConditioning($form->get("conditioning")->getData());
+                $package->setQuantity($form->get("packageValue")->getData());
+                $package->setUnity($form->get("unity")->getData());
+            } else {
+                $package = $form->get("package")->getData();
+            }
+            $entityManager->persist($package);
             $stock = new Stock();
             $stock->setProduct($product);
             $stock->setQuantity($form->get("quantity")->getData());
             $stock->setMajAt(new DateTime());
-            $entityManager = $this->getDoctrine()->getManager();
             $product->setUpdatedAt(new DateTime());
             $product->setFilenameJpg(strtolower($form->getData()->getPictureFiles()[0]->getClientOriginalName()));
             $product->setFilenamePng(strtolower($form->getData()->getPictureFilesPng()[0]->getClientOriginalName()));
+            $product->setPackage($package);
             $news = new News();
             $news->setProduct($product);
             $news->setCreatedAt(new DateTime());
             $news->setTitle($this->translator->trans("news.product.arrival", ["%product%" => $product->getName()], "NegasProjectTrans"));
+            $news->setEnabled(true);
             $entityManager->persist($news);
             $entityManager->persist($product);
             $entityManager->persist($stock);

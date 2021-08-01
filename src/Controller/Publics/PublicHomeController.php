@@ -63,7 +63,7 @@ class PublicHomeController extends AbstractController
     }
 
     /**
-     * @Route("/{name}/mon-profile", name="home_user")
+     * @Route("/{id}/mon-profile", name="home_user")
      * @return Response
      */
     public function homeUser(): Response
@@ -75,7 +75,7 @@ class PublicHomeController extends AbstractController
     }
 
     /**
-     * @Route("/{name}/détail-profil", name="user_profile_detail")
+     * @Route("/{id}/détail-profil", name="user_profile_detail")
      * @return Response
      */
     public function ProfileUser(): Response
@@ -101,7 +101,7 @@ class PublicHomeController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('user_profile_detail', ['name' => $user->getName()]);
+            return $this->redirectToRoute('user_profile_detail', ['id' => $user->getId()]);
         }
         return $this->render('Public/user/edit.html.twig', [
             'form' => $form->createView(),

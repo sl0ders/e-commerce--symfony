@@ -8,42 +8,8 @@
             <strong>{{ "contact.title.index" | trans }}</strong>
         </h5>
         <div class="datatable_content">
-            <div class="responsive-table-line" style="margin:0 auto;max-width:1700px;">
-                <table class="table table-bordered table-condensed table-body-center">
-                    <thead>
-                    <tr>
-                        <th>{{ "contact.username" | trans }}</th>
-                        <th>{{ "contact.firstName" | trans }}</th>
-                        <th>{{ "contact.email" | trans }}</th>
-                        <th>{{ "contact.subject" | trans }}</th>
-                        <th>{{ "contact.message" | trans }}</th>
-                        <th>{{ "table.created_at" | trans }}</th>
-                        <th>{{ "table.action" | trans }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for contact in contacts %}
-                        <tr>
-                            <td>{{ contact.firstname }}</td>
-                            <td>{{ contact.email }}</td>
-                            <td>{{ contact.subject }}</td>
-                            <td>{{ contact.message }}</td>
-                        <td>{{ contact.createdAt ? contact.createdAt|date('d/m/Y H:i:s') : '' }}</td>
-                        <td>
-                            <a href="{{ path('admin_contact_show', {'id': contact.id}) }}" class="btn btn-warning">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="8">{{ "table.no_element" | trans }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            {{ include('Layout/_datatable.html.twig', {"subject": "contact"}) }}
         </div>
-    </div>
         <div class="button">
             <a href='{{ path('home') }}' class='btn btn-primary float-left'>{{ "button.return"|trans }}</a>
         </div>

@@ -35,14 +35,15 @@
         </div>
     </div>
     <div class="button">
-        <a href="{{ path('admin_order_changeState', {'id': order.id}) }}" data-tooltip="voir"
+        <a href="{{ path('order_changeState', {'id': order.id}) }}" data-tooltip="voir"
            class="font-weight-bold tooltipped">
             <button class="btn btn-warning text-white">
                 {{ "button.edit" | trans }}
             </button>
         </a>
-        <a href="{{ path('admin_orders_index') }}" class="btn btn-primary float-left" title="{{ "button.return"|trans }}">{{ "button.return" | trans }}</a>
+        <a href="{{ path('user_orders', {"id": app.user.getId()}) }}" class="btn btn-primary float-left" title="{{ "button.return"|trans }}">{{ "button.return" | trans }}</a>
     </div>
+</div>
     {% endblock %}
     {% block javascripts %}
         <script>

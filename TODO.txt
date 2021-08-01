@@ -56,37 +56,41 @@ Regrouper les commande par ncmd dans la vue show (pdf)
 
 --  TEST COMMANDE
     -   Creation d'une commande
-    -   Modification du status
-    -   Annulation d'une commande (user)
-    -   Envoie de la notification
-    -   Envoie de l'email
+        -**   email (user)
+        -**   email (admin)
+        -**   notification admin
+        -**   diminution stock
+    -**   Modification du status
+    -**   Annulation d'une commande (user)
+    -**   Envoie de la notification
+    -**   Envoie de l'email
 
 --  TEST NOTIFICATION
     -   Admin (reçoit)
         -**   Suite a la creation d'un utilisateur
-        -   lors d'un contact (footer)
-        -   lors d'une validation de panier
-        -   lors d'une annulation de commande
+        -**   lors d'un contact (footer)
+        -**   lors d'une validation de panier
+        -**   lors d'une annulation de commande
     -   User (recoit)
-        -   Apres avoir effectuer un commande (recapitulatif)
-        -   A chaque modification de status de la commande par l'administrateur
-            -   Validée
-            -   Complete
-            -   honnorée
-            -   annulée
+        -**   Apres avoir effectuer un commande (recapitulatif)
+        -**   A chaque modification de status de la commande par l'administrateur
+            -**   Validée
+            -**   Complete
+            -**   honnorée
+            -**   annulée
     -   Systeme
-        -   Ajout de la date de lecture l'orsque l'on clique sur la notification
+        -**   Ajout de la date de lecture l'orsque l'on clique sur la notification
 
 --  TEST EMAIL
     -   Admin (recoit)
-        -   Lors de l'arriver d'une commande
-        -   Lors de l'annulation d'une commande par l'utilisateur
+        -**   Lors de l'arriver d'une commande
+        -**   Lors de l'annulation d'une commande par l'utilisateur
         -**   Lors de l'inscription d'un utilisateur
-        -   Lost de la rupture de stock d'un produit
-        -   Lors d'un contact d'un utilisateur
+        -**   Lors de la rupture de stock d'un produit
+        -**   Lors d'un contact d'un utilisateur
     -   User (recoit)
         -**   Systeme de mailing confirm_email
-        -   Lors d'une validation de panier
+        -**   Lors d'une validation de panier
         -   Lors de la reponse d'un admin a un contact
         -   Lors du changement de status d'une commande
             -   Validée

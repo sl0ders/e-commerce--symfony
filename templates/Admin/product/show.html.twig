@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <th>{{ "product.package" | trans }}</th>
-                        <td>{{ product.package.quantity }} {{ product.package.unity }}</td>
+                        <td>{{ product.package.quantity is defined ? product.package.quantity }} {{ product.package.unity is defined ? product.package.unity }}</td>
                     </tr>
                     <tr>
                         <th>{{ "product.price" | trans }}</th>

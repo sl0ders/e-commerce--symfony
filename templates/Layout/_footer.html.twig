@@ -43,13 +43,13 @@
                 <h6 class="text-uppercase font-weight-bold">Liens pratique</h6>
                 <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                 <p>
-                    <a href="{{ path('home_user', {'name': app.user.name}) }}">Votre compte</a>
+                    <a href="{{ path('home_user', {'id': app.user.id}) }}">Votre compte</a>
                 </p>
                 <p>
-                    <a href="{{ path('user_profile_detail', {'name': app.user.name}) }}">Vos Informations</a>
+                    <a href="{{ path('user_profile_detail', {'id': app.user.id}) }}">Vos Informations</a>
                 </p>
                 <p>
-                    <a href="{{ path('user_orders', {'name': app.user.name}) }}">Vos commandes</a>
+                    <a href="{{ path('user_orders', {'id': app.user.id}) }}">Vos commandes</a>
                 </p>
             </div>
         {% endif %}

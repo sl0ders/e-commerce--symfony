@@ -13,39 +13,78 @@
         {{ form_widget(form.quantity) }}
         {{ form_label(form.quantity) }}
     </div>
-    {{ form_widget(form.package) }}
-    {{ form_label(form.package) }}
-    <div class="md-form">
-        {{ form_widget(form.price) }}
-        {{ form_label(form.price) }}
-    </div>
-    <div class="md-form">
-        <div class="file-field">
-            <div class="btn btn-primary btn-sm float-left">
-                <span>{{ "product.label.jpg_file"|trans }}</span>
-                <input type="file">
+    <h5 class="text-center"><strong>{{ "stock.title.form" | trans }}</strong></h5>
+    <div class="packaging">
+        <div class="row">
+            <div class="md-form col-md-4">
+                {{ form_widget(form.packageValue) }}
+                {{ form_label(form.packageValue) }}
             </div>
-            <div class="file-path-wrapper">
-                {{ form_widget(form.pictureFiles) }}
+            <div class="md-form col-md-4">
+                {{ form_widget(form.unity) }}
+                {{ form_label(form.unity) }}
             </div>
-        </div>
-    </div>
-    <div class="md-form">
-        <div class="file-field">
-            <div class="btn btn-primary btn-sm float-left">
-                <span>{{ "product.label.png_file"|trans }}</span>
-                <input type="file">
-            </div>
-            <div class="file-path-wrapper">
-                {{ form_widget(form.pictureFilesPng) }}
+            <div class="md-form col-md-4">
+                {{ form_widget(form.conditioning) }}
+                {{ form_label(form.conditioning) }}
             </div>
         </div>
     </div>
 </div>
-<button class="btn btn-success" type="submit" title="{{ "button.save" | trans }}">{{ button_label|default( "button.save"|trans) }}</button>
+<div class="row">
+    <div class="entity_field col-md-9">
+        {{ form_widget(form.package) }}
+        {{ form_label(form.package) }}
+    </div>
+    <button type="button"
+            class="col-md-2 btn btn-primary btn-sm create_packaging">{{ "button.createPackaging"| trans }}</button>
+    <button type="button"
+            class="col-md-2 btn btn-primary btn-sm find_existing_packaging">{{ "button.findExistingPackaging"| trans }}</button>
+</div>
+<div class="md-form">
+    {{ form_widget(form.price) }}
+    {{ form_label(form.price) }}
+</div>
+<div class="md-form">
+    <div class="file-field">
+        <div class="btn btn-primary btn-sm float-left">
+            <span>{{ "product.label.jpg_file"|trans }}</span>
+            <input type="file">
+        </div>
+        <div class="file-path-wrapper">
+            {{ form_widget(form.pictureFiles) }}
+        </div>
+    </div>
+</div>
+<div class="md-form">
+    <div class="file-field">
+        <div class="btn btn-primary btn-sm float-left">
+            <span>{{ "product.label.png_file"|trans }}</span>
+            <input type="file">
+        </div>
+        <div class="file-path-wrapper">
+            {{ form_widget(form.pictureFilesPng) }}
+        </div>
+    </div>
+</div>
+</div>
+<button class="btn btn-success" type="submit"
+        title="{{ "button.save" | trans }}">{{ button_label|default( "button.save"|trans) }}</button>
 {{ form_end(form) }}
 <script>
     $(document).ready(function () {
+        $(".create_packaging").on('click', () => {
+            $(".entity_field").hide("slow")
+            $(".packaging").show("slow")
+            $(".find_existing_packaging").show("slow")
+            $(".create_packaging").hide("slow")
+        })
+        $(".find_existing_packaging").on("click", () => {
+            $(".entity_field").show("slow")
+            $(".packaging").hide("slow")
+            $(".create_packaging").show("slow")
+            $(".find_existing_packaging").hide("slow")
+        })
         $('.mdb-select').materialSelect();
     });
 </script>

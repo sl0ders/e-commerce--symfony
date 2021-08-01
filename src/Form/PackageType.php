@@ -23,6 +23,11 @@ class PackageType extends ApplicationType
                     "label" => 'package.label.unity',
                     "attr" => ['class' => "form-control mb-3"]
                 ]
+            )
+            ->add("conditioning", TextType::class, [
+                    "label" => 'package.label.conditioning',
+                    "attr" => ['class' => "form-control mb-3"]
+                ]
             );
     }
 

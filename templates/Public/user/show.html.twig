@@ -11,38 +11,41 @@
                     <table class='table table-bordered text-center table-condensed table-body-center'>
                         <tbody>
                         <tr>
-                            <th scope='row' class='font-weight-bolder'>Nom</th>
-                            <td>{{ user.name }}</td>
+                            <th scope='row' class='font-weight-bolder'>{{ "user.lastName" | trans }}</th>
+                            <td>{{ app.user.name }}</td>
                         </tr>
                         <tr>
-                            <th scope='row' class='font-weight-bolder'>Prenom</th>
-                            <td>{{ user.firstname }}</td>
+                            <th scope='row' class='font-weight-bolder'>{{ "user.firstName" | trans }}</th>
+                            <td>{{ app.user.firstname }}</td>
                         </tr>
                         <tr>
-                            <th scope='row' class='font-weight-bolder'>Adresse email</th>
-                            <td>{{ user.email }}</td>
+                            <th scope='row' class='font-weight-bolder'>{{ "user.userName"| trans }}</th>
+                            <td>{{ app.user.username }}</td>
                         </tr>
                         <tr>
-                            <th scope='row' class='font-weight-bolder'>Status</th>
+                            <th scope='row' class='font-weight-bolder'>{{ "user.email"| trans }}</th>
+                            <td>{{ app.user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row' class='font-weight-bolder'>{{ "user.status" | trans }}</th>
                             <td>
-                                {% if user.status ==  "Visiteur" %}
+                                {% if app.user.status ==  "Visiteur" %}
                                     {{  "user.state.visitor" |trans }}
-                                {% elseif user.status == "Client" %}
+                                {% elseif app.user.status == "Client" %}
                                     {{"user.state.client" |trans }}
-                                {% elseif user.status == "Administrateur" %}
+                                {% elseif app.user.status == "Administrateur" %}
                                     {{"user.state.admin" |trans}}
-                                {% elseif user.status == "Banni" %}
+                                {% elseif app.user.status == "Banni" %}
                                     {{"user.state.ban" |trans}}
                                 {% endif %}
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    {% if user.status == "user.state.client" |trans or  user.status == "user.state.admin" |trans %}
-                        <a href='{{ path('public_edit_user', {'id' : user.id}) }}' class='btn-success btn'>Modifier
-                            mon compte</a>
+                    {% if app.user.status == "user.state.client" |trans or  app.user.status == "user.state.admin" |trans %}
+                        <a href='{{ path('public_edit_user', {'id' : app.user.id}) }}' class='btn-success btn'>{{ "button.edit" | trans }}</a>
                     {% endif %}
-                    <a href='{{ path('home_user', {'name' : app.user.name}) }}' class='btn btn-primary float-left'>{{ "button.return"| trans }}</a>
+                    <a href='{{ path('home_user', {'id' : app.user.id}) }}' class='btn btn-primary float-left'>{{ "button.return"| trans }}</a>
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ flash:
     product:
         createSuccessFully: "Le produit a bien été créer, ainsi que son stock et la news de son arrivé"
     contact:
+        createSuccessfully: "Votre message a bien été transmit a notre service"
         deleteSuccessfullyflash: "Le contact a bien été supprimé"
     news:
         createSuccessfully: "La news a bien été créé"

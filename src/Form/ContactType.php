@@ -13,14 +13,6 @@ class ContactType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', TextType::class, [
-                "label" => "contact.firstName",
-                "attr" => ["class" => "form-control"]
-            ])
-            ->add('email', TextType::class, [
-                "label" => "contact.email",
-                "attr" => ["class" => "form-control"]
-            ])
             ->add('subject', TextType::class,  [
                 "label" => "contact.subject",
                 "attr" => ["class" => "form-control"]

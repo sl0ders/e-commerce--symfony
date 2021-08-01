@@ -392,7 +392,7 @@ body {
         .card-body {
           text-align: center;
           padding: 10px;
-          min-height: 390px ;
+          min-height: 450px ;
 
           .btn-cart {
             max-height: 40px;
@@ -481,6 +481,23 @@ body {
       margin: auto;
       padding: 50px;
 
+      .packaging {
+        display: none;
+      }
+      .find_existing_packaging {
+        display: none;
+      }
+      .md-form input:not([type]), .md-form input[type="text"]:not(.browser-default), .md-form input[type="password"]:not(.browser-default), .md-form input[type="email"]:not(.browser-default), .md-form input[type="url"]:not(.browser-default), .md-form input[type="time"]:not(.browser-default), .md-form input[type="date"]:not(.browser-default), .md-form input[type="datetime"]:not(.browser-default), .md-form input[type="datetime-local"]:not(.browser-default), .md-form input[type="tel"]:not(.browser-default), .md-form input[type="number"]:not(.browser-default), .md-form input[type="search"]:not(.browser-default), .md-form input[type="phone"]:not(.browser-default), .md-form input[type="search-md"], .md-form textarea.md-textarea {
+        border-bottom: #0b2a41 1px solid;
+      }
+      textarea.form-control {
+        border: rgba(#4b789d,0.5) 1px solid;
+        border-radius: 5px;
+        z-index: 12
+      }
+      label {
+        z-index: 2;
+      }
       .card-header {
         margin-bottom: 50px;
       }

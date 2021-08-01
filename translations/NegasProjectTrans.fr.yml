@@ -12,6 +12,8 @@ button:
     signin: "S'inscrire"
     edit: 'Éditer'
     login: "Se connecter"
+    createPackaging: 'Créer un packaging'
+    findExistingPackaging: 'Récuperer un packaging existant'
 
 table:
     action: "Actions"
@@ -32,6 +34,18 @@ contact:
     title:
         index: 'Index de gestion des contacts'
         show: "Visualisation du message"
+        new: 'Nous contacter'
+    hover:
+        admin: "Contacter l'administrateur ?"
+        show: 'Détail du contacte'
+        reply: 'Répondre'
+    label:
+        emailUser: "Email de l'utilisateur"
+        subject: 'Sujet du message'
+        message: 'Message'
+        fullnameUser: 'Nom complet'
+        createdAt: 'Date de creation'
+        action: 'Actions'
 
 news:
     label:
@@ -91,6 +105,7 @@ package:
         new: 'Nouveau type de package'
         edit_status: 'Édition du package'
     label:
+        conditioning: "Conditionnement"
         quantity: "Quantité inclut dans le package"
         unity: "Unitée de package (kg, g, l)"
         action: 'Actions'
@@ -103,11 +118,15 @@ package:
         edit: 'Éditer le package'
 
 stock:
-    title:
-        index: ' Index de gestion des stocks'
     product: 'Produit'
-    package: 'Packaging'
-    quantity: 'Quantité'
+    title:
+        index: 'Index de gestion des stocks'
+        form: 'Packaging du produit'
+    label:
+        package: 'Packaging'
+        quantity: 'Quantité'
+        conditioning: 'Conditionnement'
+
 
 user:
     title:
@@ -139,6 +158,9 @@ user:
         lastname: "Entrez votre nom de famille"
         username: "Entrez votre pseudo"
         fullname: 'Nom complet'
+    order:
+        aborde: 'interrompre la commande'
+    yourInformation: 'Vos informations'
 
 product:
     label:
@@ -200,13 +222,17 @@ email:
     total: 'Total'
     unity: 'Unité(s)'
     add_new_order: 'Nouvelle commande de votre part sur le site de teraneo'
+    add_new_order_admin: "Une commande vient d'etre passée sur le site Teraneo"
     order:
-        changeState: 'Votre commande numero %orderNumber% a changer de statut'
+        orderAborder_admin: "La commande n°%orderNumber% a été annuler par l'utilisateur"
+        changeState: 'La commande numero %orderNumber% a changer de statut'
         orderValidate: 'Votre commande a été validé par notre service, a present celle-ci est en cour de préparation, nous vous remerçions pour votre confiance, nous mettons tout en oeuvre pour compléter votre commande au plus vite'
         orderCompleted: 'Bonne nouvelle ! Votre commande est maintenant prete, celle-ci vous attend a notre point de vente'
         orderHonored: 'Votre commande est maintenant cloturé. Nous vous remercions du fond du coeur pour la confiance apporté a notre service de vente sur le site Teraneo et nous esperons vous revoir tres bientot'
-        orderAborded: 'La commande a été abandonnée, veuillez contacter teraneo pour plus de détail'
+        orderAborded: "La commande a été abandonnée. Si cela n'est pas de votre fait merci de contacter teraneo pour plus de détail"
         title: 'Commande TERANEO'
+        titleAdmin: "Une nouvelle commande vient d'arrivée de la part de l'utilisateur %user_fullname%"
+        yourOrder: 'Votre commande sur le site de Teraneo'
     user:
         add_new_user: 'Nouvelle utilisateur '
         add_user: "Un nouvelle utilisateur nommé %user% vient de s'inscrire sur le site teraneo"
@@ -214,6 +240,12 @@ email:
         confirmEmail:
             title: 'Bonjour %user%, bienvenue sur le site ecomerce de teraneo'
             text: 'Afin de valider votre adresse email merci de cliquer sur ce lien'
+    contact:
+        new_admin: "Un nouveau contacte client vient d'etre émis"
+        text: 'Le client %client% a laissé un message pour les administrateurs du site'
+    subject:
+        stock_report: 'Rapport de stock'
+    stock_report: 'Attention, le stock de %product% atteint un seuil critique de %quantity% Unitée'
 
 header:
     tilte: "Boutique en ligne"
@@ -246,3 +278,4 @@ home_public:
     notification_management: 'Gestion des notifications'
 text:
     or: 'où'
+warning: 'Attention'

@@ -35,6 +35,11 @@ class Package
      */
     private $products;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $conditioning;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -102,5 +107,17 @@ class Package
     public function packaging(): string
     {
         return $this->getQuantity() . " " . $this->getUnity();
+    }
+
+    public function getConditioning(): ?string
+    {
+        return $this->conditioning;
+    }
+
+    public function setConditioning(string $conditioning): self
+    {
+        $this->conditioning = $conditioning;
+
+        return $this;
     }
 }

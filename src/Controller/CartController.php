@@ -76,22 +76,24 @@ class CartController extends AbstractController
      * @return RedirectResponse
      * @throws Exception
      */
-    public function validCart(EmailService $email,
-                              StockRepository $stockRepository,
+    public function validCart(EmailService         $email,
+                              StockRepository      $stockRepository,
                               NotificationServices $notificationServices,
-                              UserRepository $userRepository
+                              UserRepository       $userRepository
     ): RedirectResponse
     {
         $productsQuantity = [];
         $em = $this->getDoctrine()->getManager();
         $carts = $this->cartService->getAllCart();
-        $subject = $this->translator->trans("email.add_new_order", [], "NegasProjectTrans");
+        $subjectUser = $this->translator->trans("email.add_new_order", [], "NegasProjectTrans");
+        $subjectAdmin = $this->translator->trans("email.add_new_order_admin", [], "NegasProjectTrans");
         $order = new Orders();
         $order->setUser($this->getUser());
         $order->setCreatedAt(new DateTime());
         $order->setNCmd(date("Y-d-m-i-s"));
         $order->setTotal($this->cartService->getTotal());
         $order->setValidation($this->translator->trans($order::STATE_IN_COURSE, [], "NegasProjectTrans"));
+        $userAdmin = $userRepository->findBy(["status" => "Administrateur"]);
         foreach ($carts as $cart) {
             if ($cart['quantity'] > 0) {
                 $linkOrderProduct = new LinkOrderProduct();
@@ -105,16 +107,20 @@ class CartController extends AbstractController
                 $stock->setQuantity($stock->getQuantity() - $productQuantity["quantity"]);
                 $stock->setMajAt(new DateTime());
                 $em->persist($stock);
+                if ($stock->getQuantity() < 20) {
+                    $subjectStockAdmin = $this->translator->trans("email.subject.stock_report", [], "NegasProjectTrans");
+                    $this->emailService->sendMail($subjectStockAdmin, $userAdmin, ["productQuantity"=> $productQuantity, "stockReport" => true]);
+                }
                 array_push($productsQuantity, $productQuantity);
             }
         }
         $this->addFlash("success", "flash.order.addedSuccessfully");
         $user = $this->getUser()->getFullname();
-        $userAdmin = $userRepository->findBy(["status" => "Administrateur"]);
         $em->persist($order);
         $em->flush();
-        $notificationServices->newNotification($this->translator->trans("notification.orders.new", ["%user%" => $user], "NegasProjectTrans"), $userAdmin, ["admin_orders_show", $order->getId()]);
-        $email->sendMail($subject, [$this->getUser()], ["order_in_course" => true, "order" => $order, "productsQuantity" => $productsQuantity]);
+        $notificationServices->newNotification($this->translator->trans("notification.orders.new", ["%user%" => $user], "NegasProjectTrans"), $userAdmin, ["orders_show", $order->getId()]);
+        $email->sendMail($subjectUser, [$this->getUser(),], ["order_in_course" => true,"users" => true, "order" => $order, "productsQuantity" => $productsQuantity]);
+        $email->sendMail($subjectAdmin, $userAdmin, ["order_in_course_admin" => true, "order_in_course" => true, "order" => $order, "user" => $this->getUser(), "productsQuantity" => $productsQuantity]);
         $em->flush();
         $this->get('session')->remove('cart');
         return $this->redirectToRoute("home");

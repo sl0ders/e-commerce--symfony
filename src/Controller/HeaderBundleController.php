@@ -20,6 +20,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class HeaderBundleController extends AbstractController
 {
 
+    /**
+     * @var TranslatorInterface
+     */
     private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
@@ -37,7 +40,7 @@ class HeaderBundleController extends AbstractController
         $notificationDescSorting = [];
         if ($this->getUser()) {// retrieve the user connected for reference in condition
             if ($this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-                $notificationDescSorting = $notificationRepository->findBy([], ["createdAt" => "DESC"],5);
+                $notificationDescSorting = $notificationRepository->findBy([], ["createdAt" => "DESC"]);
             } else {
                 $notifications = $this->getUser()->getNotifications();
                 $iterator = $notifications->getIterator();

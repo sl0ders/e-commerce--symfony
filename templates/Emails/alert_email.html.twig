@@ -1,5 +1,6 @@
 {% trans_default_domain "NegasProjectTrans" %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -19,8 +20,15 @@
         }
     </style>
 </head>
+<body bgcolor="#f6f8f1">
+{% if order_in_course_admin is defined %}
+    <h1 style="text-align: center">{{ "email.order.titleAdmin" | trans({"%user_fullname%": user.fullname }) }} </h1>
+{% endif %}
+
 {% if order_in_course is defined %}
-    <body bgcolor="#f6f8f1">
+    {% if users is defined %}
+        <h1 style="text-align: center">{{ "email.order.yourOrder" | trans }}</h1>
+    {% endif %}
     <table width="100%" bgcolor="#f6f8f1" border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td>
@@ -38,7 +46,8 @@
                         {% set totalPrice =  product.product.price * product.quantity %}
                         <tr>
                             <td>{{ product.product.name }}</td>
-                            <td>{{ product.quantity }} X {{ product.product.package.quantity }} {{ product.product.package.unity }}</td>
+                            <td>{{ product.quantity }}
+                                X {{ product.product.package.quantity }} {{ product.product.package.unity }}</td>
                             <td>{{ product.product.price | format_currency('EUR') }}</td>
                             <td>{{ totalPrice | format_currency('EUR') }}</td>
                         </tr>
@@ -54,8 +63,6 @@
             </td>
         </tr>
     </table>
-    </body>
-    </html>
 {% endif %}
 
 {% if orderValidate is defined %}
@@ -71,17 +78,21 @@
         {{ "email.order.orderCompleted" | trans }}
     </p>
 {% endif %}
-
 {% if orderHonored is defined %}
     <h1>{{ "email.order.changeState" | trans({"%orderNumber%": order}) }}</h1>
     <p style="text-align: center">
         {{ "email.order.orderHonored" | trans }}
     </p>
 {% endif %}
+
 {% if orderAborded is defined %}
     <h1>{{ "email.order.changeState" | trans({"%orderNumber%": order}) }}</h1>
     <p style="text-align: center">
-        {{ "email.order.orderHonored" | trans }}
+        {% if admin is defined %}
+            {{ "email.order.orderAborder_admin" | trans({"%orderNumber%":order}) }}
+        {% else %}
+            {{ "email.order.orderAborded" | trans }}
+        {% endif %}
     </p>
 {% endif %}
 
@@ -91,5 +102,16 @@
 
 {% if confirmEmail is defined %}
     <h4>{{ "email.user.confirmEmail.title" | trans({"%user%": user.fullname}) }}</h4>
-    <p>{{ "email.user.confirmEmail.text" | trans }} <a href="{{ app.request.schemeAndHttpHost }}/confirm-account/{{ user.id }}">Confirmer</a></p>
+    <p>{{ "email.user.confirmEmail.text" | trans }} <a
+                href="{{ app.request.schemeAndHttpHost }}/confirm-account/{{ user.id }}">Confirmer</a></p>
 {% endif %}
+{% if new_contact is defined %}
+<p>{{ "email.contact.text" | trans({"%client%": client.fullname}) }}
+    {% endif %}
+
+    {% if stockReport is defined %}
+    <h1>{{ "warning"| trans }}</h1>
+    <p> {{ "email.stock_report"| trans({"%product%":productQuantity.product, "%quantity%": productQuantity.quantity} ) }}</p>
+{% endif %}
+</body>
+</html>

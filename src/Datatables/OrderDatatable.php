@@ -119,7 +119,7 @@ class OrderDatatable extends AbstractDatatable
                     'end_html' => '</div>',
                     'actions' => [
                         [
-                            'route' => 'admin_orders_show_pdf',
+                            'route' => 'orders_show_pdf',
                             'label' => null,
                             'route_parameters' => [
                                 'id' => 'id',
@@ -136,7 +136,7 @@ class OrderDatatable extends AbstractDatatable
                             'start_html' => '<div class="start_show_action">',
                             'end_html' => '</div>',
                         ],[
-                            'route' => 'admin_orders_show',
+                            'route' => 'orders_show',
                             'label' => null,
                             'route_parameters' => [
                                 'id' => 'id',

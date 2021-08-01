@@ -2,8 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Datatables\ContactDatatable;
 use App\Entity\Contact;
 use App\Repository\ContactRepository;
+use Sg\DatatablesBundle\Datatable\DatatableFactory;
+use Sg\DatatablesBundle\Response\DatatableResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,10 +20,21 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class AdminContactController extends AbstractController
 {
 
+    /**
+     * @var DatatableFactory
+     */
+    private DatatableFactory $factory;
+
+    /**
+     * @var DatatableResponse
+     */
+    private DatatableResponse $response;
     private TranslatorInterface $translator;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(DatatableFactory $factory, DatatableResponse $response, TranslatorInterface $translator)
     {
+        $this->factory = $factory;
+        $this->response = $response;
         $this->translator = $translator;
     }
 
@@ -28,11 +42,23 @@ class AdminContactController extends AbstractController
      * @Route("/", name="admin_contact_index", methods={"GET"})
      * @param ContactRepository $contactRepository
      * @return Response
+     * @throws \Exception
      */
-    public function index(ContactRepository $contactRepository): Response
+    public function index(ContactRepository $contactRepository, Request $request): Response
     {
+        $isAjax = $request->isXmlHttpRequest();
+        $datatable = $this->factory->create(ContactDatatable::class);
+        $datatable->buildDatatable();
+
+        if ($isAjax) {
+            $responseService = $this->response;
+            $responseService->setDatatable($datatable);
+            $responseService->getDatatableQueryBuilder();
+
+            return $responseService->getResponse();
+        }
         return $this->render('Admin/contact/index.html.twig', [
-            'contacts' => $contactRepository->findAll(),
+            "datatable" => $datatable
         ]);
     }
 

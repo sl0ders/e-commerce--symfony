@@ -49,6 +49,11 @@ class PackagingDatatable extends AbstractDatatable
                 'searchable' => true,
                 'orderable' => true,
                 "width" => "40%"
+            ])->add('conditioning', Column::class, [
+                'title' => $this->translator->trans('package.label.conditioning', [], 'NegasProjectTrans'),
+                'searchable' => true,
+                'orderable' => true,
+                "width" => "40%"
             ])
             ->add(null, ActionColumn::class, [
                     "title" => $this->translator->trans('package.label.action', [], 'NegasProjectTrans'),
