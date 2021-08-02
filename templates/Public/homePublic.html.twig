@@ -48,31 +48,31 @@
                                 <p>{{ "product.hover.soonFindOutMore" | trans }}</p>
                             </div>
                         {% endif %}
-                        <div class='font-weight-bold'>{{ product.price }}€ / {{ product.package.quantity}} {{ product.package.unity }}</div>
+                        <div class='font-weight-bold'>{{ product.price }}€ / {{ product.package.quantity is defined ? product.package.quantity }} {{ product.package.unity is defined ? product.package.unity }}</div>
                         {% if product.stock.quantity > 0 %}
                             <form action='{{ path('cart_remove', {'id': product.id }) }}' class='mt-2 cart-refresh' method='post'>
-                                <div class='form-action'>
-                                    <div class='minus-plus'>
-                                        <div class='def-number-input number-input safari_only minus-plus-content'>
-                                            <button type='button' title="{{ "product.hover.minus"| trans }}"
-                                                    onclick='this.parentNode.querySelector("input[type=number]").stepDown()'>
-                                                <i class='fas fa-minus'></i>
-                                            </button>
-                                            <label for='plus-moins-{{ product.id }}'></label>
-                                            <input id='plus-moins-{{ product.id }}'
-                                                   class='quantity'
-                                                   min='0'
-                                                   max='{{ product.stock.quantity }}'
-                                                   name='quantity'
-                                                   value="{{  app.session.get("cart")[product.id] is defined ? app.session.get("cart")[product.id] : 0}}"
-                                                   type='number'>
-                                            <button type='button' title="{{ "product.hover.plus"| trans }}"
-                                                    onclick='this.parentNode.querySelector("input[type=number]").stepUp()'>
-                                                <i class='fas fa-plus'></i>
-                                            </button>
+                                <div class='form-action container'>
+                                    <div class='row'>
+                                        <div class='def-number-input number-input safari_only col-md-10 m-auto'>
+                                            <div class="row">
+                                                <button type='button' class="col-md-3 m-auto" title="{{ "product.hover.minus"| trans }}" onclick='this.parentNode.querySelector("input[type=number]").stepDown()'>
+                                                    <i class='fas fa-minus'></i>
+                                                </button>
+                                                <label for='plus-moins-{{ product.id }}'></label>
+                                                <input id='plus-moins-{{ product.id }}'
+                                                       class='quantity col-md-4'
+                                                       min='0'
+                                                       max='{{ product.stock.quantity }}'
+                                                       name='quantity'
+                                                       value="{{  app.session.get("cart")[product.id] is defined ? app.session.get("cart")[product.id] : 0}}"
+                                                       type='number'>
+                                                <button type='button' class="col-md-3 m-auto" title="{{ "product.hover.plus"| trans }}" onclick='this.parentNode.querySelector("input[type=number]").stepUp()'>
+                                                    <i class='fas fa-plus'></i>
+                                                </button>
+                                            </div>
                                         </div>
                                         {% if not is_granted('ROLE_ADMIN') %}
-                                            <button type="submit" class="btn btn-primary p-2 btn-sm btn-cart ml-2"
+                                            <button type="submit" class="ml-auto mr-auto mt-2 btn btn-primary p-2 btn-sm col-md-4"
                                                     title="{{ "product.hover.cart" | trans }}">
                                                 <i class="fas fa-shopping-cart fa-2x"></i>
                                             </button>

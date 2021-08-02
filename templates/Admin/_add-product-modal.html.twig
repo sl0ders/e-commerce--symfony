@@ -12,64 +12,11 @@
                 </button>
             </div>
             <!--Body-->
-            <div class="modal-body">
-                <div class="datatable">
-                    <div class="card">
-                        <div class="card-body px-lg-5 pt-0">
-                            {{ form_start(form) }}
-                            <div class="mb-4">
-                                <div class="md-form">
-                                    {{ form_widget(form.name) }}
-                                    {{ form_label(form.name) }}
-                                </div>
-                                    <div class="md-form">
-                                        {{ form_widget(form.description) }}
-                                        {{ form_label(form.description) }}
-                                    </div>
-                                <div class="md-form">
-                                    {{ form_widget(form.quantity) }}
-                                    {{ form_label(form.quantity) }}
-                                </div>
-                                {{ form_widget(form.package) }}
-                                {{ form_label(form.package) }}
-                                <div class="md-form">
-                                    {{ form_widget(form.price) }}
-                                    {{ form_label(form.price) }}
-                                </div>
-                                <div class="md-form">
-                                    <div class="file-field">
-                                        <div class="btn btn-primary btn-sm float-left">
-                                            <span>{{ "product.label.jpg_file" | trans }}</span>
-                                            <input type="file">
-                                        </div>
-                                        <div class="file-path-wrapper">
-                                            {{ form_widget(form.pictureFiles) }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="md-form">
-                                    <div class="file-field">
-                                        <div class="btn btn-primary btn-sm float-left">
-                                            <span>{{ "product.label.png_file" | trans }}</span>
-                                            <input type="file">
-                                        </div>
-                                        <div class="file-path-wrapper">
-                                            {{ form_widget(form.pictureFilesPng) }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn btn-success"
-                                    type="submit" title="{{ "button.save" | trans }}">{{ button_label|default("button.save" | trans) }}</button>
-                            {{ form_end(form) }}
-                        </div>
+            <div class="modal-body col-md-12">
+                <div class="datatable formulary">
+                    <div class="datatable_content">
+                        {{ include('Admin/product/_form.html.twig') }}
                     </div>
-                    <script>
-                        $(document).ready(function () {
-                            $('.mdb-select').materialSelect();
-                        });
-                    </script>
-
                 </div>
             </div>
         </div>

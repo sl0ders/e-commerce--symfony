@@ -7,6 +7,8 @@ use App\Entity\User;
 use App\Form\Admin_UserType;
 use App\Repository\NotificationRepository;
 use App\Repository\UserRepository;
+use DateTime;
+use Exception;
 use Sg\DatatablesBundle\Datatable\DatatableFactory;
 use Sg\DatatablesBundle\Response\DatatableResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,6 +45,7 @@ class AdminUserController extends AbstractController
      * @param UserRepository $userRepository
      * @param Request $request
      * @return Response
+     * @throws Exception
      */
     public function index(UserRepository $userRepository, Request $request): Response
     {
@@ -76,7 +79,7 @@ class AdminUserController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         if ($request->get("id-notification")) {
             $notification = $notificationRepository->find($request->get("id-notification"));
-            $notification->setReadAt(new \DateTime());
+            $notification->setReadAt(new DateTime());
             $em->persist($notification);
         }
         $formStatus = $this->createForm(Admin_UserType::class, $user);

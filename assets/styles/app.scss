@@ -366,7 +366,6 @@ body {
       .card {
         visibility: visible;
         animation-name: fadeInUp;
-        max-height: 400px;
 
         &.empty {
           background-color: rgba(255, 255, 255, 0.2);
@@ -392,11 +391,9 @@ body {
         .card-body {
           text-align: center;
           padding: 10px;
-          min-height: 450px ;
 
           .btn-cart {
             max-height: 40px;
-
           }
 
           &.empty {

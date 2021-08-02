@@ -1,5 +1,5 @@
 {% trans_default_domain "NegasProjectTrans" %}
 {{ form_start(form) }}
-        {{ form_row(form.Status, {"attr" : {"class": "form-control mb-2 browser-default"}}) }}
+        {{ form_row(form.status, {"attr" : {"class": "form-control mb-2 browser-default"}}) }}
     <button class="btn btn-success" title="{{ "button.save" | trans }}">{{ button_label|default( "button.save" | trans) }}</button>
 {{ form_end(form) }}

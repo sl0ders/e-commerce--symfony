@@ -21,7 +21,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SecurityController extends AbstractController
 {
 
-    function genererChaineAleatoire($longueur, $listeCar = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    /**
+     * @throws Exception
+     */
+    function genererChaineAleatoire($longueur, $listeCar = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'): string
     {
         $chaine = '';
         $max = mb_strlen($listeCar, '8bit') - 1;
@@ -48,7 +51,10 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-         if ($this->getUser()) {
+        if ($this->getUser() && $this->getUser()->getEnabled() != 1) {
+            $this->addFlash("danger", "flash.user.accountBan");
+        }
+        if ($this->getUser()) {
              return $this->redirectToRoute('home');
          }
 
@@ -56,7 +62,6 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 

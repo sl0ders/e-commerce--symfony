@@ -21,7 +21,7 @@ class Admin_UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Status', ChoiceType::class, [
+            ->add('status', ChoiceType::class, [
                 'choices' => [
                     User::STATE_VISITOR => $this->translator->trans(User::STATE_VISITOR, [], "NegasProjectTrans"),
                     User::STATE_CLIENT => $this->translator->trans(User::STATE_CLIENT, [], "NegasProjectTrans"),

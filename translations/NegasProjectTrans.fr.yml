@@ -37,7 +37,7 @@ contact:
         new: 'Nous contacter'
     hover:
         admin: "Contacter l'administrateur ?"
-        show: 'Détail du contacte'
+        show: 'Détail du contact'
         reply: 'Répondre'
     label:
         emailUser: "Email de l'utilisateur"
@@ -241,7 +241,7 @@ email:
             title: 'Bonjour %user%, bienvenue sur le site ecomerce de teraneo'
             text: 'Afin de valider votre adresse email merci de cliquer sur ce lien'
     contact:
-        new_admin: "Un nouveau contacte client vient d'etre émis"
+        new_admin: "Un nouveau contact client vient d'etre émis"
         text: 'Le client %client% a laissé un message pour les administrateurs du site'
     subject:
         stock_report: 'Rapport de stock'

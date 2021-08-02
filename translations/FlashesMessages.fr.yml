@@ -21,6 +21,7 @@ flash:
     connection:
         email_not_foud: "L'adresse email n'a pas été trouvée"
     user:
+        accountBan: "Votre compte a été désactivé, pour plus de détail veuillez contacter nos services a travers le site 'Nous ecrire'"
         addedSuccessfully: "Felicitation, votre compte a bien été créé, il ne vous reste plus qu'a confirmer votre adresse email"
         account_already_validated: "Votre compte a deja été validé veuillez vous connecter"
         account_validated: "Felicitation vous etes maintenant membre a part entier de notre site veuillez a present vous connecter!"
