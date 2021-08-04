@@ -1,1 +1,17 @@
+<div id="news" class="d-flex flex-column">
+    {% for new in news %}
+        <div class="card h-75 my-3">
+            <div class="card-header">
+                <h3 class="text-center">{{ new.title }}</h3>
+            </div>
+            <div class="card-body rgba-brown-slight">
+                <p class="text-center">{{ new.product.description| slice(0,150) }}</p>
+                <img src="{{ vich_uploader_asset(new.product.picture) | imagine_filter("thumb") }}" alt="" width="250">
+            </div>
+            <div class="card-footer">
+                <em class="float-right">{{ new.createdAt|date("d/m/YYY H:m:s") }}</em>
+            </div>
+        </div>
+    {% endfor %}
+</div>
 

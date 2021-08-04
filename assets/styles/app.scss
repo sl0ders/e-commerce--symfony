@@ -588,6 +588,7 @@ body {
     border-top-left-radius: 45px;
     position: fixed;
     right: 5px;
+    z-index: 3;
     padding: 8px;
     width: 70px;
     color: white;
@@ -609,7 +610,19 @@ body {
         animation-delay: 3s;
       }
     }
-
+  }
+  .body-news {
+    position: relative;
+    p {
+      position: relative;
+      z-index: 2;
+    }
+    img {
+      position: absolute;
+      left: 0;
+      bottom: 50px;
+      width: 100%;
+    }
   }
 }
 

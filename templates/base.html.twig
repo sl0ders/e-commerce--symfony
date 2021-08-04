@@ -41,20 +41,12 @@
 {% include 'Layout/Flashes/negasFlashes.html.twig' %}
 <div class="container-fluid">
     <div class="row">
-        {% if not is_granted("ROLE_ADMIN") %}
-            <aside class="col-md-2 left-aside">
-                {% block aside_left %}
-                    {{ render(controller('App\\Controller\\LayoutBundleController::leftMenuAction')) }}
-                {% endblock %}
-            </aside>
-        {% endif %}
-
-        <main class="col-md-12">
+        <main class="col-md-11">
             {% block body %}{% endblock %}
         </main>
 
         {% if not is_granted("ROLE_ADMIN") %}
-            <aside class="col-md-2 right-aside">
+            <aside class="col-md-1 right-aside mt-5">
                 {% block aside_right %}
                     {{ render(controller('App\\Controller\\LayoutBundleController::rightMenuAction')) }}
                 {% endblock %}

@@ -91,6 +91,7 @@ class AdminProductController extends AbstractController
                 $package = $form->get("package")->getData();
             }
             $entityManager->persist($package);
+            $product->setPackage($package);
             $stock = new Stock();
             $stock->setProduct($product);
             $stock->setQuantity($form->get("quantity")->getData());
@@ -98,7 +99,6 @@ class AdminProductController extends AbstractController
             $product->setUpdatedAt(new DateTime());
             $product->setFilenameJpg(strtolower($form->getData()->getPictureFiles()[0]->getClientOriginalName()));
             $product->setFilenamePng(strtolower($form->getData()->getPictureFilesPng()[0]->getClientOriginalName()));
-            $product->setPackage($package);
             $news = new News();
             $news->setProduct($product);
             $news->setCreatedAt(new DateTime());
