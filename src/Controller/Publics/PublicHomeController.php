@@ -3,12 +3,15 @@
 namespace App\Controller\Publics;
 
 use App\Entity\Product;
+use App\Entity\Report;
 use App\Entity\Stock;
 use App\Entity\User;
 use App\Form\ProductType;
 use App\Form\Public_UserType;
+use App\Form\ReportType;
 use App\Repository\ProductRepository;
 use App\Services\CartService;
+use App\Services\ReportCodeGenerator;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,10 +25,12 @@ class PublicHomeController extends AbstractController
      * @var CartService
      */
     private $cartService;
+    private ReportCodeGenerator $codeGenerator;
 
-    public function __construct(CartService $cartService)
+    public function __construct(CartService $cartService, ReportCodeGenerator $codeGenerator)
     {
         $this->cartService = $cartService;
+        $this->codeGenerator = $codeGenerator;
     }
 
     /**
@@ -39,8 +44,21 @@ class PublicHomeController extends AbstractController
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
+        $report = new Report();
+        $formReport = $this->createForm(ReportType::class, $report);
+        $formReport->handleRequest($request);
+        if ($formReport->isSubmitted() && $formReport->isValid()) {
+            $report
+                ->setCreatedAt(new \DateTimeImmutable())
+                ->setReportNumber($this->codeGenerator->generate($report))
+                ->setStatus(true)
+                ->setUser($this->getUser());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($report);
+            $em->flush();
+            return $this->redirectToRoute("user_report_show", ["id" => $report->getId()]);
+        }
         if ($form->isSubmitted() && $form->isValid()) {
-
             $stock = new Stock();
             $stock->setProduct($product);
             $stock->setQuantity($form->get("quantity")->getData());
@@ -58,7 +76,8 @@ class PublicHomeController extends AbstractController
             'cartProducts' => $this->cartService->getAllCart(),
             'cartTotal' => $this->cartService->getTotal(),
             'products' => $productRepository->findBy(["enabled" => true]),
-            "form" => $form->createView()
+            "form" => $form->createView(),
+            "formReport" => $formReport->createView()
         ]);
     }
 

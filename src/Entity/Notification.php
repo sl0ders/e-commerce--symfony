@@ -66,6 +66,11 @@ class Notification
      */
     private $users;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="notification")
+     */
+    private $company;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -205,6 +210,18 @@ class Notification
     public function removeUser(User $user): self
     {
         $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
 
         return $this;
     }

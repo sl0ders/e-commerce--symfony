@@ -67,14 +67,14 @@ class User implements UserInterface
     private ?string $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private string $username;
+    private $username;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private ?DateTimeInterface $created_at;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -111,11 +111,28 @@ class User implements UserInterface
      */
     private $notifications;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="managers", cascade={"persist"})
+     */
+    private $company;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ReportMessage::class, mappedBy="sender")
+     */
+    private $reportMessages;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Report::class, mappedBy="user")
+     */
+    private $reports;
+
     public function __construct()
     {
         $this->contact = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->notifications = new ArrayCollection();
+        $this->reportMessages = new ArrayCollection();
+        $this->reports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,9 +157,9 @@ class User implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
-        return $this->username;
+        return $this->username ?? "";
     }
 
     /**
@@ -221,7 +238,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 
@@ -420,6 +437,78 @@ class User implements UserInterface
     {
         if ($this->notifications->removeElement($notification)) {
             $notification->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ReportMessage[]
+     */
+    public function getReportMessages(): Collection
+    {
+        return $this->reportMessages;
+    }
+
+    public function addReportMessage(ReportMessage $reportMessage): self
+    {
+        if (!$this->reportMessages->contains($reportMessage)) {
+            $this->reportMessages[] = $reportMessage;
+            $reportMessage->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReportMessage(ReportMessage $reportMessage): self
+    {
+        if ($this->reportMessages->removeElement($reportMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($reportMessage->getSender() === $this) {
+                $reportMessage->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Report[]
+     */
+    public function getReports(): Collection
+    {
+        return $this->reports;
+    }
+
+    public function addReport(Report $report): self
+    {
+        if (!$this->reports->contains($report)) {
+            $this->reports[] = $report;
+            $report->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReport(Report $report): self
+    {
+        if ($this->reports->removeElement($report)) {
+            // set the owning side to null (unless already changed)
+            if ($report->getUser() === $this) {
+                $report->setUser(null);
+            }
         }
 
         return $this;

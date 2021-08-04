@@ -52,6 +52,8 @@ class PublicContactController extends AbstractController
             $emailService->sendMail($subject,$usersAdmin, ['new_contact' => true, 'client' => $this->getUser()]);
             $entityManager->persist($contact);
             $entityManager->flush();
+            $notificationServices->newNotification($this->translator->trans("notification.contact.new", ["%user%" => $contact->getUser()->getFullname()], "NegasProjectTrans"), $usersAdmin, ["admin_contact_show", $contact->getId()] );
+            $entityManager->flush();
             $this->addFlash("success", "flash.contact.createSuccessfully");
             return $this->redirectToRoute('home');
         }

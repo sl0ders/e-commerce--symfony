@@ -249,6 +249,10 @@ body {
         background: rgba(220, 59, 4, 0.3);
       }
 
+      &.case-report {
+        background: rgba(137, 129, 125, 0.3);
+      }
+
       &.case-news {
         background: rgba(71, 7, 220, 0.3);
       }
@@ -260,6 +264,7 @@ body {
       &.case-packing {
         background: rgba(220, 0, 26, 0.3);
       }
+
       &.case-notification {
         background: rgba(243, 136, 149, 0.3);
       }
@@ -443,6 +448,7 @@ body {
         .form-action {
           .minus-plus {
             width: 15rem;
+
             .number-input {
               width: 11rem;
               margin-bottom: 0;
@@ -464,37 +470,53 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    max-width: 100%;
 
     nav {
       background-color: transparent !important;
+
       .pagination {
         display: flex;
         justify-content: center;
       }
     }
+
     &.formulary {
       max-width: 60%;
       margin: auto;
       padding: 50px;
 
+      &.modal-content {
+        max-width: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+
       .packaging {
         display: none;
       }
+
       .find_existing_packaging {
         display: none;
       }
+
       .md-form input:not([type]), .md-form input[type="text"]:not(.browser-default), .md-form input[type="password"]:not(.browser-default), .md-form input[type="email"]:not(.browser-default), .md-form input[type="url"]:not(.browser-default), .md-form input[type="time"]:not(.browser-default), .md-form input[type="date"]:not(.browser-default), .md-form input[type="datetime"]:not(.browser-default), .md-form input[type="datetime-local"]:not(.browser-default), .md-form input[type="tel"]:not(.browser-default), .md-form input[type="number"]:not(.browser-default), .md-form input[type="search"]:not(.browser-default), .md-form input[type="phone"]:not(.browser-default), .md-form input[type="search-md"], .md-form textarea.md-textarea {
         border-bottom: #0b2a41 1px solid;
       }
+
       textarea.form-control {
-        border: rgba(#4b789d,0.5) 1px solid;
+        border: rgba(#4b789d, 0.5) 1px solid;
         border-radius: 5px;
         z-index: 12
       }
+
+      .required:after {
+        content: "*";
+        color: red;
+      }
+
       label {
         z-index: 2;
       }
+
       .card-header {
         margin-bottom: 50px;
       }
@@ -559,4 +581,35 @@ body {
       color: #a8c409;
     }
   }
+
+  .help-card {
+    border: 1px white solid;
+    border-bottom-left-radius: 45px;
+    border-top-left-radius: 45px;
+    position: fixed;
+    right: 5px;
+    padding: 8px;
+    width: 70px;
+    color: white;
+    background: #093b37;
+    display: flex;
+    justify-content: space-around;
+
+    .help-message {
+      display: none;
+      vertical-align: center;
+    }
+
+    &:hover {
+      width: 200px;
+      cursor: pointer;
+      animation-delay: 3s;
+      .help-message {
+        display: block;
+        animation-delay: 3s;
+      }
+    }
+
+  }
 }
+

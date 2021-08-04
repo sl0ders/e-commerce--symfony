@@ -16,11 +16,12 @@ class ContactDatatable extends AbstractDatatable
 {
     public function getLineFormatter(): Closure
     {
-        return function (&$row) {
+       return function ($row) {
             $contact = $this->em->getRepository(Contact::class)->find($row["id"]);
             /** @var User $user */
             $user = $contact->getUser();
             $row['userFullName'] = $user->getFullname();
+            return $row;
         };
     }
 
@@ -69,7 +70,7 @@ class ContactDatatable extends AbstractDatatable
                 "title" => $this->translator->trans('contact.label.message', [], 'NegasProjectTrans'),
 
             ])
-            ->add("createdAt", DateTimeColumn::class, [
+            ->add("created_at", DateTimeColumn::class, [
                 "title" => $this->translator->trans('contact.label.createdAt', [], 'NegasProjectTrans'),
             ])
             ->add(null, ActionColumn::class, [

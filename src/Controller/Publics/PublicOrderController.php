@@ -4,10 +4,12 @@
 namespace App\Controller\Publics;
 
 use App\Datatables\OrderDatatable;
+use App\Entity\Company;
 use App\Entity\Notification;
 use App\Entity\Orders;
 use App\Entity\User;
 use App\Form\OrderChangeStateType;
+use App\Repository\CompanyRepository;
 use App\Repository\NotificationRepository;
 use App\Repository\OrdersRepository;
 use App\Repository\UserRepository;
@@ -94,7 +96,6 @@ class PublicOrderController extends AbstractController
      */
     public function pdfShow(Orders $order, Pdf $knpSnappy_Pdf): PdfResponse
     {
-        dd();
         $pdfName = $order->getNCmd();
         if (!"/path/to/the/$pdfName.pdf") {
             $knpSnappy_Pdf->generateFromHtml(
@@ -135,15 +136,16 @@ class PublicOrderController extends AbstractController
      * @throws Exception
      */
     #[Route("/change-state/{id}", name: "order_changeState")]
-    public function changeStates(Orders $order, Request $request, NotificationServices $notificationServices, EmailService $emailService, UserRepository $userRepository): RedirectResponse|Response
+    public function changeStates(CompanyRepository $companyRepository, Orders $order, Request $request, NotificationServices $notificationServices, EmailService $emailService, ): RedirectResponse|Response
     {
+        $company = $companyRepository->findOneBy([]);
+        $userAdmin = $company->getManagers()->toArray();
         $formStatus = $this->createForm(OrderChangeStateType::class, $order);
         $formStatus->handleRequest($request);
         if ($formStatus->isSubmitted() && $formStatus->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $notificationServices->newNotification($this->translator->trans("notification.orders.changeState", ["%orderNumber%" => $order->getNCmd()], "NegasProjectTrans"), [$order->getUser()], ['orders_show', $order->getId()]);
             $subject = $this->translator->trans("email.order.title", ["%orderNumber%" => $order->getNCmd()], "NegasProjectTrans");
-            $userAdmin = $userRepository->findByStatus("Administrateur");
             switch ($formStatus->getData()->getValidation()) {
                 case $this->translator->trans(Orders::STATE_VALIDATE, [], "NegasProjectTrans"):
                     $emailService->sendMail($subject, [$order->getUser()], ["orderValidate" => true, "order" => $order->getNCmd()]);

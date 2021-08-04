@@ -22,6 +22,11 @@
                             <h3 class="text-center mt-3 mb-5">{{ "home_public.notification_management"|trans }}</h3>
                             <i class="fas fa-bell fa-5x"></i></div>
                     </a>
+                    <a href="{{ path('user_report_index', {'id' : app.user.id}) }}" class="case-report case col-md-3 m-1">
+                        <div class="text-decoration-none text-black-50">
+                            <h3 class="text-center mt-3 mb-5">{{ "home_public.report_management"|trans }}</h3>
+                            <i class="fas fa-flag fa-5x"></i></div>
+                    </a>
                 </div>
             </div>
             <a href='{{ path('home') }}' class='btn btn-primary float-left'>{{ "button.return"| trans }}</a>

@@ -1,3 +1,7 @@
+report_message:
+    label:
+        addMessage: "Ajouter une reponse ici"
+reportMessage:
 return:
     deleteQuestion: "Souhaitez-vous réelement supprimer cet élément ?"
     abordedOrderQuestion: "Souhaitez-vous réelement annuler la commande ?"
@@ -14,6 +18,7 @@ button:
     login: "Se connecter"
     createPackaging: 'Créer un packaging'
     findExistingPackaging: 'Récuperer un packaging existant'
+    send: 'Envoyer'
 
 table:
     action: "Actions"
@@ -180,7 +185,7 @@ product:
         new: "Creation d'un nouveau produit"
         edit: 'Édition du produit %product_name%'
         index: 'Index de gestion des produits'
-        show: 'Édition du produit %product_name%'
+        show: 'Visualisation du produit %product_name%'
     name: 'Nom du produit'
     description: 'Description du produit'
     package: 'Packaging du produit'
@@ -212,6 +217,7 @@ home_admin:
     orders_management: 'Gestion des commandes'
     package_management: 'Gestion des packagings'
     notification_management: 'Gestion des notifications'
+    company_management: "Gestion des detail de %companyName%"
 
 email:
     title:
@@ -246,6 +252,9 @@ email:
     subject:
         stock_report: 'Rapport de stock'
     stock_report: 'Attention, le stock de %product% atteint un seuil critique de %quantity% Unitée'
+    report:
+        message:
+            title: 'Message'
 
 header:
     tilte: "Boutique en ligne"
@@ -272,10 +281,46 @@ notification:
     orders:
         changeState: 'Votre commande numero %orderNumber% a changer de statut'
         new: 'Une nouvelle commande vient etre effectué par %user%'
+    contact:
+        new: '%user% a laissé un message dans les contacts'
 home_public:
     setting_management: 'Gestion du profil'
     orders_management: 'Gestion des commandes'
     notification_management: 'Gestion des notifications'
+    report_management: 'Gestion des signalements'
 text:
     or: 'où'
 warning: 'Attention'
+company:
+    title:
+        show: "Détail de l'entreprise %companyName%"
+        edit: 'Édition des detail de %companyName%'
+    address: "Adresse de l'entreprise"
+    email: "Email de l'entreprise"
+    name: "Nom de l'entreprise"
+    createdAt: "Date de creation de l'entreprise"
+    managers:
+        list: 'Liste des managers'
+report:
+    title:
+        new: 'Créer un nouveau signalement'
+        index: 'Index de gestion des Signalement'
+        show: 'Détail du signalement n° %reportCode%'
+    notification:
+        subject: 'Nouveau signalement de %user%'
+        message: 'Un nouveau message a été posté sur le signalement n°%code%'
+    label:
+        selectOrder: "Selectionnez la commande traité dans votre signalement"
+        reportCode: 'Numero de signalement'
+        date: 'Date de signalement'
+        subject: 'Sujet du signalement (Si le signalement concerne une commande merci de preciser son numero associé)'
+        user: 'Signalement effectuer par .. '
+        createdAt: 'Date du signalement'
+    link:
+        show: 'NegasProjectTrans'
+        archived: 'NegasProjectTrans'
+        desarchived: 'NegasProjectTrans'
+    hover:
+        alert: 'Poser une question'
+    subject: 'Objet du signalement'
+    need_help: "Besoin d'aide ?"

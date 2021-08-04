@@ -1,0 +1,17 @@
+<div class="md-form">
+    {{ form_widget(form.name) }}
+    {{ form_label(form.name) }}
+</div>
+<div class="md-form">
+    {{ form_widget(form.address) }}
+    {{ form_label(form.address) }}
+</div>
+<div class="md-form">
+    {{ form_widget(form.email) }}
+    {{ form_label(form.email) }}
+</div>
+
+<div class="form-outline datetimepicker" data-mdb-inline="true">
+    {{ form_label(form.createdAt) }}
+    {{ form_widget(form.createdAt) }}
+</div>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain "NegasProjectTrans" %}
-{% block title %}Produit {{ product.name }}{% endblock %}
+{% block title %}{{ "product.title.show"| trans({"%product_name%": product.name}) }}{% endblock %}
 
 {% block body %}
     <div class="datatable">
@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <th>{{ "product.package" | trans }}</th>
-                        <td>{{ product.package.quantity is defined ? product.package.quantity }} {{ product.package.unity is defined ? product.package.unity }}</td>
+                        <td>{{ product.package.packaging }}</td>
                     </tr>
                     <tr>
                         <th>{{ "product.price" | trans }}</th>

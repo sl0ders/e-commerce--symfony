@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain "NegasProjectTrans" %}
+{% block title %}{{ "report.title.index"|trans }}{% endblock %}
+{% block menuActive_parameter %}active{% endblock menuActive_parameter %}
+{% block body %}
+    <div class="datatable">
+        <h5 class="card-header text-center py-4">
+            <strong>{{ "report.title.index"| trans }}</strong>
+        </h5>
+        <div class="datatable_content">
+            {{ include('Layout/_datatable.html.twig', {subject: "report"}) }}
+        </div>
+    </div>
+{% endblock %}

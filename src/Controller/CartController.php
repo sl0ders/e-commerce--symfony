@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\LinkOrderProduct;
 use App\Entity\Orders;
 use App\Entity\User;
+use App\Repository\CompanyRepository;
 use App\Repository\LinkOrderProductRepository;
 use App\Repository\ProductRepository;
 use App\Repository\StockRepository;
@@ -72,16 +73,17 @@ class CartController extends AbstractController
      * @param EmailService $email
      * @param StockRepository $stockRepository
      * @param NotificationServices $notificationServices
-     * @param UserRepository $userRepository
+     * @param CompanyRepository $companyRepository
      * @return RedirectResponse
      * @throws Exception
      */
     public function validCart(EmailService         $email,
                               StockRepository      $stockRepository,
                               NotificationServices $notificationServices,
-                              UserRepository       $userRepository
+                              CompanyRepository $companyRepository,
     ): RedirectResponse
     {
+        $company = $companyRepository->findOneBy([]);
         $productsQuantity = [];
         $em = $this->getDoctrine()->getManager();
         $carts = $this->cartService->getAllCart();
@@ -93,7 +95,7 @@ class CartController extends AbstractController
         $order->setNCmd(date("Y-d-m-i-s"));
         $order->setTotal($this->cartService->getTotal());
         $order->setValidation($this->translator->trans($order::STATE_IN_COURSE, [], "NegasProjectTrans"));
-        $userAdmin = $userRepository->findBy(["status" => "Administrateur"]);
+        $userAdmin = $company->getManagers()->toArray();
         foreach ($carts as $cart) {
             if ($cart['quantity'] > 0) {
                 $linkOrderProduct = new LinkOrderProduct();

@@ -57,9 +57,15 @@ class Orders
      */
     private $linkOrderProducts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Report::class, mappedBy="orders")
+     */
+    private $reports;
+
     public function __construct()
     {
         $this->linkOrderProducts = new ArrayCollection();
+        $this->reports = new ArrayCollection();
     }
 
 
@@ -158,6 +164,36 @@ class Orders
             // set the owning side to null (unless already changed)
             if ($linkOrderProduct->getOrders() === $this) {
                 $linkOrderProduct->setOrders(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Report[]
+     */
+    public function getReports(): Collection
+    {
+        return $this->reports;
+    }
+
+    public function addReport(Report $report): self
+    {
+        if (!$this->reports->contains($report)) {
+            $this->reports[] = $report;
+            $report->setOrders($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReport(Report $report): self
+    {
+        if ($this->reports->removeElement($report)) {
+            // set the owning side to null (unless already changed)
+            if ($report->getOrders() === $this) {
+                $report->setOrders(null);
             }
         }
 

@@ -4,7 +4,8 @@
 {% block body %}
 
     <div class="admin-home text-center mt-2 font-weight-bold">
-        <h2 class=" font-weight-bold">{{ "home_admin.title.first" | trans }}<em class="h5 font-weight-bold">{{ "home_admin.title.second" |trans }}</em></h2>
+        <h2 class=" font-weight-bold">{{ "home_admin.title.first" | trans }}<em
+                    class="h5 font-weight-bold">{{ "home_admin.title.second" |trans }}</em></h2>
         <div class="container">
             <div class="row d-flex justify-content-center">
                 <div class="case-stock case col-md-3 m-1 wow fadeInUpBig">
@@ -13,7 +14,8 @@
                         <i class="fas fa-layer-group fa-5x"></i>
                     </a>
                 </div>
-                <a href="{{ path('admin_contact_index') }}" class="case-contact case col-md-3 m-1 rgba-light-blue-light wow fadeInUpBig">
+                <a href="{{ path('admin_contact_index') }}"
+                   class="case-contact case col-md-3 m-1 rgba-light-blue-light wow fadeInUpBig">
                     <div class="text-decoration-none text-black-50">
                         <h3 class="text-center mt-3 mb-2">{{ "home_admin.contact_management"|trans }}</h3>
                         <i class="fas fa-envelope-open-text fa-5x"></i>
@@ -36,7 +38,8 @@
                         <i class="fas fa-newspaper fa-5x"></i>
                     </div>
                 </a>
-                <a href="{{ path('user_orders', {"id": app.user.id}) }}" class="case-order case col-md-3 m-1 wow fadeInUpBig">
+                <a href="{{ path('user_orders', {"id": app.user.id}) }}"
+                   class="case-order case col-md-3 m-1 wow fadeInUpBig">
                     <div class="text-decoration-none text-black-50">
                         <h3 class="text-center mt-3 mb-5">{{ "home_admin.orders_management"|trans }}</h3>
                         <i class="fas fa-dolly-flatbed fa-5x"></i></div>
@@ -46,10 +49,22 @@
                         <h3 class="text-center mt-3 mb-5">{{ "home_admin.package_management"|trans }}</h3>
                         <i class="fas fa-box-open fa-5x"></i></div>
                 </a>
-                <a href="{{ path('user_notification_index') }}" class="case-notification case col-md-3 m-3 wow fadeInUpBig">
+                <a href="{{ path('user_notification_index') }}"
+                   class="case-notification case col-md-3 m-3 wow fadeInUpBig">
                     <div class="text-decoration-none text-black-50">
                         <h3 class="text-center mt-3 mb-5">{{ "home_admin.notification_management"|trans }}</h3>
                         <i class="fas fa-bell fa-5x"></i></div>
+                </a>
+                <a href="{{ path('admin_company_show', {"id" : company.id}) }}"
+                   class="case-notification case col-md-3 m-3 wow fadeInUpBig">
+                    <div class="text-decoration-none text-black-50">
+                        <h3 class="text-center mt-3 mb-5">{{ "home_admin.company_management"|trans({"%companyName%": company.name}) }}</h3>
+                        <i class="fas fa-bell fa-5x"></i></div>
+                </a>
+                <a href="{{ path('user_report_index', {'id' : app.user.id}) }}" class="case-report case col-md-3 m-1">
+                    <div class="text-decoration-none text-black-50">
+                        <h3 class="text-center mt-3 mb-5">{{ "home_public.report_management"|trans }}</h3>
+                        <i class="fas fa-flag fa-5x"></i></div>
                 </a>
             </div>
         </div>

@@ -106,7 +106,7 @@ class Package
 
     public function packaging(): string
     {
-        return $this->getQuantity() . " " . $this->getUnity();
+        return $this->getQuantity() . " " . $this->getUnity() . " - " .$this->conditioning;
     }
 
     public function getConditioning(): ?string

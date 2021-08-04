@@ -138,20 +138,29 @@ class AdminProductController extends AbstractController
      */
     public function edit(Request $request, Product $product): Response
     {
+        $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get("conditioning")->getData() != null) {
+                $package = new Package();
+                $package->setConditioning($form->get("conditioning")->getData());
+                $package->setQuantity($form->get("packageValue")->getData());
+                $package->setUnity($form->get("unity")->getData());
+            } else {
+                $package = $form->get("package")->getData();
+            }
+            $em->persist($package);
             if (!empty($form->getData()->getPictureFiles())) {
                 $product->setFilenameJpg($form->getData()->getPictureFiles()[0]->getClientOriginalName());
             }
             if (!empty($form->getData()->getPictureFilesPng())) {
                 $product->setFilenamePng($form->getData()->getPictureFilesPng()[0]->getClientOriginalName());
             }
-            $em = $this->getDoctrine()->getManager();
+            $product->setPackage($package);
             $em->persist($product);
             $em->flush();
-
             return $this->redirectToRoute('admin_product_index');
         }
 

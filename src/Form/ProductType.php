@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Package;
 use App\Entity\Product;
+use App\Repository\PackageRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -15,6 +16,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProductType extends ApplicationType
 {
+    private PackageRepository $packageRepository;
+
+    public function __construct(PackageRepository $packageRepository)
+    {
+        $this->packageRepository = $packageRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

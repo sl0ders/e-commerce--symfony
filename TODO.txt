@@ -98,3 +98,7 @@ Regrouper les commande par ncmd dans la vue show (pdf)
             -   honorée
             -   annulée par l'administrateur
             -   Tout les mois un résumer des nouveau produit en stock en vente
+
+-** Traduction stock.quantity
+-** Si il n'y a pas de packaging en bdd, ne pas proposer la liste a la creation d'un produit
+-** Ajout du conditionnement dans la definition complete du package

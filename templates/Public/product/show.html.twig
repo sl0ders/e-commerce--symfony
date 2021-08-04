@@ -13,6 +13,7 @@
                 <h2>Description du produit</h2>
                 <p class='mt-sm-4 mt-4'>{{ product.description }}</p>
                 <br>
+                {% if not is_granted('ROLE_ADMIN') %}
                 {% if product.stock.quantity > 0 %}
                     <form action='{{ path('cart_add', {'id': product.id }) }}' class='mt-2 cartAdd' method='post'>
                         <div class='form-action'>
@@ -37,6 +38,7 @@
                             </button>
                         </div>
                     </form>
+                {% endif %}
                 {% endif %}
                 Prix actuel: {{ product.price }}€/l'unité
                 <br>

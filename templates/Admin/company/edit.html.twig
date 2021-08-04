@@ -1,0 +1,24 @@
+{% trans_default_domain "NegasProjectTrans" %}
+
+{% extends "base.html.twig" %}
+{% block title %}{{ "company.title.edit" | trans({ "%companyName%" :company.name}) }}{% endblock %}
+
+{% block body %}
+    <div class="datatable formulary">
+        <h5 class="text-center">
+            <strong>{{ "company.title.edit" | trans({ "%companyName%" :company.name}) }}</strong>
+        </h5>
+        <div class="datatable_content">
+            {{ form_start(form) }}
+            {{ include('Admin/company/_form.html.twig') }}
+
+            <div class="button">
+                {{ form_row(form.submit) }}
+                <a href="{{ path('admin_company_show', {'id': company.id}) }}"
+                   class="btn btn-primary">{{ "button.return" | trans }}</a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock %}

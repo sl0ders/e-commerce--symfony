@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain "NegasProjectTrans" %}
+{% block title %}{{ "report.title.show"|trans({"%reportCode%": report.reportNumber}) }}{% endblock %}
+{% block body %}
+    <div class="datatable">
+        <h5 class="text-center">
+            <strong>{{ "report.title.show"|trans({"%reportCode%": report.reportNumber}) }}</strong>
+        </h5>
+        <div class="datatable_content">
+            <div class="d-flex justify-content-around mb-5">
+                <div class="border rounded-3 p-2 blue-hover">{{ "report.label.reportCode" | trans}} : {{ report.reportNumber }}</div>
+                <div class="border rounded-3 p-2 blue-hover">{{ "report.subject" | trans}} : {{ report.subject }}</div>
+                <div class="border rounded-3 p-2 blue-hover">{{ "report.label.createdAt" | trans}} : {{ report.createdAt|date("d/m/Y H:i:s") }}</div>
+            </div>
+            {% for message in report.ReportMessages %}
+                <div class="p-1 m-1 row">
+                    {% if message.sender.status  == "Administrateur" %}
+                        <div class="row float-end col-md-9 offset-2 border-white bg-white rounded-2 p-3"
+                             style="box-shadow: 2px 2px 2px  #bebdbd ">
+                            <div class="col-md-3">
+                                {{ message.sender }}
+                                <br>{{ message.createdAt|date("d/m/Y H:i:s") }}
+                            </div>
+                            <p class="col-md-8">
+                                {{ message.message }}
+                            </p>
+                        </div>
+                    {% else %}
+                        <div class="row col-md-9 offset-1  p-3 border-white bg-white  rounded-2"
+                             style="box-shadow: -2px 2px 2px  #bebdbd ">
+                            <div class="col-md-3">
+                                {{ message.sender }}
+                                <br>{{ message.createdAt|date("d/m/Y H:i:s") }}
+                            </div>
+                            <p class="col-md-8">
+                                {{ message.message }}
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {{ form_start(form) }}
+            <div class="col-md-6 offset-5 mt-3">
+                <div class="md-form">
+                    {{ form_widget(form.message) }}
+                    {{ form_label(form.message) }}
+                </div>
+                <button style="color: #898686; font-size: 0.9em" class="btn-primary text-white btn ml-5 mt-2" type="submit">
+                    {{ "button.send" | trans }}
+                </button>
+            </div>
+            {{ form_end(form) }}
+            {% if is_granted("ROLE_ADMIN") %}
+                <div class="float-right">
+                    {% if report.status %}
+                        <a class="btn btn-primary"
+                           href="{{ path('user_report_enabled', {'id': report.id}) }}"><i
+                                    class="fa fa-toggle-off"></i></a>
+                    {% else %}
+                        <a class="btn btn-danger"
+                           href="{{ path('user_report_enabled', {'id': report.id}) }}"><i
+                                    class="fa fa-toggle-on"></i></a>
+                    {% endif %}
+                </div>
+
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+
+

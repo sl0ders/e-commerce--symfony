@@ -25,7 +25,8 @@
                         <img class='img_png' src='/images/product/{{ product.filenamePng }}'
                              alt='{{ product.name }} small'>
                         {% if app.session.get("cart")[product.id] is defined and app.session.get("cart")[product.id] > "0" %}
-                            <span class="position-absolute border rounded-circle p-2 text-white" style="font-size:1.5em; background-color: #093b37; top: -10%; width: 3vw ;right: 0">
+                            <span class="position-absolute border rounded-circle p-2 text-white"
+                                  style="font-size:1.5em; background-color: #093b37; top: -10%; width: 3vw ;right: 0">
                                 {{ app.session.get("cart")[product.id] }}
                             </span>
                         {% endif %}
@@ -48,38 +49,44 @@
                                 <p>{{ "product.hover.soonFindOutMore" | trans }}</p>
                             </div>
                         {% endif %}
-                        <div class='font-weight-bold'>{{ product.price }}€ / {{ product.package.quantity is defined ? product.package.quantity }} {{ product.package.unity is defined ? product.package.unity }}</div>
-                        {% if product.stock.quantity > 0 %}
-                            <form action='{{ path('cart_remove', {'id': product.id }) }}' class='mt-2 cart-refresh' method='post'>
-                                <div class='form-action container'>
-                                    <div class='row'>
-                                        <div class='def-number-input number-input safari_only col-md-10 m-auto'>
-                                            <div class="row">
-                                                <button type='button' class="col-md-3 m-auto" title="{{ "product.hover.minus"| trans }}" onclick='this.parentNode.querySelector("input[type=number]").stepDown()'>
-                                                    <i class='fas fa-minus'></i>
-                                                </button>
-                                                <label for='plus-moins-{{ product.id }}'></label>
-                                                <input id='plus-moins-{{ product.id }}'
-                                                       class='quantity col-md-4'
-                                                       min='0'
-                                                       max='{{ product.stock.quantity }}'
-                                                       name='quantity'
-                                                       value="{{  app.session.get("cart")[product.id] is defined ? app.session.get("cart")[product.id] : 0}}"
-                                                       type='number'>
-                                                <button type='button' class="col-md-3 m-auto" title="{{ "product.hover.plus"| trans }}" onclick='this.parentNode.querySelector("input[type=number]").stepUp()'>
-                                                    <i class='fas fa-plus'></i>
-                                                </button>
+                        <div class='font-weight-bold'>{{ product.price }}€ / {{ product.package.packaging }}</div>
+                        {% if not is_granted('ROLE_ADMIN') %}
+                            {% if product.stock.quantity > 0 %}
+                                <form action='{{ path('cart_remove', {'id': product.id }) }}' class='mt-2 cart-refresh'
+                                      method='post'>
+                                    <div class='form-action container'>
+                                        <div class='row'>
+                                            <div class='def-number-input number-input safari_only col-md-10 m-auto'>
+                                                <div class="row">
+                                                    <button type='button' class="col-md-3 m-auto"
+                                                            title="{{ "product.hover.minus"| trans }}"
+                                                            onclick='this.parentNode.querySelector("input[type=number]").stepDown()'>
+                                                        <i class='fas fa-minus'></i>
+                                                    </button>
+                                                    <label for='plus-moins-{{ product.id }}'></label>
+                                                    <input id='plus-moins-{{ product.id }}'
+                                                           class='quantity col-md-4'
+                                                           min='0'
+                                                           max='{{ product.stock.quantity }}'
+                                                           name='quantity'
+                                                           value="{{ app.session.get("cart")[product.id] is defined ? app.session.get("cart")[product.id] : 0 }}"
+                                                           type='number'>
+                                                    <button type='button' class="col-md-3 m-auto"
+                                                            title="{{ "product.hover.plus"| trans }}"
+                                                            onclick='this.parentNode.querySelector("input[type=number]").stepUp()'>
+                                                        <i class='fas fa-plus'></i>
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        {% if not is_granted('ROLE_ADMIN') %}
-                                            <button type="submit" class="ml-auto mr-auto mt-2 btn btn-primary p-2 btn-sm col-md-4"
+                                            <button type="submit"
+                                                    class="ml-auto mr-auto mt-2 btn btn-primary p-2 btn-sm col-md-4"
                                                     title="{{ "product.hover.cart" | trans }}">
                                                 <i class="fas fa-shopping-cart fa-2x"></i>
                                             </button>
-                                        {% endif %}
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>
@@ -92,9 +99,15 @@
                 </a>
             {% endif %}
         </div>
+        <div data-toggle='modal' data-target='#reportModal' class="d-flex wrap col-md-12 text-white help-card"
+             title="{{ "report.hover.alert"| trans }}">
+            <div class="mr-3 far fa-question-circle fa-2x"></div>
+            <span class="help-message">{{ "report.need_help" | trans }}</span>
+        </div>
     </div>
     {{ include('Public/_cart-modal.html.twig') }}
     {{ include('Admin/_add-product-modal.html.twig') }}
+    {{ include('Public/report/_modal_report.html.twig') }}
     <script type="text/javascript">
         document.onreadystatechange = function () {
             new WOW().init();

@@ -102,7 +102,7 @@ class AdminPackageController extends AbstractController
     public function delete(ProductRepository $productRepository, Package $package): RedirectResponse
     {
         $product = $productRepository->findBy(["package" => $package]);
-        if ($product instanceof Product) {
+        if (isset($product)) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($package);
             $em->flush();
