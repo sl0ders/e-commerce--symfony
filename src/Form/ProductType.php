@@ -28,14 +28,12 @@ class ProductType extends ApplicationType
         $builder
             ->add('name', TextType::class, [
                 "label" => 'product.label.name',
-                "attr" => ["class" => "form-control"],
-                "required" => true
+                "attr" => ["class" => "form-control", "required" => "required"]
             ])
             ->add('quantity', IntegerType::class, [
                 "label" => 'stock.label.quantity',
-                "attr" => ["class" => "form-control"],
-                "mapped" => false,
-                "required" => true
+                "attr" => ["class" => "form-control", "required" => "required"],
+                "mapped" => false
             ])
             ->add("packageValue", IntegerType::class, [
                 "label" => "package.label.quantity",
@@ -69,18 +67,15 @@ class ProductType extends ApplicationType
             ->add('price', MoneyType::class, [
                 "currency" => "EUR",
                 'label' => 'product.label.price',
-                "attr" => ["class" => "form-control", 'type' => 'number'],
-                "required" => true
+                "attr" => ["class" => "form-control", 'type' => 'number']
             ])
             ->add('pictureFiles', FileType::class, [
                 "label" => "product.label.jpg_file",
-                "required" => true,
                 'multiple' => true,
                 "attr" => ["class" => "file-path validate"]
             ])
             ->add('pictureFilesPng', FileType::class, [
                 "label" => 'product.label.png_file',
-                "required" => true,
                 'multiple' => true,
                 "attr" => ["class" => "file-path validate"]
             ]);

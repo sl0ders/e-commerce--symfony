@@ -508,10 +508,15 @@ body {
         z-index: 12
       }
 
-      .required:after {
-        content: "*";
-        color: red;
+      label {
+        &.required {
+          &:after {
+            content: "*";
+            color: red;
+          }
+        }
       }
+
 
       label {
         z-index: 2;
@@ -523,15 +528,6 @@ body {
     }
 
     .datatable_content {
-      .form-outline {
-        .md-form {
-          label {
-            font-weight: 900;
-            font-size: 1.2em;
-          }
-        }
-      }
-
       thead {
         tr {
           th {

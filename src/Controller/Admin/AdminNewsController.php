@@ -81,6 +81,7 @@ class AdminNewsController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $news->setCreatedAt(new DateTime());
             $news->setEnabled(true);
+            $news->setContent($news->getProduct()->getDescription());
             $entityManager->persist($news);
             $entityManager->flush();
             $this->addFlash("success", "flash.news.createSuccessfully");
