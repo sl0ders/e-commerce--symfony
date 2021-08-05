@@ -9,6 +9,7 @@ use App\Entity\Product;
 use App\Entity\Stock;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Services\AddProductService;
 use DateTime;
 use Exception;
 use Sg\DatatablesBundle\Datatable\DatatableFactory;
@@ -72,46 +73,21 @@ class AdminProductController extends AbstractController
     /**
      * @Route("/new", name="admin_product_new", methods={"GET","POST"})
      * @param Request $request
+     * @param AddProductService $addProductService
      * @return Response
-     * @throws Exception
      */
-    public function new(Request $request): Response
+    public function new(Request $request, AddProductService $addProductService): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
+        $news = new News();
+        $stock = new Stock();
+        $addProductService->addProduct($product, $news, $stock, $form, $request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get("conditioning")->getData() != null) {
-                $package = new Package();
-                $package->setConditioning($form->get("conditioning")->getData());
-                $package->setQuantity($form->get("packageValue")->getData());
-                $package->setUnity($form->get("unity")->getData());
-            } else {
-                $package = $form->get("package")->getData();
-            }
-            $entityManager->persist($package);
-            $product->setPackage($package);
-            $stock = new Stock();
-            $stock->setProduct($product);
-            $stock->setQuantity($form->get("quantity")->getData());
-            $stock->setMajAt(new DateTime());
-            $product->setUpdatedAt(new DateTime());
-            $product->setFilenameJpg(strtolower($form->getData()->getPictureFiles()[0]->getClientOriginalName()));
-            $product->setFilenamePng(strtolower($form->getData()->getPictureFilesPng()[0]->getClientOriginalName()));
-            $news = new News();
-            $news->setProduct($product);
-            $news->setCreatedAt(new DateTime());
-            $news->setTitle($this->translator->trans("news.product.arrival", ["%product%" => $product->getName()], "NegasProjectTrans"));
-            $news->setEnabled(true);
-            $entityManager->persist($news);
-            $entityManager->persist($product);
-            $entityManager->persist($stock);
-            $entityManager->flush();
-            $this->addFlash("success", "flash.product.createSuccessFully");
-            return $this->redirectToRoute('admin_product_index');
+            $this->redirectToRoute('admin_product_index');
         }
-
+        $entityManager->flush();
         return $this->render('Admin/product/new.html.twig', [
             'product' => $product,
             'form' => $form->createView(),
@@ -134,9 +110,10 @@ class AdminProductController extends AbstractController
      * @Route("/{id}/edit", name="admin_product_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Product $product
+     * @param AddProductService $addProductService
      * @return Response
      */
-    public function edit(Request $request, Product $product): Response
+    public function edit(Request $request, Product $product, AddProductService $addProductService): Response
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(ProductType::class, $product);

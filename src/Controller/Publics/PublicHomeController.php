@@ -2,6 +2,8 @@
 
 namespace App\Controller\Publics;
 
+use App\Entity\News;
+use App\Entity\Package;
 use App\Entity\Product;
 use App\Entity\Report;
 use App\Entity\Stock;
@@ -10,6 +12,7 @@ use App\Form\ProductType;
 use App\Form\Public_UserType;
 use App\Form\ReportType;
 use App\Repository\ProductRepository;
+use App\Services\AddProductService;
 use App\Services\CartService;
 use App\Services\ReportCodeGenerator;
 use DateTime;
@@ -39,11 +42,17 @@ class PublicHomeController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function index(ProductRepository $productRepository, Request $request): Response
+    public function index(ProductRepository $productRepository, Request $request, AddProductService $addProductService): Response
     {
+        $em = $this->getDoctrine()->getManager();
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
+        $news = new News();
+        $stock = new Stock();
+        $addProductService->addProduct($product, $news, $stock, $form, $request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('admin_product_index');
+        }
         $report = new Report();
         $formReport = $this->createForm(ReportType::class, $report);
         $formReport->handleRequest($request);
@@ -53,25 +62,11 @@ class PublicHomeController extends AbstractController
                 ->setReportNumber($this->codeGenerator->generate($report))
                 ->setStatus(true)
                 ->setUser($this->getUser());
-            $em = $this->getDoctrine()->getManager();
             $em->persist($report);
             $em->flush();
             return $this->redirectToRoute("user_report_show", ["id" => $report->getId()]);
         }
-        if ($form->isSubmitted() && $form->isValid()) {
-            $stock = new Stock();
-            $stock->setProduct($product);
-            $stock->setQuantity($form->get("quantity")->getData());
-            $stock->setMajAt(new DateTime());
-            $entityManager = $this->getDoctrine()->getManager();
-            $product->setUpdatedAt(new DateTime());
-            $product->setFilenameJpg(strtolower($form->getData()->getPictureFiles()[0]->getClientOriginalName()));
-            $product->setFilenamePng(strtolower($form->getData()->getPictureFilesPng()[0]->getClientOriginalName()));
-            $entityManager->persist($product);
-            $entityManager->persist($stock);
-            $entityManager->flush();
-            return $this->redirectToRoute('admin_product_index');
-        }
+
         return $this->render('Public/homePublic.html.twig', [
             'cartProducts' => $this->cartService->getAllCart(),
             'cartTotal' => $this->cartService->getTotal(),
