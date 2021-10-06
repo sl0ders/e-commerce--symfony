@@ -227,24 +227,24 @@ email:
     quantity: 'Quantité'
     total: 'Total'
     unity: 'Unité(s)'
-    add_new_order: 'Nouvelle commande de votre part sur le site de teraneo'
-    add_new_order_admin: "Une commande vient d'etre passée sur le site Teraneo"
+    add_new_order: 'Nouvelle commande de votre part sur le site de e-commerce'
+    add_new_order_admin: "Une commande vient d'etre passée sur le site e-commerce"
     order:
         orderAborder_admin: "La commande n°%orderNumber% a été annuler par l'utilisateur"
         changeState: 'La commande numero %orderNumber% a changer de statut'
         orderValidate: 'Votre commande a été validé par notre service, a present celle-ci est en cour de préparation, nous vous remerçions pour votre confiance, nous mettons tout en oeuvre pour compléter votre commande au plus vite'
         orderCompleted: 'Bonne nouvelle ! Votre commande est maintenant prete, celle-ci vous attend a notre point de vente'
-        orderHonored: 'Votre commande est maintenant cloturé. Nous vous remercions du fond du coeur pour la confiance apporté a notre service de vente sur le site Teraneo et nous esperons vous revoir tres bientot'
-        orderAborded: "La commande a été abandonnée. Si cela n'est pas de votre fait merci de contacter teraneo pour plus de détail"
-        title: 'Commande TERANEO'
+        orderHonored: 'Votre commande est maintenant cloturé. Nous vous remercions du fond du coeur pour la confiance apporté a notre service de vente sur le site e-commerce et nous esperons vous revoir tres bientot'
+        orderAborded: "La commande a été abandonnée. Si cela n'est pas de votre fait merci de contacter e-commerce pour plus de détail"
+        title: 'Commande e-commerce'
         titleAdmin: "Une nouvelle commande vient d'arrivée de la part de l'utilisateur %user_fullname%"
-        yourOrder: 'Votre commande sur le site de Teraneo'
+        yourOrder: 'Votre commande sur le site de e-commerce'
     user:
         add_new_user: 'Nouvelle utilisateur '
-        add_user: "Un nouvelle utilisateur nommé %user% vient de s'inscrire sur le site teraneo"
-        confirme_email: "Email de confirmation d'inscription au site Teraneo"
+        add_user: "Un nouvelle utilisateur nommé %user% vient de s'inscrire sur le site e-commerce"
+        confirme_email: "Email de confirmation d'inscription au site e-commerce"
         confirmEmail:
-            title: 'Bonjour %user%, bienvenue sur le site ecomerce de teraneo'
+            title: 'Bonjour %user%, bienvenue sur le site ecomerce de e-commerce'
             text: 'Afin de valider votre adresse email merci de cliquer sur ce lien'
     contact:
         new_admin: "Un nouveau contact client vient d'etre émis"

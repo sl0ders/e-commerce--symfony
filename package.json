@@ -7,6 +7,7 @@
         "file-loader": "^6.0.0",
         "regenerator-runtime": "^0.13.2",
         "stimulus": "^2.0.0",
+        "webpack-merge": "^5.8.0",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -15,14 +16,16 @@
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "build": "encore production --progress"
+        "build": "encore production"
     },
     "dependencies": {
         "@babel/plugin-syntax-jsx": "^7.14.5",
         "axios": "^0.21.1",
         "bootstrap": "^5.0.2",
+        "encore": "^0.0.30-beta",
         "node-sass": "^6.0.1",
         "popper.js": "^1.16.1",
+        "production": "^0.0.2",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "sass-loader": "^12.1.0"
